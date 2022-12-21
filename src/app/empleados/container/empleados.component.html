@@ -1,0 +1,42 @@
+
+<div class="container">
+  <button type="button" class="btn btn-info" routerLink="/empleados/registro">Nuevo</button>
+</div>
+
+
+<div class="container">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th *ngFor="let h of header">{{h}}</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let empleado of ListEmpleadosModel">
+
+  <tr >
+        <td>{{empleado.nombre}} {{empleado.apellido_paterno}} {{empleado.apellido_materno}}</td>
+        <td>{{empleado.datosContacto}}</td>
+        <td>{{empleado.fechaNacimiento}}</td>
+        <td>{{empleado.edad}}</td>
+
+        <td>{{empleado.sexo}}</td>
+        <td>{{empleado.direccion}}</td>
+        <td>{{empleado.clave_id_fed}}</td>
+        <td>{{empleado.email}}</td>
+        <td>{{empleado.telefono}}</td>
+        <td>{{empleado.kfc}}</td>
+        <td>{{empleado.curp}}</td>
+        <td>{{empleado.nss}}</td>
+        <td>
+          <a [routerLink]="['edicion',empleado.id]" (click)="editarEmpleado(empleado)">
+          <i class="fas fa-edit" ></i>
+          </a>
+        </td>
+        <td>Eliminar</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>

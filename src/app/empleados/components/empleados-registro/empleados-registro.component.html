@@ -1,0 +1,108 @@
+<div class="content" style="margin:2%">
+  <button type="button" class="btn btn-info" (click)="guardar()">Guardar</button>
+  <button type="button" class="btn btn-info" (click)="clear()">local</button>
+  <br>
+  <div class="">
+    <br>
+    <div class="row">
+      <div class="col-sm">
+        <label for="email">Nombre:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.nombre" >
+      </div>
+      <div class="col-sm">
+        <label for="email">Apellido Paterno:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_paterno">
+      </div>
+      <div class="col-sm">
+        <label for="email">Apellido Materno:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_materno">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm">
+        <label for="email">Datos de contacto:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.datosContacto">
+      </div>
+      <div class="col-sm">
+        <label for="email">Fecha de Nacimiento:</label>
+        <form class="row">
+          <div class="col-12">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaNacimiento" ngbDatepicker
+                #d="ngbDatepicker" />
+              <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="col-sm">
+        <label for="email">Edad:</label>
+        <div class="form-outline" style="width: 100%;">
+          <input value="0" type="number" id="typeNumber" min="0" class="form-control" [(ngModel)]="empleadoModel.edad" />
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-sm">
+        <label for="email">Sexo:</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault"  value="Masculino" [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Masculino
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" value="Femenino" [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault2">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Femenino
+          </label>
+        </div>
+      </div>
+      <div class="col-sm">
+        <label for="email">Direccion:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.direccion">
+      </div>
+      <div class="col-sm">
+        <label for="email">Clave ID FED:</label>
+        <input type="text" class="form-control"  [(ngModel)]="empleadoModel.clave_id_fed">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-sm">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" [(ngModel)]="empleadoModel.email">
+      </div>
+      <div class="col-sm">
+        <label for="email">Telefono:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.telefono">
+      </div>
+      <div class="col-sm">
+        <label for="email">KFC:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.kfc">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-sm">
+        <label for="email">Curp:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.curp">
+      </div>
+      <div class="col-sm">
+        <label for="email">NSS:</label>
+        <input type="text" class="form-control" [(ngModel)]="empleadoModel.nss">
+      </div>
+      <div class="col-sm">
+
+      </div>
+    </div>
+  </div>

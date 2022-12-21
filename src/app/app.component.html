@@ -1,0 +1,89 @@
+<!-- <mat-toolbar style="background-color:darkcyan">
+  <a class="title" href="/">{{ title }}</a>
+
+  <div class="toolbar-spacer"></div>
+
+  <a mat-button [routerLink]="['profile']">Perfiles</a>
+
+  <ng-container *ngIf="user != ''">
+    <a mat-button><strong>{{user}}</strong></a>
+  </ng-container>
+
+
+  <button mat-raised-button [matMenuTriggerFor]="loginMenu" *ngIf="!loginDisplay">{{textLogin}}</button>
+  <mat-menu #loginMenu="matMenu">
+    <button mat-menu-item (click)="loginRedirect()">Login usando pagina redireccionada</button>
+    <button mat-menu-item (click)="loginPopup()">Login usando modal</button>
+  </mat-menu>
+
+  <button mat-raised-button [matMenuTriggerFor]="logoutMenu" *ngIf="loginDisplay">Login</button>
+  <mat-menu #logoutMenu="matMenu">
+    <button mat-menu-item (click)="logout()">Cerrar sesion usando pagina redireccionda</button>
+    <button mat-menu-item (click)="logout(true)">Cerrar sesion en modal</button>
+  </mat-menu>
+
+</mat-toolbar> -->
+
+<div class="wrapper">
+
+  <app-menu-sidebar></app-menu-sidebar>
+
+  <div class="content" style="width:100%">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color:#03a7bb">
+        <i class="fa fa-align-justify"></i> <span>Menu</span>
+      </button>
+
+      <!--<a class="navbar-brand" href="#">Navbar</a> -->
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+        <!-- <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+        </div> -->
+
+        <mat-toolbar style="background-color:#03a7bb">
+         <!--  <a class="title" href="/">{{ title }}</a> -->
+
+          <div class="toolbar-spacer"></div>
+
+          <!-- <a mat-button [routerLink]="['profile']">Perfiles</a> -->
+
+          <ng-container *ngIf="user != ''">
+            <a mat-button><strong>{{user}}</strong></a>
+          </ng-container>
+
+
+          <button mat-raised-button [matMenuTriggerFor]="loginMenu" *ngIf="!loginDisplay">{{textLogin}}</button>
+          <mat-menu #loginMenu="matMenu">
+            <button mat-menu-item (click)="loginRedirect()">Login usando pagina redireccionada</button>
+            <button mat-menu-item (click)="loginPopup()">Login usando modal</button>
+          </mat-menu>
+
+          <button mat-raised-button [matMenuTriggerFor]="logoutMenu" *ngIf="loginDisplay">Login</button>
+          <mat-menu #logoutMenu="matMenu">
+            <button mat-menu-item (click)="logout()">Cerrar sesion usando pagina redireccionda</button>
+            <button mat-menu-item (click)="logout(true)">Cerrar sesion en modal</button>
+          </mat-menu>
+
+        </mat-toolbar>
+    </nav>
+    <div class="line">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

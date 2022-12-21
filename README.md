@@ -1,20 +1,24 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Angular 14 RxJS7 MSAL Angular v2 Sample
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This developer sample is used to demonstrate how to use `@azure/msal-angular`.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0-next.7.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## How to run the sample
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+### Pre-requisites
+- Ensure [all pre-requisites](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/README.md) have been completed to run msal-angular.
+
+### Configure the application
+- Open `./src/app/app.modules.ts` in an editor.
+- Replace client id with the Application (client) ID from the portal registration, or use the currently configured lab registration. 
+  - Optionally, you may replace any of the other parameters, or you can remove them and use the default values.
+
+### Running the sample
+- In a command prompt, run `npm start`.
+- Navigate to [http://localhost:4200](http://localhost:4200)
+- In the web page, click on the "Login" button. The app will automatically reload if you change any of the source files.
+
+## Additional notes
+- The default interaction type for the sample is redirects. The sample can be configured to use redirects by changing the `interactionType` in `app.module.ts` to `InteractionType.Popup`. 
+- RxJSv6 is the default version of RxJS in MSAL-Angular v2. In order to use the installed version of RxJSv7 for this sample, ```"rxjs": ["./node_modules/rxjs"]``` must be added to the ```compilerOptions``` object's ```paths``` object in ```tsconfig.json```. This tells the compiler to use the version of RxJS specified in ```package.json``` (RxJSv7).
