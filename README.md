@@ -1,6 +1,6 @@
-# Angular 14 RxJS7 MSAL Angular v2 Sample
+# Codigo del proyecto de POC que utiliza:
 
-This developer sample is used to demonstrate how to use `@azure/msal-angular`.
+`@azure/msal-angular`.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0-next.7.
 
