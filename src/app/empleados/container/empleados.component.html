@@ -1,11 +1,33 @@
 
-<div class="container">
-  <button type="button" class="btn btn-info" routerLink="/empleados/registro">Nuevo</button>
-</div>
+<div class="content" style="margin:2%">
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-info" routerLink="/empleados/registro">Nuevo</button>
+  </div>
 
+<br>
 
-<div class="container">
+<div class="busqueda">
+  <div class="head-busqueda">
+    <p style="color:white">Parámetros de búsqueda</p>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-6">
+      <label for="apellidoPaterno">Apellido Paterno:</label>
+      <input type="text" class="form-control" >
+    </div>
+    <div class="col-6 relative">
+      <label for="apellidoMaterno">Apellido Materno:</label>
+      <input type="text" class="form-control">
+    </div>
 
+  </div>
+  <br>
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-info" routerLink="/empleados/registro">Buscar</button>
+  </div>
+
+<br>
   <table class="table">
     <thead>
       <tr>
@@ -14,7 +36,7 @@
     </thead>
     <tbody *ngFor="let empleado of ListEmpleadosModel">
 
-  <tr >
+      <tr>
         <td>{{empleado.nombre}} {{empleado.apellido_paterno}} {{empleado.apellido_materno}}</td>
         <td>{{empleado.datosContacto}}</td>
         <td>{{empleado.fechaNacimiento}}</td>
@@ -28,15 +50,21 @@
         <td>{{empleado.kfc}}</td>
         <td>{{empleado.curp}}</td>
         <td>{{empleado.nss}}</td>
+        <td>{{empleado.porcentajeCaptura}}</td>
         <td>
-          <a [routerLink]="['edicion',empleado.id]" (click)="editarEmpleado(empleado)">
-          <i class="fas fa-edit" ></i>
+          <a [routerLink]="['edicion',empleado.id]" (click)="editarEmpleado(empleado)" ngbTooltip="Editar registro">
+            <i class="fas fa-edit"></i>
           </a>
         </td>
-        <td>Eliminar</td>
+        <td>
+          <a ngbTooltip="Eliminar registro">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+        </td>
       </tr>
 
     </tbody>
   </table>
 
+</div>
 </div>

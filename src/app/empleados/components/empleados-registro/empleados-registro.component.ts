@@ -14,23 +14,30 @@ export class EmpleadosRegistroComponent implements OnInit {
   date: { year: number; month: number };
   empleadoModel: Empleado = new Empleado();
   idEmpleado: number;
+  disabled = false;
+  isEditar = true;
 
   constructor(private calendar: NgbCalendar, private router: Router, private params: ActivatedRoute) {
 
     this.params.paramMap.subscribe(responseData => {
       //this.idVoto = responseData.get("id")
       console.log(responseData.get("id"));
-      if(responseData.get("id")){
-        this.poblarCampos(Number(responseData.get("id")))
+      if (responseData.get("id")) {
+        this.idEmpleado = Number(responseData.get("id"));
+        this.poblarCampos();
+        this.isEditar = true;
+      }
+      else {
+        this.isEditar = false;
       }
     });
   }
 
-  poblarCampos(id: number) {
+  poblarCampos() {
     let ListEmpleadosModel: Empleado[] = [];
     ListEmpleadosModel = JSON.parse(localStorage.getItem("empleados") || "[]");
     console.log(ListEmpleadosModel);
-    this.empleadoModel = <Empleado>ListEmpleadosModel.find(xx => xx.id == id);
+    this.empleadoModel = <Empleado>ListEmpleadosModel.find(xx => xx.id == this.idEmpleado);
   }
 
   ngOnInit(): void {
@@ -39,25 +46,34 @@ export class EmpleadosRegistroComponent implements OnInit {
 
   guardar() {
 
-    if (localStorage.getItem("idEmpledoTemp")) {
+    console.log(localStorage.getItem("idEmpledoTemp"));
+    if (!localStorage.getItem("idEmpledoTemp")) {
+      console.log('ssssss');
       localStorage.setItem("idEmpledoTemp", "0");
     }
 
     let ListEmpleadosModel: Empleado[] = [];
-    //console.log(localStorage.getItem("empleados"));
     if (localStorage.getItem("empleados") != null) {
       ListEmpleadosModel = JSON.parse(localStorage.getItem("empleados") || "[]");
-      //console.log(ListEmpleadosModel);
     }
 
-    if (this.idEmpleado) {
-      this.idEmpleado = 1;
+    if (this.isEditar) {
+      //Editar
+      const index = ListEmpleadosModel.findIndex(obj => obj.id == this.idEmpleado)
+      if (index > -1) {
+        ListEmpleadosModel.splice(index, 1);
+      }
     }
-    else {
+    console.log(ListEmpleadosModel);
+    console.log(this.idEmpleado);
+    if (this.idEmpleado == undefined || this.idEmpleado) {
       let id: string | null = localStorage.getItem("idEmpledoTemp");
+      console.log(id);
       this.idEmpleado = Number(id) + 1;
+      localStorage.setItem("idEmpledoTemp", String(this.idEmpleado));
     }
 
+    console.log(this.idEmpleado);
     if (this.fechaNacimiento) {
       this.empleadoModel.fechaNacimiento = this.fechaNacimiento.day + '/' + this.fechaNacimiento.month + '/' + this.fechaNacimiento.year;
     }

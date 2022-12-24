@@ -21,7 +21,8 @@ export class EmpleadosComponent implements OnInit {
     'Telefono',
     'KFC',
     'Curp',
-    'NSS'
+    'NSS',
+    'Avance captura'
   ];
 
   faAlignJustify = faAlignJustify;

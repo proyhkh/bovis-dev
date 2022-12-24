@@ -17,5 +17,6 @@ export class Empleado {
   kfc: string = '';
   curp: string = '';
   nss: string = '';
+  porcentajeCaptura: string = '';
 
 }
