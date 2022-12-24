@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuSidebarComponent } from './menu-sidebar/menu-sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
@@ -99,6 +100,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MatSidenavModule,
     MatIconModule,
     MatCardModule,
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   exports:[
   ],

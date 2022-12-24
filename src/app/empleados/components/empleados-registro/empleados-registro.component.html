@@ -1,6 +1,6 @@
 <div class="content" style="margin:2%">
-  <button type="button" class="btn btn-info" (click)="guardar()">Guardar</button>
-  <button type="button" class="btn btn-info" (click)="clear()">local</button>
+  <button type="button" class="btn btn-info" (click)="guardar()" [disabled]="isConsulta">Guardar</button>
+  <button type="button" class="btn btn-info" (click)="clear()" [disabled]="isConsulta">local</button>
 
   <br>
   <br>
@@ -12,22 +12,22 @@
           <div class="row">
             <div class="col-sm">
               <label for="email">Nombre:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.nombre">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.nombre" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">Apellido Paterno:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_paterno">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_paterno" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">Apellido Materno:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_materno">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_materno" [disabled]="isConsulta">
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-sm">
               <label for="email">Datos de contacto:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.datosContacto">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.datosContacto" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">Fecha de Nacimiento:</label>
@@ -35,9 +35,9 @@
                 <div class="col-12">
                   <div class="input-group">
                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaNacimiento"
-                      ngbDatepicker #d="ngbDatepicker" />
+                      ngbDatepicker #d="ngbDatepicker" [disabled]="isConsulta" />
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
-                      type="button"></button>
+                      type="button" [disabled]="isConsulta"></button>
                   </div>
                 </div>
               </form>
@@ -47,7 +47,7 @@
               <label for="email">Edad:</label>
               <div class="form-outline" style="width: 100%;">
                 <input value="0" type="number" id="typeNumber" min="0" class="form-control"
-                  [(ngModel)]="empleadoModel.edad" />
+                  [(ngModel)]="empleadoModel.edad" [disabled]="isConsulta" />
               </div>
             </div>
           </div>
@@ -57,14 +57,14 @@
               <label for="email">Sexo:</label>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" value="Masculino"
-                  [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault1">
+                  [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault1" [disabled]="isConsulta">
                 <label class="form-check-label" for="flexRadioDefault1">
                   Masculino
                 </label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" value="Femenino"
-                  [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault2">
+                  [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault2" [disabled]="isConsulta">
                 <label class="form-check-label" for="flexRadioDefault2">
                   Femenino
                 </label>
@@ -72,11 +72,11 @@
             </div>
             <div class="col-sm">
               <label for="email">Direccion:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.direccion">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.direccion" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">Clave ID FED:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.clave_id_fed">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.clave_id_fed" [disabled]="isConsulta">
             </div>
           </div>
 
@@ -86,15 +86,15 @@
             <div class="col-sm">
               <label for="email">Email:</label>
               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="" [(ngModel)]="empleadoModel.email">
+                placeholder="" [(ngModel)]="empleadoModel.email" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">Telefono:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.telefono">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.telefono" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">KFC:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.kfc">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.kfc" [disabled]="isConsulta">
             </div>
           </div>
 
@@ -103,11 +103,11 @@
           <div class="row">
             <div class="col-sm">
               <label for="email">Curp:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.curp">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.curp" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">NSS:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.nss">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.nss" [disabled]="isConsulta">
             </div>
             <div class="col-sm">
 

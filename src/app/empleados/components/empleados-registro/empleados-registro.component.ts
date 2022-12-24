@@ -16,12 +16,17 @@ export class EmpleadosRegistroComponent implements OnInit {
   idEmpleado: number;
   disabled = false;
   isEditar = true;
+  isConsulta: boolean = true;
 
   constructor(private calendar: NgbCalendar, private router: Router, private params: ActivatedRoute) {
 
     this.params.paramMap.subscribe(responseData => {
+      //console.log(this.params);
+      //console.log(this.params.snapshot.routeConfig?.path && this.params.snapshot.routeConfig?.path.includes('consulta'));
+      this.params.snapshot.routeConfig?.path && this.params.snapshot.routeConfig?.path.includes('consulta') ? this.isConsulta = true : this.isConsulta = false;
+
       //this.idVoto = responseData.get("id")
-      console.log(responseData.get("id"));
+      //console.log(responseData.get("id"));
       if (responseData.get("id")) {
         this.idEmpleado = Number(responseData.get("id"));
         this.poblarCampos();
@@ -36,7 +41,7 @@ export class EmpleadosRegistroComponent implements OnInit {
   poblarCampos() {
     let ListEmpleadosModel: Empleado[] = [];
     ListEmpleadosModel = JSON.parse(localStorage.getItem("empleados") || "[]");
-    console.log(ListEmpleadosModel);
+    //console.log(ListEmpleadosModel);
     this.empleadoModel = <Empleado>ListEmpleadosModel.find(xx => xx.id == this.idEmpleado);
   }
 

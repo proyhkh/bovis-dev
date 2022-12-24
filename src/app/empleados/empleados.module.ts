@@ -6,6 +6,12 @@ import { EmpleadosRegistroComponent } from './components/empleados-registro/empl
 import { NgbAccordionModule, NgbDatepickerModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastModule } from "primeng/toast";
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from "primeng/api";
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { DropdownModule } from 'primeng/dropdown';
+
 
 @NgModule({
   declarations: [
@@ -19,10 +25,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NgbDatepickerModule,
     FontAwesomeModule,
     NgbTooltipModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    ConfirmPopupModule,
+    ToastModule,
+    NgbPaginationModule,
+    DropdownModule
   ],
   exports:[
-    /* NgbDatepickerModule */
-  ]
+
+  ],
+  providers: [ConfirmationService, MessageService]
 })
 export class EmpleadosModule { }

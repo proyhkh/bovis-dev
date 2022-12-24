@@ -6,7 +6,8 @@ import { EmpleadosComponent } from './container/empleados.component';
 const routes: Routes = [
   { path: '', component: EmpleadosComponent},
   { path: 'registro', component: EmpleadosRegistroComponent},
-  { path: 'edicion/:id', component: EmpleadosRegistroComponent}
+  { path: 'edicion/:id', component: EmpleadosRegistroComponent},
+  { path: 'consulta/:id', component: EmpleadosRegistroComponent}
 
 ];
 

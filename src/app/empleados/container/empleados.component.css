@@ -11,7 +11,7 @@
   --color-white: #ffffff;
   --color-save: rgb(36, 189, 36);
   --color-update: rgb(238, 147, 62);
-  --grey: #dddce1
+  --grey: #dddce1;
 }
 
 .busqueda {
@@ -26,4 +26,14 @@
   font-weight: 400;
   color: #ffffff;
   padding: 5px;
+}
+
+
+
+.p-field * {
+  display: block;
+}
+
+.invalid {
+  border: 1px solid #ec3030 !important;
 }
