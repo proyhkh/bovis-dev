@@ -7,7 +7,7 @@ export class Empleado {
   apellido_paterno: string = '';
   apellido_materno: string = '';
   datosContacto: string = '';
-  fechaNacimiento: string = '';
+  fechaNacimiento: Date;
   edad: number;
   sexo: string = 'Masculino';
   direccion: string = '';
@@ -17,6 +17,6 @@ export class Empleado {
   kfc: string = '';
   curp: string = '';
   nss: string = '';
-  porcentajeCaptura: string = '';
+  porcentajeCaptura: number = 35;
 
 }

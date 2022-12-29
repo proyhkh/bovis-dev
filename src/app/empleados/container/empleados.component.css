@@ -37,3 +37,13 @@
 .invalid {
   border: 1px solid #ec3030 !important;
 }
+
+
+.scrollme {
+  overflow-x: auto;
+}
+
+::ng-deep .customProgress .p-progressbar-label {
+  background: #ef5439;
+  color: #fff;
+}

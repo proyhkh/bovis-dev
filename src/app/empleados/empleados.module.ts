@@ -11,7 +11,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from "primeng/api";
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
-
+import {ProgressBarModule} from 'primeng/progressbar';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { DropdownModule } from 'primeng/dropdown';
     ConfirmPopupModule,
     ToastModule,
     NgbPaginationModule,
-    DropdownModule
+    DropdownModule,
+    ProgressBarModule,
+    CalendarModule
   ],
   exports:[
 

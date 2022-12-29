@@ -16,11 +16,13 @@
             </div>
             <div class="col-sm">
               <label for="email">Apellido Paterno:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_paterno" [disabled]="isConsulta">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_paterno"
+                [disabled]="isConsulta">
             </div>
             <div class="col-sm">
               <label for="email">Apellido Materno:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_materno" [disabled]="isConsulta">
+              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_materno"
+                [disabled]="isConsulta">
             </div>
           </div>
           <br>
@@ -31,17 +33,10 @@
             </div>
             <div class="col-sm">
               <label for="email">Fecha de Nacimiento:</label>
-              <form class="row">
                 <div class="col-12">
-                  <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaNacimiento"
-                      ngbDatepicker #d="ngbDatepicker" [disabled]="isConsulta" />
-                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
-                      type="button" [disabled]="isConsulta"></button>
-                  </div>
+                <p-calendar [(ngModel)]="empleadoModel.fechaNacimiento" [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
+                dateFormat="dd/mm/yy" [disabled]="isConsulta"></p-calendar>
                 </div>
-              </form>
-
             </div>
             <div class="col-sm">
               <label for="email">Edad:</label>
@@ -121,7 +116,7 @@
 
   <br>
   <br>
-  <ngb-accordion activeIds="" >
+  <ngb-accordion activeIds="">
     <ngb-panel id="IdSeccion2" title="Seccion 2">
       <ng-template ngbPanelContent>
 
@@ -143,7 +138,7 @@
 
   <br>
   <br>
-  <ngb-accordion activeIds="" >
+  <ngb-accordion activeIds="">
     <ngb-panel id="IdSeccion4" title="Seccion 4">
       <ng-template ngbPanelContent>
 

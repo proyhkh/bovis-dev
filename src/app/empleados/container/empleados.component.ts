@@ -37,7 +37,7 @@ export class EmpleadosComponent implements OnInit {
     numExpediente: false,
     tipoAsunto: false,
   };
-
+  porcentaje = 35;
   size = 10;
   page = 1;
   ListEmpleadosModel: Empleado[] = [];
