@@ -3,8 +3,6 @@ import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Empleado } from '../../Models/empleados';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
-import { TranslateService } from '@ngx-translate/core';
-
 @Component({
   selector: 'app-empleados-registro',
   templateUrl: './empleados-registro.component.html',
@@ -41,7 +39,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     //console.log(ListEmpleadosModel);
     this.empleadoModel = <Empleado>ListEmpleadosModel.find(xx => xx.id == this.idEmpleado);
     this.empleadoModel.fechaNacimiento = new Date (this.empleadoModel.fechaNacimiento);
-    console.log(this.empleadoModel);
+    //console.log(this.empleadoModel);
   }
 
   ngOnInit(): void {

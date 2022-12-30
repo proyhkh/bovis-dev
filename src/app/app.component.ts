@@ -14,9 +14,9 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Bovis';
   isIframe = false;
   loginDisplay = false;
-  textLogin = 'Login';
+  textLogin = 'Iniciar sesion';
   private readonly _destroying$ = new Subject<void>();
-
+  isLogeado = false;
   collapsedNav: boolean | undefined;
   mobileQuery: MediaQueryList;
 
@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //ngStyle: string;
   user: string = '';
   isModulos = false;
+  roles = null;
 
 
   private _mobileQueryListener!: () => void;
@@ -77,7 +78,22 @@ export class AppComponent implements OnInit, OnDestroy {
   setLoginDisplay() {
     console.log(this.authService.instance.getAllAccounts());
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+    console.log(this.loginDisplay);
+    if(this.loginDisplay){
+      type IdTokenClaims = {
+        name: string,
+        roles: any
+      }
+      let accounts = this.authService.instance.getAllAccounts();
+      this.roles = (accounts[0].idTokenClaims as IdTokenClaims).roles;
+      console.log(this.roles);
+      const preferred_username = (accounts[0].idTokenClaims as IdTokenClaims).name;
+      console.log(preferred_username);
+      this.isModulos = true;
+      this.user = 'Bienvenido: ' + preferred_username;
+    }
   }
+
 
 
   checkAndSetActiveAccount() {
@@ -90,17 +106,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
       let accounts = this.authService.instance.getAllAccounts();
-      console.log(accounts);
-      console.log(accounts[0].idTokenClaims);
-      type IdTokenClaims = {
-        name: string
-      }
-      //const preferred_username = (accounts[0].idTokenClaims as IdTokenClaims).preferred_username;
-      const preferred_username = (accounts[0].idTokenClaims as IdTokenClaims).name;
-      console.log(preferred_username);
-      this.isModulos = true;
-      this.user = 'Bienvenido: ' + preferred_username;
-      this.textLogin = 'Cerrar sesion';
+     /*  console.log(accounts);
+      console.log(accounts[0].idTokenClaims); */
+      //this.textLogin = 'Cerrar sesion';
       this.authService.instance.setActiveAccount(accounts[0]);
     }
   }
@@ -148,8 +156,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   status: boolean = false;
-  clickEvent(){
-      this.status = !this.status;
+  clickEvent() {
+    this.status = !this.status;
   }
 
   title2 = "CodeSandbox";

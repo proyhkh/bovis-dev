@@ -24,7 +24,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuSidebarComponent } from './menu-sidebar/menu-sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ButtonModule } from 'primeng/button';
+import {TooltipModule} from 'primeng/tooltip';
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
@@ -40,7 +41,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       // authority: 'https://login.microsoftonline.com/common', // Prod environment. Uncomment to use.
       //authority: 'https://login.microsoftonline.com/0c06ec01-e5aa-4e54-8811-bb99870b0c77', // PPE testing environment. //0c06ec01-e5aa-4e54-8811-bb99870b0c77
       authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc',
-      redirectUri: 'https://delightful-meadow-09768ea0f.2.azurestaticapps.net',
+      redirectUri: 'http://localhost:4200/',
      /*
       postLogoutRedirectUri: '/' */
     },
@@ -101,7 +102,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MatIconModule,
     MatCardModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ButtonModule,
+    TooltipModule
   ],
   exports:[
   ],
