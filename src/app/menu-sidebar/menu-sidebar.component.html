@@ -5,20 +5,18 @@
 
   <ul class="list-unstyled components">
     <p></p>
-    {{accesos | json}}
-    ----------
-    {{_accesos | json}}
-    <li routerLinkActive="active">
+
+    <li routerLinkActive="active"  *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'nom' || rol == 'admin' || rol == 'rh' || rol == 'legal'">
       <a href="#Empleados" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Empleados</a>
       <ul class="collapse list-unstyled" id="Empleados">
         <li>
           <a routerLink="/empleados">Empleados</a>
         </li>
         <li>
-          <a href="#">Sistemas</a>
+          <a href="#">Opcion 2</a>
         </li>
         <li>
-          <a href="#">Nomina</a>
+          <a href="#">Opcion 3</a>
         </li>
       </ul>
     </li>
@@ -27,7 +25,7 @@
       <!-- <a href="#">About</a> -->
     </li>
 
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'it' || rol == 'admfin' || rol == 'admin'">
       <a href="#pageTimesheet" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Timesheet</a>
       <ul class="collapse list-unstyled" id="pageTimesheet">
         <li>
@@ -42,7 +40,7 @@
       </ul>
     </li>
 
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'it' || rol == 'admin'">
       <a href="#pageCostoEmpleados" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Costo de
         Empleados</a>
       <ul class="collapse list-unstyled" id="pageCostoEmpleados">
@@ -58,7 +56,7 @@
       </ul>
     </li>
 
-    <li>
+    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'eje' || rol == 'it' || rol == 'admfin' || rol == 'admin'">
       <a href="#pageCIE" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CIE</a>
       <ul class="collapse list-unstyled" id="pageCIE">
         <li>
@@ -73,7 +71,7 @@
       </ul>
     </li>
 
-    <li>
+    <li routerLinkActive="active" *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'rh'">
       <a href="#pagePCS" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">PCS</a>
       <ul class="collapse list-unstyled" id="pagePCS">
         <li>
@@ -88,7 +86,7 @@
       </ul>
     </li>
 
-    <li>
+    <li routerLinkActive="active" *ngIf="rol == 'legal' || rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin'">
       <a href="#pageAUD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">AUDITORIA LEGAL</a>
       <ul class="collapse list-unstyled" id="pageAUD">
         <li>
@@ -103,8 +101,8 @@
       </ul>
     </li>
 
-    <li>
-      <a href="#pageRep" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">REPORTES</a>
+    <li routerLinkActive="active" *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'rh' || rol == 'legal'">
+      <a href="#pageRep" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reportes</a>
       <ul class="collapse list-unstyled" id="pageRep">
         <li>
           <a href="#">Opción 1</a>
@@ -118,7 +116,7 @@
       </ul>
     </li>
 
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="rol == 'admfin' || rol == 'it' || rol == 'admin'">
       <a href="#pageDor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dor</a>
       <ul class="collapse list-unstyled" id="pageDor">
         <li>
@@ -133,9 +131,8 @@
       </ul>
     </li>
 
-
-    <li>
-      <a href="#pageFac" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">FACTURACIÓN</a>
+    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'it' || rol == 'admfin' || rol == 'admin'">
+      <a href="#pageFac" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Facturación</a>
       <ul class="collapse list-unstyled" id="pageFac">
         <li>
           <a href="#">Opción 1</a>
@@ -149,7 +146,7 @@
       </ul>
     </li>
 
-    <li>
+    <li routerLinkActive="active" *ngIf="false">
       <a href="#pageUsers" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USUARIOS</a>
       <ul class="collapse list-unstyled" id="pageUsers">
         <li>
@@ -164,7 +161,7 @@
       </ul>
     </li>
 
-    <li>
+    <li routerLinkActive="active" *ngIf="false">
       <a href="#pageCarga" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CARGA DE INFORMACIÓN</a>
       <ul class="collapse list-unstyled" id="pageCarga">
         <li>
@@ -179,7 +176,7 @@
       </ul>
     </li>
 
-    <li>
+    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'rh'">
       <a href="#pageAdministración" data-toggle="collapse" aria-expanded="false"
         class="dropdown-toggle">Administración</a>
       <ul class="collapse list-unstyled" id="pageAdministración">
@@ -194,7 +191,6 @@
               </li> -->
       </ul>
     </li>
-
 
     <li>
       <!--  <a href="#">Services</a> -->
