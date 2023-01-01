@@ -12,12 +12,12 @@
         <li>
           <a routerLink="/empleados">Empleados</a>
         </li>
-        <li>
+       <!--  <li>
           <a href="#">Opcion 2</a>
         </li>
         <li>
           <a href="#">Opcion 3</a>
-        </li>
+        </li> -->
       </ul>
     </li>
 
@@ -116,18 +116,18 @@
       </ul>
     </li>
 
-    <li routerLinkActive="active" *ngIf="rol == 'admfin' || rol == 'it' || rol == 'admin'">
+    <li routerLinkActive="active" *ngIf="rol == 'admfin' || rol == 'it' || rol == 'admin'" >
       <a href="#pageDor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dor</a>
       <ul class="collapse list-unstyled" id="pageDor">
         <li>
-          <a href="#">Opción 1</a>
+          <a routerLink="/dor">dor</a>
         </li>
-        <li>
+       <!--  <li>
           <a href="#">Opción 2</a>
         </li>
         <li>
           <a href="#">Opción 3</a>
-        </li>
+        </li> -->
       </ul>
     </li>
 

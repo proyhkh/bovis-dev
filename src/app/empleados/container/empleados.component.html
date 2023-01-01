@@ -80,8 +80,6 @@
             <td>{{empleado.curp}}</td>
             <td>{{empleado.nss}}</td>
             <td>
-              <!-- <h5>{{empleado.porcentajeCaptura}}%</h5> -->
-              <!-- <h5>{{porcentaje}}%</h5> -->
               <p-progressBar [value]="porcentaje" ></p-progressBar>
             </td>
             <td>
@@ -90,13 +88,8 @@
               </a>
             </td>
             <td>
-                <!-- <a ngbTooltip="Eliminar registro">
-              <i class="fa fa-trash" aria-hidden="true" (click)="confirm($event)" pButton></i>
-            </a> -->
             <i class="pi pi-trash c-del"  ngbTooltip="Eliminar registro" (click)="confirm($event, empleado)" pTooltip="Da clic para eliminar el registro capturado"
             tooltipPosition="left"></i>
-
-              <!-- <button (click)="confirm($event)" pButton icon="pi pi-check" label="Confirm"></button> -->
             </td>
             <td>
               <a ngbTooltip="Consultar empleado" [routerLink]="['consulta',empleado.id]">
@@ -125,5 +118,3 @@
 </div>
 <p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>
-<!-- <p-toast></p-toast>
-<p-confirmPopup></p-confirmPopup> -->

@@ -127,8 +127,8 @@ export class EmpleadosRegistroComponent implements OnInit {
   }
 
   clear() {
-    localStorage.clear();
-
+    //localStorage.clear();
+    localStorage.removeItem("empleados");
   }
 
 }
