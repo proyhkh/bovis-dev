@@ -18,8 +18,12 @@
       <div class="col-sm">
         <label for="descripcion">Descripción:</label>
         <div class="">
-          <input type="text" [(ngModel)]="regDor.descripcion" pInputText placeholder="Ingrese una descripción" [style]="{'width': '100%'}" [disabled]="isConsulta">
+          <p-dropdown [options]="objetivos" [(ngModel)]="selectedObjetivo" placeholder="Selecciona el objetivo"
+            optionLabel="name" [showClear]="true" [style]="{'width': '100%'}" [disabled]="isConsulta"></p-dropdown>
         </div>
+        <!-- <div class="">
+          <input type="text" [(ngModel)]="regDor.descripcion" pInputText placeholder="Ingrese una descripción" [style]="{'width': '100%'}" [disabled]="isConsulta">
+        </div> -->
       </div>
       <div class="col-sm">
         <label for="email">Meta:</label>

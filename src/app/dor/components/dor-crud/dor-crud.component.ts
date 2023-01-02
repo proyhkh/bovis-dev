@@ -8,6 +8,11 @@ interface Conceptos {
   value: string
 }
 
+interface Objetivos {
+  name: string,
+  value: string
+}
+
 @Component({
   selector: 'app-dor-crud',
   templateUrl: './dor-crud.component.html',
@@ -17,7 +22,9 @@ export class DorCrudComponent implements OnInit {
 
   isConsulta: boolean = false;
   conceptos: Conceptos[];
+  objetivos: Objetivos[];
   selectedConcepto: Conceptos;
+  selectedObjetivo: Objetivos;
   regDor: Dor = new Dor();
   isEditar = true;
   idDor: number;
@@ -25,6 +32,7 @@ export class DorCrudComponent implements OnInit {
   constructor(private router: Router, private params: ActivatedRoute, private config: PrimeNGConfig) {
 
     this.poblarConcepto();
+    this.poblarObjetivos();
     this.params.paramMap.subscribe(responseData => {
       this.params.snapshot.routeConfig?.path && this.params.snapshot.routeConfig?.path.includes('consulta') ? this.isConsulta = true : this.isConsulta = false;
       //this.idVoto = responseData.get("id")
@@ -49,6 +57,7 @@ export class DorCrudComponent implements OnInit {
     console.log(this.regDor);
 
     this.selectedConcepto = <Conceptos>this.conceptos.find(xx => xx.value == this.regDor.concepto);
+    this.selectedObjetivo = <Objetivos>this.objetivos.find(xx => xx.value == this.regDor.descripcion);
   }
 
   poblarConcepto(){
@@ -56,6 +65,23 @@ export class DorCrudComponent implements OnInit {
       { name: 'CORPORATIVO', value: 'CORPORATIVO' },
       { name: ' PROYECTO', value: ' PROYECTO' },
       { name: 'CUALITATIVOS', value: 'CUALITATIVOS' }
+    ];
+  }
+
+  poblarObjetivos(){
+    this.objetivos = [
+      { name: 'GPM  Bovis', value: 'GPM  Bovis' },
+      { name: 'Seguridad', value: 'Seguridad' },
+      { name: 'Satisfación del Empleado', value: 'Satisfación del Empleado' },
+      { name: 'GPM  Proyecto', value: 'GPM  Proyecto' },
+      { name: 'Cartera Vencida', value: 'Cartera Vencida' },
+      { name: 'Gasto', value: 'Gasto' },
+      { name: 'Criterio Calidad', value: 'Criterio Calidad'},
+      { name: 'Seguridad', value: 'Seguridad'},
+      { name: 'Capacitación', value: 'Capacitación'},
+      { name: 'Sustentabilidad', value: 'Sustentabilidad'},
+      { name: 'Evaluación 360', value: 'Evaluación 360'},
+      { name: 'Participación "Comunidad Bovis"', value: 'Participación "Comunidad Bovis"'}
     ];
   }
 
@@ -77,6 +103,11 @@ export class DorCrudComponent implements OnInit {
     console.log(this.selectedConcepto);
     if (this.selectedConcepto) {
       this.regDor.concepto = this.selectedConcepto.value;
+    }
+
+    console.log(this.selectedObjetivo);
+    if (this.selectedObjetivo) {
+      this.regDor.descripcion = this.selectedObjetivo.value;
     }
     console.log(this.regDor);
 
