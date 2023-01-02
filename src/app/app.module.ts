@@ -41,7 +41,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       // authority: 'https://login.microsoftonline.com/common', // Prod environment. Uncomment to use.
       //authority: 'https://login.microsoftonline.com/0c06ec01-e5aa-4e54-8811-bb99870b0c77', // PPE testing environment. //0c06ec01-e5aa-4e54-8811-bb99870b0c77
       authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc',
-      redirectUri: 'http://localhost:4200',
+      redirectUri: 'https://orange-pond-0851ec40f.2.azurestaticapps.net',
      /*
       postLogoutRedirectUri: '/' */
     },
