@@ -37,7 +37,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       // clientId: '6226576d-37e9-49eb-b201-ec1eeb0029b6', // Prod enviroment. Uncomment to use.
       //clientId: '135a69de-b903-47f2-b43e-62727ed2a9bd',//'b264616c-8c37-489e-b6a4-d4265f3a8cb1',//'3fba556e-5d4a-48e3-8e1a-fd57c12cb82e', // PPE testing environment
-      clientId: 'f2a13822-1d07-4f2f-9a78-06ad219b1d03',
+      clientId: 'f5341784-0b2e-4685-9ffe-32f73572c5ff',
       // authority: 'https://login.microsoftonline.com/common', // Prod environment. Uncomment to use.
       //authority: 'https://login.microsoftonline.com/0c06ec01-e5aa-4e54-8811-bb99870b0c77', // PPE testing environment. //0c06ec01-e5aa-4e54-8811-bb99870b0c77
       authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc',
@@ -49,24 +49,34 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       cacheLocation: BrowserCacheLocation.LocalStorage,
       storeAuthStateInCookie: isIE, // set to true for IE 11. Remove this line to use Angular Universal
     },
-    /* system: {
+    system: {
       loggerOptions: {
         loggerCallback,
         logLevel: LogLevel.Info,
         piiLoggingEnabled: false
       }
-    } */
+    }
   });
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  // protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
-  protectedResourceMap.set('https://graph.microsoft-ppe.com/v1.0/me', ['user.read']);
+  protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
+  protectedResourceMap.set('https://graph.microsoft.com/v1.0/me33', ['user.read4']);
+  //protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['https://bovis-api-dev.azurewebsites.net/*']);
+  console.log(protectedResourceMap);
+
+/* const protectedResourceMap:[string, string[]][]= [
+    ['https://buildtodoservice.azurewebsites.net/api/todolist', [ 'api://a88bb933-319c-41b5-9f04-eff36d985612/access_as_user' ]],
+    ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+]; */
 
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap
+   /*  protectedResourceMap: new Map([
+      ['/', ['https://bovis-api-dev.azurewebsites.net/*']],
+    ]), */
   };
 }
 

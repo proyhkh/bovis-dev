@@ -176,12 +176,12 @@
       </ul>
     </li>
 
-    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'rh'">
+    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'rh' || rol == 'it'">
       <a href="#pageAdministración" data-toggle="collapse" aria-expanded="false"
         class="dropdown-toggle">Administración</a>
       <ul class="collapse list-unstyled" id="pageAdministración">
         <li>
-          <a href="#">Catalogos</a>
+          <a routerLink="/catalogos">Catalogos</a>
         </li>
         <!--  <li>
                 <a href="#">Opción 2</a>

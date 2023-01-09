@@ -24,8 +24,14 @@ const routes: Routes = [
         path: 'dor',
         loadChildren: () =>
           import('./dor/dor.module').then((m) => m.DorModule),
+      },
+      {
+        path: 'catalogos',
+        loadChildren: () =>
+          import('./catalogos/catalogos.module').then((m) => m.CatalogosModule),
       }
-    ]
+    ],
+    /* canActivate: [MsalGuard] */
   },
   {
     path: 'login-failed',

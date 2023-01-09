@@ -94,8 +94,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   checkAndSetActiveAccount() {
     /**
      * If no active account set but there are accounts signed in, sets first account to active account
