@@ -15,7 +15,7 @@ export class DorService {
 
   constructor(private http: HttpClient) { }
 
-  getDatosEjecutivo(userMail: string) {
+  getDatosEjecutivo(userMail: string | null) {
     return this.http.get(`${this.baseUrl}api/dor/GetDatosEjecutivo/${userMail}`);
   }
 

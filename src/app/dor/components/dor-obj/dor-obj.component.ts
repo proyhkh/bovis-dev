@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { DorService } from '../../Services/dor.service';
 
 interface Empleados {
   name: string,
@@ -17,13 +18,34 @@ export class DorObjComponent implements OnInit {
   isObjetivos = true;
   empleados: Empleados[];
   products2: any[];
-  constructor( private messageService: MessageService) {
+  userMail: string | null = '';
+  constructor(private docService: DorService, private messageService: MessageService) {
 
     console.log(localStorage.getItem('userMail'));
+    this.userMail = localStorage.getItem('userMail');
 
-   }
+  }
 
   ngOnInit(): void {
+
+    this.docService.getDatosEjecutivo(this.userMail).subscribe(data => {
+
+    });
+
   }
+
+  getSubordinados(){
+    this.docService.getDatosSubordinados('').subscribe(data => {
+
+    });
+  }
+
+  getObjetivosProyectos(){
+    this.docService.getObjetivosByProyecto().subscribe(data => {
+
+    });
+  }
+
+
 
 }
