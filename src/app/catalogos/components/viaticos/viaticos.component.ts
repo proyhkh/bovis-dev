@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from '../../services/catalogos.service';
 import { Viaticos } from '../../Models/viaticos';
+import { ServicetestService } from 'src/app/servicetest.service';
 
 @Component({
   selector: 'app-viaticos',
@@ -11,7 +12,7 @@ export class ViaticosComponent implements OnInit {
 
   listViaticosModel: Viaticos[];
 
-  constructor(private cat: CatalogosService) {
+  constructor(private cat: CatalogosService, private serv: ServicetestService) {
 
     this.cat.getViaticos().subscribe(data => {
       console.log(data);

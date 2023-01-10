@@ -76,19 +76,22 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   setLoginDisplay() {
-    console.log(this.authService.instance.getAllAccounts());
+    //console.log(this.authService.instance.getAllAccounts());
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-    console.log(this.loginDisplay);
+    //console.log(this.loginDisplay);
     if(this.loginDisplay){
       type IdTokenClaims = {
         name: string,
-        roles: any
+        roles: any,
+        preferred_username: string
       }
       let accounts = this.authService.instance.getAllAccounts();
       this.roles = (accounts[0].idTokenClaims as IdTokenClaims).roles;
-      console.log(this.roles);
+      //console.log(this.roles);
+      //console.log((accounts[0].idTokenClaims as IdTokenClaims).preferred_username);
+      localStorage.setItem('userMail', (accounts[0].idTokenClaims as IdTokenClaims).preferred_username)
       const preferred_username = (accounts[0].idTokenClaims as IdTokenClaims).name;
-      console.log(preferred_username);
+      //console.log(preferred_username);
       this.isModulos = true;
       this.user = 'Bienvenido: ' + preferred_username;
     }
@@ -158,5 +161,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.status = !this.status;
   }
 
-  title2 = "CodeSandbox";
+  currentModule = '';
+
+  onEmitter(event:any) {
+      console.log('Received: ' + event);
+      this.currentModule = event;
+  }
+
 }

@@ -26,7 +26,7 @@
 
 <div class="wrapper">
 
-  <app-menu-sidebar *ngIf="loginDisplay" [accesos]="roles"></app-menu-sidebar>
+  <app-menu-sidebar *ngIf="loginDisplay" [accesos]="roles" (nameModule)="onEmitter($event)"></app-menu-sidebar>
 
   <div class="content" style="width:100%">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,6 +41,7 @@
         </ng-container>
 
         <div class="toolbar-spacer"></div>
+        <div class="toolbar-spacer">{{currentModule}}</div>
         <!-- <a mat-button [routerLink]="['profile']">Perfiles</a> -->
 
         <ng-container *ngIf="loginDisplay">

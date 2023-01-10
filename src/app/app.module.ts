@@ -17,15 +17,15 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType, Bro
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 import { FailedComponent } from './failed/failed.component';
 
-import { MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon'
 import { MatCardModule } from '@angular/material/card'
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuSidebarComponent } from './menu-sidebar/menu-sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
@@ -35,15 +35,10 @@ export function loggerCallback(logLevel: LogLevel, message: string) {
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      // clientId: '6226576d-37e9-49eb-b201-ec1eeb0029b6', // Prod enviroment. Uncomment to use.
-      //clientId: '135a69de-b903-47f2-b43e-62727ed2a9bd',//'b264616c-8c37-489e-b6a4-d4265f3a8cb1',//'3fba556e-5d4a-48e3-8e1a-fd57c12cb82e', // PPE testing environment
-      clientId: 'f5341784-0b2e-4685-9ffe-32f73572c5ff',
-      // authority: 'https://login.microsoftonline.com/common', // Prod environment. Uncomment to use.
-      //authority: 'https://login.microsoftonline.com/0c06ec01-e5aa-4e54-8811-bb99870b0c77', // PPE testing environment. //0c06ec01-e5aa-4e54-8811-bb99870b0c77
-      authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc',
-      redirectUri: 'https://orange-pond-0851ec40f.2.azurestaticapps.net/',
-     /*
-      postLogoutRedirectUri: '/' */
+      clientId: 'f2a13822-1d07-4f2f-9a78-06ad219b1d03', //Prod enviroment. Uncomment to use.
+      authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc', // Prod environment. Uncomment to use.
+      redirectUri: 'http://localhost:4200',
+       postLogoutRedirectUri: 'http://localhost:4200'
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -61,22 +56,20 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
-  protectedResourceMap.set('https://graph.microsoft.com/v1.0/me33', ['user.read4']);
-  //protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['https://bovis-api-dev.azurewebsites.net/*']);
-  console.log(protectedResourceMap);
+  //protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
+  //protectedResourceMap.set('https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']);
 
-/* const protectedResourceMap:[string, string[]][]= [
-    ['https://buildtodoservice.azurewebsites.net/api/todolist', [ 'api://a88bb933-319c-41b5-9f04-eff36d985612/access_as_user' ]],
-    ['https://graph.microsoft.com/v1.0/me', ['user.read']]
-]; */
+  /*const protectedResourceMap:[string, string[]][]= [
+      ['https://buildtodoservice.azurewebsites.net/api/todolist', [ 'api://a88bb933-319c-41b5-9f04-eff36d985612/access_as_user' ]],
+      ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+  ];*/
 
   return {
     interactionType: InteractionType.Redirect,
-    protectedResourceMap
-   /*  protectedResourceMap: new Map([
-      ['/', ['https://bovis-api-dev.azurewebsites.net/*']],
-    ]), */
+    //protectedResourceMap
+    protectedResourceMap: new Map<string, Array<string> | null>([
+      ['https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']],
+    ]),
   };
 }
 
@@ -116,7 +109,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     ButtonModule,
     TooltipModule
   ],
-  exports:[
+  exports: [
   ],
   providers: [
     {

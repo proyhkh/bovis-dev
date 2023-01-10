@@ -16,11 +16,14 @@ import {InputNumberModule} from 'primeng/inputnumber';
 
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
+import { DorService } from './Services/dor.service';
+import { DorObjComponent } from './components/dor-obj/dor-obj.component';
 
 @NgModule({
   declarations: [
     DorComponent,
-    DorCrudComponent
+    DorCrudComponent,
+    DorObjComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,6 @@ import {ButtonModule} from 'primeng/button';
     TableModule,
     ButtonModule
   ],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService, DorService]
 })
 export class DorModule { }
