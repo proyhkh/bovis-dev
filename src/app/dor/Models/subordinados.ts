@@ -2,7 +2,7 @@ export class Subordinados {
 
   centrosdeCostos: string = '';
   nombre: string = '';
-  proyecto: string = '';
+  noEmpleado: string = '';
   puesto: string = '';
 
 }

@@ -61,11 +61,11 @@ export class DorObjComponent implements OnInit {
       //console.log(this.listSubordinados.find(xx => xx.nombre == select.value));
       let subordinado = this.listSubordinados.find(xx => xx.nombre == select.value);
       //console.log(subordinado);
-      this.subComple.proyecto = subordinado?.proyecto || '';
-      this.subComple.numEmpleado = subordinado?.centrosdeCostos || '';
+      this.subComple.proyecto = subordinado?.centrosdeCostos || '';
+      this.subComple.numEmpleado = subordinado?.noEmpleado || '';
       this.subComple.unidadNegocio = 'OPERACIONES';
       this.subComple.concepto = 'CUALITATIVOS';
-      this.docService.getObjetivosByProyecto('2023', this.subComple.numEmpleado, 'CUALITATIVOS').subscribe(data3 => {
+      this.docService.getObjetivosByProyecto('2023', this.subComple.proyecto, 'CUALITATIVOS').subscribe(data3 => {
         this.listObjetivos = data3.data;
         this.products2 = data3.data;
         this.isObjetivos = true;
@@ -107,7 +107,7 @@ export class DorObjComponent implements OnInit {
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);
       delete this.clonedObjetivos[objetivo.id];
-      this.messageService.add({severity:'success', summary: 'Actualización', detail: 'Registro actualizado correctamente'});
+      this.messageService.add({severity:'success', summary: 'Meta', detail: 'Almacenado correctamente'});
     });
   }
 
