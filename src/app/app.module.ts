@@ -37,8 +37,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: 'f2a13822-1d07-4f2f-9a78-06ad219b1d03', //Prod enviroment. Uncomment to use.
       authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc', // Prod environment. Uncomment to use.
-      redirectUri: 'http://localhost:4200',
-       postLogoutRedirectUri: 'http://localhost:4200'
+      redirectUri: 'https://orange-pond-0851ec40f.2.azurestaticapps.net/',
+       postLogoutRedirectUri: 'https://orange-pond-0851ec40f.2.azurestaticapps.net/'
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
