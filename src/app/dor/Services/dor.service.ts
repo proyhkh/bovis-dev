@@ -34,7 +34,7 @@ export class DorService {
     return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosProyecto/${anio}/${numProyecto}/${concepto}`);
   }
 
-  updateObjetivos(objetivo: Objetivos): Observable<Object> {
+  updateObjetivos(objetivo: Objetivos): Observable<any> {
     /* let objetivo = `{
       "UnidadDeNegocio":"OPERACIONES",
       "Concepto":"CUALITATIVOS",

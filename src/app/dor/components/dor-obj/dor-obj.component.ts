@@ -106,8 +106,16 @@ export class DorObjComponent implements OnInit {
 
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);
-      delete this.clonedObjetivos[objetivo.id];
-      this.messageService.add({severity:'success', summary: 'Meta', detail: 'Almacenado correctamente'});
+
+      let mensaje: string =udt.message;
+      if(mensaje.includes('error')){
+        this.messageService.add({severity:'error', summary: 'Error', detail: mensaje});
+      }
+      else{
+
+        delete this.clonedObjetivos[objetivo.id];
+        this.messageService.add({severity:'success', summary: 'Meta', detail: 'Almacenado correctamente'});
+      }
     });
   }
 
