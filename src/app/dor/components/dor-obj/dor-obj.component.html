@@ -9,8 +9,8 @@
       <div class="col-sm">
         <label for="concepto">Empleado:</label>
         <div class="">
-          <p-dropdown [options]="empleados" placeholder="Seleccionar empleado"
-            optionLabel="name" [showClear]="true" [style]="{'width': '100%'}"></p-dropdown>
+          <p-dropdown [options]="empleadosSub" placeholder="Seleccionar empleado"
+            optionLabel="name" [showClear]="true" [style]="{'width': '100%'}" (onChange)="onChangeEmpleado($event)"></p-dropdown>
         </div>
       </div>
       <div class="col-sm">
@@ -18,14 +18,14 @@
         <div class="">
           <!-- <p-dropdown [options]="objetivos" [(ngModel)]="selectedObjetivo" placeholder="Selecciona el objetivo"
             optionLabel="name" [showClear]="true" [style]="{'width': '100%'}" [disabled]="isConsulta"></p-dropdown> -->
-            <input type="text" class="form-control" [disabled]="isConsulta">
+            <input type="text" class="form-control" [disabled]="isConsulta" [(ngModel)]="subComple.numEmpleado">
         </div>
 
       </div>
       <div class="col-sm">
         <label for="email">Proyecto:</label>
         <div class="">
-          <input type="text" class="form-control" [disabled]="isConsulta">
+          <input type="text" class="form-control" [disabled]="isConsulta" [(ngModel)]="subComple.proyecto">
         </div>
       </div>
     </div>
@@ -41,13 +41,13 @@
         <div class="col-sm">
           <label for="concepto">Unidad de Negocio:</label>
           <div class="">
-            <input type="text" class="form-control" [disabled]="isConsulta">
+            <input type="text" class="form-control" [disabled]="isConsulta" [(ngModel)]="subComple.unidadNegocio">
           </div>
         </div>
         <div class="col-sm">
           <label for="descripcion">Concepto:</label>
           <div class="">
-            <input type="text" class="form-control" [disabled]="isConsulta">
+            <input type="text" class="form-control" [disabled]="isConsulta" [(ngModel)]="subComple.concepto">
           </div>
         </div>
         <div class="col-sm">
@@ -57,7 +57,7 @@
 
       <div class="card">
         <h5></h5>
-            <p-table [value]="products2" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+            <p-table [value]="listObjetivos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width:60%">Descripción</th>
@@ -67,31 +67,32 @@
                 <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="product">
                         <td>
-                            <p-cellEditor>
+                          {{product.descripcion}}
+                            <!-- <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.code">
+                                    <input pInputText type="text" [(ngModel)]="product.descripcion">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    <!-- {{product.code}} -->
+                                    {{product.descripcion}}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cellEditor> -->
                         </td>
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.name" required>
+                                    <input pInputText type="text" [(ngModel)]="product.meta" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    <!-- {{product.name}} -->
+                                    {{product.meta}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
 
                         <td>
                             <div class="flex align-items-center justify-content-center gap-2">
-                                <!-- <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
                                 <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button> -->
+                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
                             </div>
                         </td>
                     </tr>
@@ -103,3 +104,4 @@
 
   </ng-container>
 </div>
+<p-toast></p-toast>
