@@ -101,8 +101,8 @@ export class DorObjComponent implements OnInit {
 
   saveObjetivo(objetivo: Objetivos) {
 
-    objetivo.Empleado = this.subComple.numEmpleado;
-    objetivo.Proyecto= this.subComple.proyecto;
+    /* objetivo.Empleado = this.subComple.numEmpleado;
+    objetivo.Proyecto= this.subComple.proyecto; */
 
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);

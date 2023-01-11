@@ -60,12 +60,16 @@
             <p-table [value]="listObjetivos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width:60%">Descripción</th>
+                      <th style="width:20%">Empleado</th>
+                        <th style="width:40%">Descripción</th>
                         <th style="width:40%">Meta</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="product">
+                      <td>
+                        {{product.empleado}}
+                      </td>
                         <td>
                           {{product.descripcion}}
                             <!-- <p-cellEditor>
