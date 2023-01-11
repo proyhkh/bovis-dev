@@ -101,20 +101,18 @@ export class DorObjComponent implements OnInit {
 
   saveObjetivo(objetivo: Objetivos) {
 
-    /* objetivo.Empleado = this.subComple.numEmpleado;
-    objetivo.Proyecto= this.subComple.proyecto; */
 
+    objetivo.Proyecto = this.subComple.proyecto;
+    objetivo.Empleado = this.subComple.numEmpleado;
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);
-
-      let mensaje: string =udt.message;
-      if(mensaje.includes('error')){
-        this.messageService.add({severity:'error', summary: 'Error', detail: mensaje});
-      }
-      else{
-
+      let mensaje: string = udt.message;
+      if (udt.message == null) {
         delete this.clonedObjetivos[objetivo.id];
-        this.messageService.add({severity:'success', summary: 'Meta', detail: 'Almacenado correctamente'});
+        this.messageService.add({ severity: 'success', summary: 'Meta', detail: 'Almacenado correctamente' });
+      }
+      else if (mensaje.includes('error')) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: mensaje });
       }
     });
   }
@@ -127,11 +125,11 @@ export class DorObjComponent implements OnInit {
     //console.log(product);
     if (product.meta != '') {
       this.saveObjetivo(product);
-        /* delete this.clonedObjetivos[product.id];
-        this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'}); */
+      /* delete this.clonedObjetivos[product.id];
+      this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'}); */
     }
     else {
-        this.messageService.add({severity:'error', summary: 'Error', detail:'Campo Meta Requerido'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campo Meta Requerido' });
     }
   }
 
