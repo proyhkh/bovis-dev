@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Viaticos } from '../Models/viaticos';
 import { environment } from 'src/environments/environment';
+import { Viaticos } from '../Models/viaticos';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CatalogosService {
-
-
+export class ViaticosService {
   baseUrl = environment.urlApiBovis;
 
   constructor(private http: HttpClient) { }
 
+  getViaticos() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/viatico`);
+  }
 }

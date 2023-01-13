@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlApiBovis: 'https://bovis-api-dev.azurewebsites.net/'
+  urlApiBovis: 'https://bovis-api-dev.azurewebsites.net/',
+  redirectUri: 'http://localhost:4200/'
 };
 
 /*

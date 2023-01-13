@@ -29,6 +29,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ViaticosService } from './services/viaticos.service';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -57,10 +59,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     RadioButtonModule,
     InputNumberModule,
     ConfirmDialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    TooltipModule,
   ],
   providers: [
     CatalogosService,
+    ViaticosService,
     MessageService,
     ConfirmationService
   ]

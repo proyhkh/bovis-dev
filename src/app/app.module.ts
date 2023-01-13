@@ -26,7 +26,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { environment } from 'src/environments/environment';
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
+
+const uriRedirect = environment.redirectUri;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -37,8 +40,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: 'f2a13822-1d07-4f2f-9a78-06ad219b1d03', //Prod enviroment. Uncomment to use.
       authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc', // Prod environment. Uncomment to use.
-      redirectUri: 'https://orange-pond-0851ec40f.2.azurestaticapps.net/',
-       postLogoutRedirectUri: 'https://orange-pond-0851ec40f.2.azurestaticapps.net/'
+      redirectUri: uriRedirect,//'https://orange-pond-0851ec40f.2.azurestaticapps.net/',
+       postLogoutRedirectUri: uriRedirect //'https://orange-pond-0851ec40f.2.azurestaticapps.net/'
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
