@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Objetivos, ObjetivosGenerales, Subordinados } from '../../Models/subordinados';
 import { DorService } from '../../Services/dor.service';
-import { Objetivos, Subordinados, SubordinadosComplemento } from '../../Models/subordinados';
-
+import { MessageService } from 'primeng/api';
 
 interface EmpleadosSub {
   name: string,
@@ -10,11 +9,11 @@ interface EmpleadosSub {
 }
 
 @Component({
-  selector: 'app-dor-obj',
-  templateUrl: './dor-obj.component.html',
-  styleUrls: ['./dor-obj.component.css']
+  selector: 'app-dor-captura',
+  templateUrl: './dor-captura.component.html',
+  styleUrls: ['./dor-captura.component.css']
 })
-export class DorObjComponent implements OnInit {
+export class DorCapturaComponent implements OnInit {
 
   isConsulta = true;
   isObjetivos = false;
@@ -23,8 +22,12 @@ export class DorObjComponent implements OnInit {
   userMail: string | null = '';
   listSubordinados: Subordinados[];
   listObjetivos: Objetivos[];
-  subComple: SubordinadosComplemento = new SubordinadosComplemento();
+  subComple: Subordinados = new Subordinados();
   clonedObjetivos: { [s: string]: Objetivos; } = {};
+  listObjGenrales: ObjetivosGenerales[];
+  listObjGenralesTipoUno: ObjetivosGenerales[];
+  listObjGenralesTipoDos: ObjetivosGenerales[];
+  tiposTablasObjGenerales: any;
 
   constructor(private docService: DorService, private messageService: MessageService) {
     //console.log(localStorage.getItem('userMail'));
@@ -32,7 +35,6 @@ export class DorObjComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.docService.getDatosEjecutivo(this.userMail).subscribe(data => {
       //console.log(data);
       const str = 'data' as any;
@@ -44,11 +46,10 @@ export class DorObjComponent implements OnInit {
         this.listSubordinados = <Subordinados[]>dataSub.data;
         //console.log(this.listSubordinados);
         this.listSubordinados.forEach(element => {
-          this.empleadosSub.push({ name: element.nombre, value: element.nombre })
+          this.empleadosSub.push({ name: String(element.nombre), value: String(element.nombre) })
         });
       });
     });
-
   }
 
   onChangeEmpleado(event: any) {
@@ -56,18 +57,16 @@ export class DorObjComponent implements OnInit {
      console.log(event.value);*/
     if (event.value) {
       let select = <EmpleadosSub>event.value
-      //console.log(select);
       //console.log(this.listSubordinados);
-      //console.log(this.listSubordinados.find(xx => xx.nombre == select.value));
-      let subordinado = this.listSubordinados.find(xx => xx.nombre == select.value);
-      //console.log(subordinado);
+      let subordinado = this.listSubordinados.find(xx => xx.nombre == select.value) ?? {};
+      console.log(subordinado);
       this.subComple.proyecto = subordinado?.centrosdeCostos || '';
-      this.subComple.numEmpleado = subordinado?.noEmpleado || '';
-      this.subComple.unidadNegocio = 'OPERACIONES';
-      this.subComple.concepto = 'CUALITATIVOS';
-      this.docService.getObjetivosByProyecto('2023', this.subComple.proyecto, 'CUALITATIVOS').subscribe(data3 => {
-        this.listObjetivos = data3.data;
-        this.products2 = data3.data;
+      this.subComple.noEmpleado = subordinado?.noEmpleado || '';
+      this.subComple.unidadDeNegocio = subordinado?.unidadDeNegocio || '';
+      this.subComple.direccionEjecutiva = subordinado?.direccionEjecutiva || '';
+      this.docService.getObjetivosByProyecto('2023', this.subComple.proyecto, this.subComple.noEmpleado).subscribe(objetivos => {
+        this.listObjetivos = objetivos.data;
+        this.products2 = objetivos.data;
         this.isObjetivos = true;
         let numId = 1;
         this.listObjetivos.forEach(element => {
@@ -81,9 +80,30 @@ export class DorObjComponent implements OnInit {
           //element.Empleado = '10003';
           numId2++;
         });
-        console.log(this.listObjetivos);
+        //console.log(this.listObjetivos);
+
       });
+      let nivel: string = subordinado.nivel ?? ""
+      this.docService.getObjetivosGenerales(nivel).subscribe(generales => {
+        this.listObjGenrales = generales.data;
+        //console.log(this.listObjGenrales);
+        this.getTablasObjetivosGenerales();
+      });
+
     }
+  }
+
+  getTablasObjetivosGenerales(){
+
+    let tipos = this.listObjGenrales.map(item => item.concepto)
+    .filter((value, index, self) => self.indexOf(value) === index);
+    //console.log(tipos);
+    //console.log(tipos[1]);
+    this.tiposTablasObjGenerales = tipos;
+    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == tipos[0]);
+    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == tipos[1]);
+    /* console.log(this.listObjGenralesTipoUno);
+    console.log(this.listObjGenralesTipoDos); */
   }
 
   getSubordinados() {
@@ -98,12 +118,10 @@ export class DorObjComponent implements OnInit {
     }); */
   }
 
-
   saveObjetivo(objetivo: Objetivos) {
-
-
-    objetivo.Proyecto = this.subComple.proyecto;
-    objetivo.Empleado = this.subComple.numEmpleado;
+    /* objetivo.Proyecto = this.subComple.proyecto;
+    objetivo.Empleado = this.subComple.noEmpleado; */
+    //objetivo.Acepto = '0';
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);
       let mensaje: string = udt.message;
@@ -140,6 +158,5 @@ export class DorObjComponent implements OnInit {
     this.products2[index] = this.clonedObjetivos[product.id];
     delete this.clonedObjetivos[product.id];
   }
-
 
 }

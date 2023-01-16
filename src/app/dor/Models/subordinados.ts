@@ -1,37 +1,37 @@
 export class Subordinados {
 
-  centrosdeCostos: string = '';
-  nombre: string = '';
-  noEmpleado: string = '';
-  puesto: string = '';
-
-}
-
-export class SubordinadosComplemento {
-
-  numEmpleado: string = '';
-  unidadNegocio: string = '';
-  proyecto: string = '';
-  concepto: string = '';
-
+  centrosdeCostos?: string = '';
+  nombre?: string = '';
+  noEmpleado?: string = '';
+  puesto?: string = '';
+  direccionEjecutiva?: string = '';
+  unidadDeNegocio?: string = '';
+  jefeDirecto?: string = '';
+  nivel?: string;
+  proyecto?: string = '';
 }
 
 export class Objetivos {
-
   id: string = '';
-  anio: string = '';
-  calificacion: string = '';
-  concepto: string = '';
-  descripcion: string = '';
-  meta: string = '';
-  nivel2: string = '';
-  nivel3: string = '';
-  nivel4: string = '';
-  nivel5: string = '';
-  ponderado: string = '';
-  real: string = '';
-  unidadDeNegocio: string = '';
-  Empleado: string = '';
-  Proyecto: string = '';
-
+  concepto?: string = '';
+  descripcion?: string = '';
+  idEmpOb?: string = '';
+  meta?: string = '';
+  tooltip?: string = '';
+  unidadDeNegocio?: string = '';
+ /*  Acepto?: string = ''; */
+  /* Empleado: string = '';
+  Proyecto: string = ''; */
 }
+
+export class ObjetivosGenerales {
+  id: string = '';
+  concepto?: string = '';
+  descripcion?: string = '';
+  meta?: string = '';
+  nivel?: string;
+  tooltip?: string = '';
+  unidadDeNegocio?: string = '';
+  valor?: string = '';
+}
+

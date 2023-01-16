@@ -17,13 +17,14 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import { DorService } from './Services/dor.service';
-import { DorObjComponent } from './components/dor-obj/dor-obj.component';
+import { DorCapturaComponent } from './components/dor-captura/dor-captura.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
     DorComponent,
     DorCrudComponent,
-    DorObjComponent
+    DorCapturaComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +39,8 @@ import { DorObjComponent } from './components/dor-obj/dor-obj.component';
     InputTextModule,
     InputNumberModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
+    TooltipModule,
   ],
   providers: [ConfirmationService, MessageService, DorService]
 })
