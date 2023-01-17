@@ -23,7 +23,8 @@ export class MenuSidebarComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
   }

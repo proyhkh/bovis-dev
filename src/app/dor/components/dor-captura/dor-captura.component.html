@@ -68,14 +68,14 @@
                       <tr>
                         <th>Descripción</th>
                         <th>Meta</th>
-                        <th>Nivel</th>
+                        <th>Porcentaje</th>
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-obj>
                       <tr>
                         <td pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
                         <td>{{obj.meta}}</td>
-                        <td>{{obj.valor}}</td>
+                        <td>{{obj.valor}}%</td>
                       </tr>
                     </ng-template>
                   </p-table>
@@ -90,14 +90,14 @@
                       <tr>
                         <th>Descripción</th>
                         <th>Meta</th>
-                        <th>Nivel</th>
+                        <th>Porcentaje</th>
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-obj>
                       <tr>
                         <td pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
                         <td>{{obj.meta}}</td>
-                        <td>{{obj.valor}}</td>
+                        <td>{{obj.valor}}%</td>
                       </tr>
                     </ng-template>
                   </p-table>
@@ -126,6 +126,15 @@
               <!--  <td>
                 {{product.empleado}}
               </td> -->
+              <!-- <ng-container *ngIf="product.descripcion == 'Sustentabilidad?'">
+
+              </ng-container>
+
+              <ng-container *ngIf="product.descripcion != 'Sustentabilidad?'">
+
+              </ng-container> -->
+
+
               <td pTooltip="{{product.tooltip}}" tooltipPosition="top">
                 {{product.descripcion}}
                 <!-- <p-cellEditor>

@@ -10,7 +10,7 @@
       <a href="#Empleados" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Empleados</a>
       <ul class="collapse list-unstyled" id="Empleados">
         <li>
-          <a routerLink="/empleados">Empleados</a>
+          <a routerLink="/empleados" (click)="setModule('Empleados')">Empleados</a>
         </li>
        <!--  <li>
           <a href="#">Opcion 2</a>
@@ -126,7 +126,7 @@
           <a>Consulta/Evaluación</a>
         </li>
        <li>
-          <a>Aceptar objetivos
+          <a routerLink="/dor/objetivos">Aceptar objetivos
           </a>
         </li>
       </ul>

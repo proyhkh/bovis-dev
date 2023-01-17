@@ -4,6 +4,8 @@ import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest,
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { NavigationEnd, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -19,26 +21,51 @@ export class AppComponent implements OnInit, OnDestroy {
   isLogeado = false;
   collapsedNav: boolean | undefined;
   mobileQuery: MediaQueryList;
-
+  currentModule = '';
   sidenavWidth = 4;
   //ngStyle: string;
   user: string = '';
   isModulos = false;
   roles = null;
-
-
   private _mobileQueryListener!: () => void;
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
-    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    private router: Router
   ) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.router.events.subscribe(value => {
+      if (value instanceof NavigationEnd)
+        //console.log(this.router.url.toString());
+        if (this.router.url.toString() == '/') {
+          this.currentModule = '';
+        }
+        else {
+          this.asignarTituloModulo(this.router.url.toString())
+        }
+    });
+
+  }
+
+  asignarTituloModulo(url: string) {
+
+
+    if(url.includes('dor')){
+      this.currentModule = 'Dirección  Orientada a Resultados';
+    }
+    else if(url.includes('empleados')){
+      this.currentModule = 'Empleados';
+    }
+
+
+
   }
 
   ngOnInit(): void {
@@ -79,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
     //console.log(this.authService.instance.getAllAccounts());
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
     //console.log(this.loginDisplay);
-    if(this.loginDisplay){
+    if (this.loginDisplay) {
       type IdTokenClaims = {
         name: string,
         roles: any,
@@ -107,8 +134,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
       let accounts = this.authService.instance.getAllAccounts();
-     /*  console.log(accounts);
-      console.log(accounts[0].idTokenClaims); */
+      /*  console.log(accounts);
+       console.log(accounts[0].idTokenClaims); */
       //this.textLogin = 'Cerrar sesion';
       this.authService.instance.setActiveAccount(accounts[0]);
     }
@@ -161,11 +188,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.status = !this.status;
   }
 
-  currentModule = '';
-
-  onEmitter(event:any) {
-      console.log('Received: ' + event);
-      this.currentModule = event;
+  onEmitter(event: any) {
+    console.log('Received: ' + event);
+    this.currentModule = event;
   }
 
 }

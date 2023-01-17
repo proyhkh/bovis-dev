@@ -42,12 +42,11 @@ export class DorService {
     return this.http.put(`${this.baseUrl}api/dor/ActualizarObjetivos`, objetivo, { headers: this.httpHeaders });
   }
 
-  postVoto(objetivos: any): Observable<Object> {
-    return this.http.post<Object>(`${this.baseUrl}api/DOR/AgregarObjetivos/`, objetivos, { headers: this.httpHeaders })
+
+  getDatosEmpleado(userMail: string | null) {
+    let mail = `{"email":"${userMail}"}`;
+    return this.http.post<Object>(`${this.baseUrl}api/dor/DatosEmpleado`,mail, { headers: this.httpHeaders });
   }
 
-  /*  updateVoto(voto: Voto): Observable<Voto>{
-     return this.http.put<Voto>(this.urlVoto,voto,{headers: this.httpHeaders})
-   } */
 
 }

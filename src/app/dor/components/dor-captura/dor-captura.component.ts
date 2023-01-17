@@ -60,11 +60,12 @@ export class DorCapturaComponent implements OnInit {
       //console.log(this.listSubordinados);
       let subordinado = this.listSubordinados.find(xx => xx.nombre == select.value) ?? {};
       console.log(subordinado);
-      this.subComple.proyecto = subordinado?.centrosdeCostos || '';
+      this.subComple.proyecto = subordinado?.proyecto || '';
       this.subComple.noEmpleado = subordinado?.noEmpleado || '';
       this.subComple.unidadDeNegocio = subordinado?.unidadDeNegocio || '';
       this.subComple.direccionEjecutiva = subordinado?.direccionEjecutiva || '';
-      this.docService.getObjetivosByProyecto('2023', this.subComple.proyecto, this.subComple.noEmpleado).subscribe(objetivos => {
+      this.subComple.centrosdeCostos = subordinado?.centrosdeCostos || '';
+      this.docService.getObjetivosByProyecto('2023', this.subComple.centrosdeCostos, this.subComple.noEmpleado).subscribe(objetivos => {
         this.listObjetivos = objetivos.data;
         this.products2 = objetivos.data;
         this.isObjetivos = true;
