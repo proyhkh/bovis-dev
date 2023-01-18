@@ -38,8 +38,8 @@ export function loggerCallback(logLevel: LogLevel, message: string) {
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: 'f2a13822-1d07-4f2f-9a78-06ad219b1d03', //Prod enviroment. Uncomment to use.
-      authority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc', // Prod environment. Uncomment to use.
+      clientId: '2a3addef-64ef-407c-a86a-b9913237e5c5', //Prod enviroment. Uncomment to use.
+      authority: 'https://login.microsoftonline.com/48986ced-d307-4c91-85be-933ccbcbaeb3', // Prod environment. Uncomment to use.
       redirectUri: uriRedirect,//'https://orange-pond-0851ec40f.2.azurestaticapps.net/',
        postLogoutRedirectUri: uriRedirect //'https://orange-pond-0851ec40f.2.azurestaticapps.net/'
     },
@@ -71,7 +71,8 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     interactionType: InteractionType.Redirect,
     //protectedResourceMap
     protectedResourceMap: new Map<string, Array<string> | null>([
-      ['https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']],
+      /* ['https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']], */
+      ['https://bovis-dev-api.azurewebsites.net/api/*', ['api://f0ab1f6a-a436-4722-a2a1-4156b7bd8b90/apibovis.scope']],
     ]),
   };
 }

@@ -19,12 +19,14 @@ import {ButtonModule} from 'primeng/button';
 import { DorService } from './Services/dor.service';
 import { DorCapturaComponent } from './components/dor-captura/dor-captura.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { DorObjetivosComponent } from './components/dor-objetivos/dor-objetivos.component';
 
 @NgModule({
   declarations: [
     DorComponent,
     DorCrudComponent,
-    DorCapturaComponent
+    DorCapturaComponent,
+    DorObjetivosComponent
   ],
   imports: [
     CommonModule,

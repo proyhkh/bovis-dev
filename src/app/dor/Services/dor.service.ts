@@ -45,7 +45,7 @@ export class DorService {
 
   getDatosEmpleado(userMail: string | null) {
     let mail = `{"email":"${userMail}"}`;
-    return this.http.post<Object>(`${this.baseUrl}api/dor/DatosEmpleado`,mail, { headers: this.httpHeaders });
+    return this.http.post<any>(`${this.baseUrl}api/dor/DatosEmpleado`,mail, { headers: this.httpHeaders });
   }
 
 
