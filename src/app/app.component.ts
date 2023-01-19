@@ -51,21 +51,15 @@ export class AppComponent implements OnInit, OnDestroy {
           this.asignarTituloModulo(this.router.url.toString())
         }
     });
-
   }
 
   asignarTituloModulo(url: string) {
-
-
     if(url.includes('dor')){
       this.currentModule = 'Dirección  Orientada a Resultados';
     }
     else if(url.includes('empleados')){
       this.currentModule = 'Empleados';
     }
-
-
-
   }
 
   ngOnInit(): void {

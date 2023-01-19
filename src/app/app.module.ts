@@ -30,6 +30,8 @@ import { environment } from 'src/environments/environment';
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
 const uriRedirect = environment.redirectUri;
+const clientID = environment.clientID;
+const urlAuthority = environment.urlAuthority;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -38,10 +40,10 @@ export function loggerCallback(logLevel: LogLevel, message: string) {
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '2a3addef-64ef-407c-a86a-b9913237e5c5', //Prod enviroment. Uncomment to use.
-      authority: 'https://login.microsoftonline.com/48986ced-d307-4c91-85be-933ccbcbaeb3', // Prod environment. Uncomment to use.
-      redirectUri: uriRedirect,//'https://orange-pond-0851ec40f.2.azurestaticapps.net/',
-       postLogoutRedirectUri: uriRedirect //'https://orange-pond-0851ec40f.2.azurestaticapps.net/'
+      clientId: clientID,
+      authority: urlAuthority,
+      redirectUri: uriRedirect,
+      postLogoutRedirectUri: uriRedirect
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -59,10 +61,14 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  //protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
-  //protectedResourceMap.set('https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']);
+  /*
+  //Forma 1 
+   protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
+   protectedResourceMap.set('https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']); */
 
-  /*const protectedResourceMap:[string, string[]][]= [
+  /*
+    //Forma2
+  const protectedResourceMap:[string, string[]][]= [
       ['https://buildtodoservice.azurewebsites.net/api/todolist', [ 'api://a88bb933-319c-41b5-9f04-eff36d985612/access_as_user' ]],
       ['https://graph.microsoft.com/v1.0/me', ['user.read']]
   ];*/
@@ -71,8 +77,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     interactionType: InteractionType.Redirect,
     //protectedResourceMap
     protectedResourceMap: new Map<string, Array<string> | null>([
-      /* ['https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']], */
-      ['https://bovis-dev-api.azurewebsites.net/api/*', ['api://f0ab1f6a-a436-4722-a2a1-4156b7bd8b90/apibovis.scope']],
+      ['https://bovis-api-dev.azurewebsites.net/api/*', ['api://e264ed0b-c9d3-4bea-a9d9-7ff456cc23f7/apibovis.scope']],
     ]),
   };
 }

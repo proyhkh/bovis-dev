@@ -19,9 +19,7 @@ export class Objetivos {
   meta?: string = '';
   tooltip?: string = '';
   unidadDeNegocio?: string = '';
- /*  Acepto?: string = ''; */
-  /* Empleado: string = '';
-  Proyecto: string = ''; */
+  isComodin: boolean = false;
 }
 
 export class ObjetivosGenerales {

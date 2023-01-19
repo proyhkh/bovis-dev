@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DorService } from '../../Services/dor.service';
 import { Objetivos, ObjetivosGenerales, Subordinados } from '../../Models/subordinados';
+import { ConfirmationService, Message, MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-dor-objetivos',
@@ -16,8 +17,10 @@ export class DorObjetivosComponent implements OnInit {
   listObjGenralesTipoDos: ObjetivosGenerales[];
   tiposTablasObjGenerales: any;
   listObjetivos: Objetivos[];
+  msgs: Message[] = [];
 
-  constructor(private dorService: DorService) {
+  constructor(private dorService: DorService, private confirmationService: ConfirmationService,
+    private primengConfig: PrimeNGConfig, private messageService: MessageService,) {
     this.userMail = localStorage.getItem('userMail');
    }
 
@@ -47,5 +50,32 @@ export class DorObjetivosComponent implements OnInit {
     this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == tipos[0]);
     this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == tipos[1]);
   }
+
+  confirm1() {
+    this.confirmationService.confirm({
+        message: 'Apruebas todos los objetivos?',
+        header: 'Confirmación',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Aceptar',
+        rejectLabel: 'Cancelar',
+        accept: () => {
+          this.messageService.add({
+            severity: "success",
+            summary: "Dor",
+            detail: "Objetivos aprobados correctamente"
+          });
+           /*  this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}]; */
+        },
+        reject: () => {
+          this.messageService.add({
+            severity: "warn",
+            summary: "Dor",
+            detail: "Acción cancelada"
+          });
+            /* this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}]; */
+        }
+    });
+}
+
 
 }

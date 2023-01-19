@@ -116,43 +116,39 @@
         <p-table [value]="listObjetivos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
           <ng-template pTemplate="header">
             <tr>
-              <!-- <th style="width:20%">Empleado</th> -->
               <th style="width:60%">Descripción</th>
               <th style="width:30%">Meta</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="product">
-              <!--  <td>
-                {{product.empleado}}
-              </td> -->
-              <!-- <ng-container *ngIf="product.descripcion == 'Sustentabilidad?'">
+          <ng-template pTemplate="body" let-objetivo let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="objetivo">
 
+              <ng-container *ngIf="objetivo.isComodin">
+                <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="objetivo.descripcion" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{objetivo.descripcion}}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
               </ng-container>
 
-              <ng-container *ngIf="product.descripcion != 'Sustentabilidad?'">
+              <ng-container *ngIf="!objetivo.isComodin">
+                <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
+                  {{objetivo.descripcion}}
+                </td>
+              </ng-container>
 
-              </ng-container> -->
-
-
-              <td pTooltip="{{product.tooltip}}" tooltipPosition="top">
-                {{product.descripcion}}
-                <!-- <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.descripcion">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{product.descripcion}}
-                                </ng-template>
-                            </p-cellEditor> -->
-              </td>
               <td>
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="product.meta" required>
+                    <input pInputText type="text" [(ngModel)]="objetivo.meta" required>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{product.meta}}
+                    {{objetivo.meta}}
                   </ng-template>
                 </p-cellEditor>
               </td>
@@ -160,12 +156,12 @@
               <td>
                 <div class="flex align-items-center justify-content-center gap-2">
                   <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                    (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                    (click)="onRowEditInit(objetivo)" class="p-button-rounded p-button-text"></button>
                   <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                    (click)="onRowEditSave(product)"
+                    (click)="onRowEditSave(objetivo)"
                     class="p-button-rounded p-button-text p-button-success mr-2"></button>
                   <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                    (click)="onRowEditCancel(product, ri)"
+                    (click)="onRowEditCancel(objetivo, ri)"
                     class="p-button-rounded p-button-text p-button-danger"></button>
                 </div>
               </td>
