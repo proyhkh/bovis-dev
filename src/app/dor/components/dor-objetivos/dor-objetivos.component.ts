@@ -34,7 +34,7 @@ export class DorObjetivosComponent implements OnInit {
         //console.log(this.listObjetivos);
       });
 
-      this.dorService.getObjetivosGenerales(this.empleado.nivel || '').subscribe(generales => {
+      this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
         this.listObjGenrales = generales.data;
         //console.log(this.listObjGenrales);
         this.getTablasObjetivosGenerales();

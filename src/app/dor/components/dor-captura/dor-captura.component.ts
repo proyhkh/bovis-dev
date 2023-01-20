@@ -84,8 +84,7 @@ export class DorCapturaComponent implements OnInit {
         });
         //console.log(this.listObjetivos);
       });
-      let nivel: string = subordinado.nivel ?? ""
-      this.docService.getObjetivosGenerales(nivel).subscribe(generales => {
+      this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
         this.listObjGenrales = generales.data;
         //console.log(this.listObjGenrales);
         this.getTablasObjetivosGenerales();

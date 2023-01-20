@@ -32,9 +32,9 @@ export class DorService {
     return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosProyecto/${anio}/${numProyecto}/${noEmpleado}`);
   }
 
-  getObjetivosGenerales(nivel: string) {
+  getObjetivosGenerales(nivel: string, unidad: string) {
     console.log(nivel);
-    return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosGenerales/${nivel}/Servicios Corporativos`);
+    return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosGenerales/${nivel}/${unidad}`);
   }
 
   updateObjetivos(objetivo: Objetivos): Observable<any> {
