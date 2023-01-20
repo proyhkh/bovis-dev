@@ -22,7 +22,7 @@ export class DorObjetivosComponent implements OnInit {
   constructor(private dorService: DorService, private confirmationService: ConfirmationService,
     private primengConfig: PrimeNGConfig, private messageService: MessageService,) {
     this.userMail = localStorage.getItem('userMail');
-   }
+  }
 
   ngOnInit(): void {
     //console.log(this.userMail);
@@ -34,7 +34,7 @@ export class DorObjetivosComponent implements OnInit {
         //console.log(this.listObjetivos);
       });
 
-      this.dorService.getObjetivosGenerales(this.empleado.nivel ||'').subscribe(generales => {
+      this.dorService.getObjetivosGenerales(this.empleado.nivel || '').subscribe(generales => {
         this.listObjGenrales = generales.data;
         //console.log(this.listObjGenrales);
         this.getTablasObjetivosGenerales();
@@ -42,10 +42,10 @@ export class DorObjetivosComponent implements OnInit {
     });
   }
 
-  getTablasObjetivosGenerales(){
+  getTablasObjetivosGenerales() {
 
     let tipos = this.listObjGenrales.map(item => item.concepto)
-    .filter((value, index, self) => self.indexOf(value) === index);
+      .filter((value, index, self) => self.indexOf(value) === index);
     this.tiposTablasObjGenerales = tipos;
     this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == tipos[0]);
     this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == tipos[1]);
@@ -53,29 +53,29 @@ export class DorObjetivosComponent implements OnInit {
 
   confirm1() {
     this.confirmationService.confirm({
-        message: 'Apruebas todos los objetivos?',
-        header: 'Confirmación',
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'Aceptar',
-        rejectLabel: 'Cancelar',
-        accept: () => {
-          this.messageService.add({
-            severity: "success",
-            summary: "Dor",
-            detail: "Objetivos aprobados correctamente"
-          });
-           /*  this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}]; */
-        },
-        reject: () => {
-          this.messageService.add({
-            severity: "warn",
-            summary: "Dor",
-            detail: "Acción cancelada"
-          });
-            /* this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}]; */
-        }
+      message: 'Apruebas todos los objetivos?',
+      header: 'Confirmación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Aceptar',
+      rejectLabel: 'Cancelar',
+      accept: () => {
+        this.messageService.add({
+          severity: "success",
+          summary: "Dor",
+          detail: "Objetivos aprobados correctamente"
+        });
+        /*  this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}]; */
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "warn",
+          summary: "Dor",
+          detail: "Acción cancelada"
+        });
+        /* this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}]; */
+      }
     });
-}
+  }
 
 
 }
