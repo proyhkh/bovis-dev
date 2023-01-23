@@ -34,6 +34,8 @@ export class DorCapturaComponent implements OnInit {
   totalObjetivosGeneral: number = 0;
   msgs = [];
   mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_captura;
+  motivoRechazoObjetivos: string = '';
+  isMotivoRechazo: boolean = false;
 
   constructor(private docService: DorService, private messageService: MessageService) {
     //console.log(localStorage.getItem('userMail'));
@@ -114,6 +116,16 @@ export class DorCapturaComponent implements OnInit {
           obj.descripcion?.includes('Evaluación 360°') ? obj.isEditable = true : obj.isEditable = false;
 
           this.totalObjetivosCualitativos += Number(obj.valor || '');
+
+          if(obj.motivoR != null && obj.motivoR != ''){
+            this.motivoRechazoObjetivos = obj.motivoR;
+            this.isMotivoRechazo = true;
+          }
+          else{
+            this.motivoRechazoObjetivos = '';
+            this.isMotivoRechazo = false;
+          }
+
         });
         let numId2 = 1;
         this.objetivos2.forEach(obj => {
@@ -134,13 +146,13 @@ export class DorCapturaComponent implements OnInit {
 
     let indiceCorporativo = tipos.indexOf('CORPORATIVO');
     //console.log(indiceCorporativo);
-    if (indiceCorporativo == 0) {
+    if (indiceCorporativo == 1) {
       tipos = tipos.reverse();
     }
     this.tiposTablasObjGenerales = tipos;
     console.log(tipos);
-    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
-    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
 
 
     this.listObjGenralesTipoUno.forEach(obj => {

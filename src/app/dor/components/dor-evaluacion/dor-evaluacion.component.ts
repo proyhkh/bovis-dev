@@ -70,12 +70,12 @@ export class DorEvaluacionComponent implements OnInit {
       .filter((value, index, self) => self.indexOf(value) === index);
     let indiceCorporativo = tipos.indexOf('CORPORATIVO');
     //console.log(indiceCorporativo);
-    if (indiceCorporativo == 0) {
+    if (indiceCorporativo == 1) {
       tipos = tipos.reverse();
     }
     this.tiposTablasObjGenerales = tipos;
-    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
-    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
 
     this.listObjGenralesTipoUno.forEach(obj => {
       this.totalObjetivosTipoUno += Number(obj.valor || '');

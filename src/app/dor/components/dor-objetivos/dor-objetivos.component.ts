@@ -23,7 +23,7 @@ export class DorObjetivosComponent implements OnInit {
   totalObjetivosCualitativos: number = 0;
   displayModal: boolean;
   motivoRechazoObjetivos: string = '';
-  mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_captura;
+  mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_objetivos;
   count_carapteres: number = 20;
 
   constructor(private dorService: DorService, private confirmationService: ConfirmationService,
@@ -74,12 +74,12 @@ export class DorObjetivosComponent implements OnInit {
       .filter((value, index, self) => self.indexOf(value) === index);
     let indiceCorporativo = tipos.indexOf('CORPORATIVO');
     //console.log(indiceCorporativo);
-    if (indiceCorporativo == 0) {
+    if (indiceCorporativo == 1) {
       tipos = tipos.reverse();
     }
     this.tiposTablasObjGenerales = tipos;
-    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
-    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
 
     this.listObjGenralesTipoUno.forEach(obj => {
       this.totalObjetivosTipoUno += Number(obj.valor || '');
