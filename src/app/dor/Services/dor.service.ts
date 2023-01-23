@@ -28,17 +28,17 @@ export class DorService {
     return this.http.post(`${this.baseUrl}api/DOR/ListaSubordinados`, user, { headers: this.httpHeaders });
   }
 
-  getObjetivosByProyecto(anio: string, numProyecto: string, noEmpleado: string) {
-    return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosProyecto/${anio}/${numProyecto}/${noEmpleado}`);
+  getObjetivosByProyecto(anio: string, numProyecto: string, noEmpleado: string, nivel: string, tipo: number) {
+    return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosProyecto/${anio}/${numProyecto}/${noEmpleado}/${nivel}/${tipo}`);
   }
 
   getObjetivosGenerales(nivel: string, unidad: string) {
-    console.log(nivel);
+    //console.log(nivel);
     return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosGenerales/${nivel}/${unidad}`);
   }
 
   updateObjetivos(objetivo: Objetivos): Observable<any> {
-    console.log(objetivo);
+    //console.log(objetivo);
     return this.http.put(`${this.baseUrl}api/dor/ActualizarObjetivos`, objetivo, { headers: this.httpHeaders });
   }
 

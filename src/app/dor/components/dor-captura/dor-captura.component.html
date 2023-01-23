@@ -61,8 +61,11 @@
             <div class="col-sm" *ngFor="let tipo of tiposTablasObjGenerales; let i = index;">
               <ng-container *ngIf="tipo == tiposTablasObjGenerales[0]">
                 <div class="card">
-                  <h5><strong>{{tipo}}</strong></h5>
+                  <h5><strong>&nbsp;&nbsp;{{tipo}}</strong></h5>
                   <!-- [tableStyle]="{'min-width': '50rem'}" -->
+                  <div class="text-end">
+                    <strong>Total: {{totalObjetivosTipoUno}}%</strong>&nbsp;&nbsp;
+                  </div>
                   <p-table [value]="listObjGenralesTipoUno">
                     <ng-template pTemplate="header">
                       <tr>
@@ -83,8 +86,11 @@
               </ng-container>
               <ng-container *ngIf="tipo == tiposTablasObjGenerales[1]">
                 <div class="card">
-                  <h5><strong>{{tipo}}</strong></h5>
+                  <h5><strong>&nbsp;&nbsp;{{tipo}}</strong></h5>
                   <!-- [tableStyle]="{'min-width': '50rem'}" -->
+                  <div class="text-end">
+                    <strong>Total: {{totalObjetivosTipoDos}}%</strong>&nbsp;&nbsp;
+                  </div>
                   <p-table [value]="listObjGenralesTipoDos">
                     <ng-template pTemplate="header">
                       <tr>
@@ -111,67 +117,109 @@
       <br>
       <br>
 
-      <div class="card">
-        <h5><strong>CUALITATIVOS</strong></h5>
-        <p-table [value]="listObjetivos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="width:60%">Descripción</th>
-              <th style="width:30%">Meta</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-objetivo let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="objetivo">
+      <ng-container *ngIf="listObjetivos.length > 0">
+        <div class="card">
+          <h5><strong>&nbsp;&nbsp;CUALITATIVOS</strong></h5>
+          <div class="row">
+            <!-- <div class="col-sm-8"><p class="float-end">left</p></div>
+            <div class="col-sm-2"><p class="float-start">right</p></div>
+            <div class="col-sm-2"><p class="float-start">right</p></div> -->
+            <div class="col-1">
+            </div>
+            <div class="col-9 text-right">
+               <div class="text-end">
+                <strong>Total: {{totalObjetivosCualitativos}}%</strong>&nbsp;&nbsp;
+               </div>
+            </div>
+            <div class="col-3">
+            </div>
+          </div>
 
-              <ng-container *ngIf="objetivo.isComodin">
-                <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
+          <p-table [value]="listObjetivos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width:50%">Descripción</th>
+                <th style="width:20%">Meta</th>
+                <th style="width:20%">Porcentaje</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-objetivo let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="objetivo">
+
+                <ng-container *ngIf="objetivo.isComodin">
+                  <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="objetivo.descripcion" required>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{objetivo.descripcion}}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="!objetivo.isComodin">
+                  <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
+                    {{objetivo.descripcion}}
+                  </td>
+                </ng-container>
+
+                <td>
                   <p-cellEditor>
                     <ng-template pTemplate="input">
-                      <input pInputText type="text" [(ngModel)]="objetivo.descripcion" required>
+                      <input pInputText type="text" [(ngModel)]="objetivo.meta" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{objetivo.descripcion}}
+                      {{objetivo.meta}}
                     </ng-template>
                   </p-cellEditor>
                 </td>
-              </ng-container>
-
-              <ng-container *ngIf="!objetivo.isComodin">
-                <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
-                  {{objetivo.descripcion}}
+                <td>
+                  <!-- <div class="text-end"> -->
+                  {{objetivo.valor}}%&nbsp;&nbsp;
+                  <!-- </div> -->
                 </td>
-              </ng-container>
 
-              <td>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="objetivo.meta" required>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{objetivo.meta}}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
+                <td>
+                  <div class="flex align-items-center justify-content-center gap-2">
+                    <ng-container *ngIf="!objetivo.isEditable">
+                      <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                        (click)="onRowEditInit(objetivo)" class="p-button-rounded p-button-text"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                        (click)="onRowEditSave(objetivo)"
+                        class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                        (click)="onRowEditCancel(objetivo, ri)"
+                        class="p-button-rounded p-button-text p-button-danger"></button>
+                    </ng-container>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <br>
+        <div class="text-center">
+          <strong>Total: {{totalObjetivosCualitativos + totalObjetivosTipoUno + totalObjetivosTipoDos}} %</strong>&nbsp;&nbsp;
+        </div>
+        <br>
+        <div class="row">
+          <div>
+            <div class="d-flex justify-content-end">
+              <button pButton pRipple type="button" label="Cargar Objetivos" (click)="saveAllObjetivos()"
+                class="p-button-success"></button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
 
-              <td>
-                <div class="flex align-items-center justify-content-center gap-2">
-                  <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
-                    (click)="onRowEditInit(objetivo)" class="p-button-rounded p-button-text"></button>
-                  <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
-                    (click)="onRowEditSave(objetivo)"
-                    class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                  <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
-                    (click)="onRowEditCancel(objetivo, ri)"
-                    class="p-button-rounded p-button-text p-button-danger"></button>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-
+      <ng-container *ngIf="listObjetivos.length == 0">
+        <div class="text-center">
+          <p-message severity="info" [text]="mensaje_sin_datos" styleClass="p-mr-2"></p-message>
+        </div>
+      </ng-container>
     </div>
-
   </ng-container>
 </div>
 <p-toast></p-toast>

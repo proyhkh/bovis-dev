@@ -22,13 +22,20 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DorObjetivosComponent } from './components/dor-objetivos/dor-objetivos.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluacion.component';
 
 @NgModule({
   declarations: [
     DorComponent,
     DorCrudComponent,
     DorCapturaComponent,
-    DorObjetivosComponent
+    DorObjetivosComponent,
+    DorEvaluacionComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +53,12 @@ import { MessagesModule } from 'primeng/messages';
     ButtonModule,
     TooltipModule,
     ConfirmDialogModule,
-    MessagesModule
+    MessagesModule,
+    MessageModule,
+    DialogModule,
+   /*  BrowserModule,
+    BrowserAnimationsModule, */
+    InputTextareaModule
   ],
   providers: [ConfirmationService, MessageService, DorService]
 })

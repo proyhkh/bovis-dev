@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Objetivos, ObjetivosGenerales, Subordinados } from '../../Models/subordinados';
+import { Objetivos, ObjetivosGenerales, Subordinados, EstatusObjetivosPorProyecto, MensajesObjetivosCualitativos } from '../../Models/subordinados';
 import { DorService } from '../../Services/dor.service';
 import { MessageService } from 'primeng/api';
 
@@ -28,7 +28,12 @@ export class DorCapturaComponent implements OnInit {
   listObjGenralesTipoUno: ObjetivosGenerales[];
   listObjGenralesTipoDos: ObjetivosGenerales[];
   tiposTablasObjGenerales: any;
-
+  totalObjetivosTipoUno: number = 0;
+  totalObjetivosTipoDos: number = 0;
+  totalObjetivosCualitativos: number = 0;
+  totalObjetivosGeneral: number = 0;
+  msgs = [];
+  mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_captura;
 
   constructor(private docService: DorService, private messageService: MessageService) {
     //console.log(localStorage.getItem('userMail'));
@@ -36,6 +41,10 @@ export class DorCapturaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getInicialDatosEjecutivo();
+  }
+
+  getInicialDatosEjecutivo() {
     this.docService.getDatosEjecutivo(this.userMail).subscribe(data => {
       //console.log(data);
       const str = 'data' as any;
@@ -66,7 +75,26 @@ export class DorCapturaComponent implements OnInit {
       this.subComple.unidadDeNegocio = subordinado?.unidadDeNegocio || '';
       this.subComple.direccionEjecutiva = subordinado?.direccionEjecutiva || '';
       this.subComple.centrosdeCostos = subordinado?.centrosdeCostos || '';
-      this.docService.getObjetivosByProyecto('2023', this.subComple.centrosdeCostos, this.subComple.noEmpleado).subscribe(objetivos => {
+
+      this.getObjetivosPorProyecto('2023', this.subComple.centrosdeCostos, this.subComple.noEmpleado, subordinado.nivel || '', EstatusObjetivosPorProyecto.inicial, true);
+      this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
+        this.listObjGenrales = generales.data;
+        //console.log(this.listObjGenrales);
+        this.getTablasObjetivosGenerales();
+      });
+    }
+  }
+
+  getObjetivosPorProyecto(anio: string, numProyecto: string, noEmpleado: string, nivel: string, tipo: number, isRecursivo: boolean) {
+
+    this.docService.getObjetivosByProyecto(anio, numProyecto, noEmpleado, nivel, tipo).subscribe(objetivos => {
+
+      if (objetivos.data.length == 0 && isRecursivo) {
+        this.listObjetivos = [];
+        this.objetivos2 = [];
+        this.getObjetivosPorProyecto(anio, numProyecto, noEmpleado, nivel, EstatusObjetivosPorProyecto.rechazado_por_empleado, false);
+      }
+      else {
         this.listObjetivos = objetivos.data;
         this.objetivos2 = objetivos.data;
         this.isObjetivos = true;
@@ -75,6 +103,9 @@ export class DorCapturaComponent implements OnInit {
           obj.id = numId.toString();
           numId++;
           obj.descripcion == 'Sustentabilidad?' ? obj.isComodin = true : obj.isComodin = false;
+          obj.descripcion?.includes('Evaluación 360°') ? obj.isEditable = true : obj.isEditable = false;
+
+          this.totalObjetivosCualitativos += Number(obj.valor || '');
         });
         let numId2 = 1;
         this.objetivos2.forEach(obj => {
@@ -83,23 +114,34 @@ export class DorCapturaComponent implements OnInit {
           numId2++;
         });
         //console.log(this.listObjetivos);
-      });
-      this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
-        this.listObjGenrales = generales.data;
-        //console.log(this.listObjGenrales);
-        this.getTablasObjetivosGenerales();
-      });
+      }
+    });
 
-    }
   }
 
-  getTablasObjetivosGenerales(){
+  getTablasObjetivosGenerales() {
 
     let tipos = this.listObjGenrales.map(item => item.concepto)
-    .filter((value, index, self) => self.indexOf(value) === index);
+      .filter((value, index, self) => self.indexOf(value) === index);
+
+    let indiceCorporativo = tipos.indexOf('CORPORATIVO');
+    //console.log(indiceCorporativo);
+    if (indiceCorporativo == 0) {
+      tipos = tipos.reverse();
+    }
     this.tiposTablasObjGenerales = tipos;
-    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == tipos[0]);
-    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == tipos[1]);
+    console.log(tipos);
+    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
+    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+
+
+    this.listObjGenralesTipoUno.forEach(obj => {
+      this.totalObjetivosTipoUno += Number(obj.valor || '');
+    });
+
+    this.listObjGenralesTipoDos.forEach(obj => {
+      this.totalObjetivosTipoDos += Number(obj.valor || '');
+    });
   }
 
   getSubordinados() {
@@ -117,14 +159,15 @@ export class DorCapturaComponent implements OnInit {
   saveObjetivo(objetivo: Objetivos) {
     /* objetivo.Proyecto = this.subComple.proyecto;
     objetivo.Empleado = this.subComple.noEmpleado; */
-    //objetivo.Acepto = '0';
+    objetivo.acepto = '1';
+    //console.log(objetivo);
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);
       let mensaje: string = udt.message;
       if (udt.message == null) {
         delete this.clonedObjetivos[objetivo.id];
         this.asignarValorComodin();
-        this.messageService.add({ severity: 'success', summary: 'Meta', detail: 'Almacenado correctamente' });
+        this.messageService.add({ severity: 'success', summary: 'Guardar', detail: 'Almacenado correctamente' });
       }
       else if (mensaje.includes('error')) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: mensaje });
@@ -132,11 +175,23 @@ export class DorCapturaComponent implements OnInit {
     });
   }
 
+  async saveAllObjetivos() {
+     this.listObjetivos.forEach(async objetivo => {
+      objetivo.acepto = '1';
+      await this.docService.updateObjetivos(objetivo).subscribe(udt => {
+        console.log(udt);
+      });
+    });
+    console.log(2222);
+    this.isObjetivos = false;
+    this.messageService.add({ severity: 'success', summary: 'Guardar', detail: 'Todos los objetivos fueron almacenados correctamente' });
+  }
+
   onRowEditInit(product: Objetivos) {
     this.clonedObjetivos[product.id] = { ...product };
   }
 
-  asignarValorComodin(){
+  asignarValorComodin() {
 
     this.listObjetivos.forEach(obj => {
       obj.descripcion == 'Sustentabilidad?' ? obj.isComodin = true : obj.isComodin = false;

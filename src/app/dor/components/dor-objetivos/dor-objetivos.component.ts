@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DorService } from '../../Services/dor.service';
-import { Objetivos, ObjetivosGenerales, Subordinados } from '../../Models/subordinados';
+import { Objetivos, ObjetivosGenerales, Subordinados, EstatusObjetivosPorProyecto, MensajesObjetivosCualitativos } from '../../Models/subordinados';
 import { ConfirmationService, Message, MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -16,23 +16,33 @@ export class DorObjetivosComponent implements OnInit {
   listObjGenralesTipoUno: ObjetivosGenerales[];
   listObjGenralesTipoDos: ObjetivosGenerales[];
   tiposTablasObjGenerales: any;
-  listObjetivos: Objetivos[];
+  listObjetivos: Objetivos[] = [];
   msgs: Message[] = [];
+  totalObjetivosTipoUno: number = 0;
+  totalObjetivosTipoDos: number = 0;
+  totalObjetivosCualitativos: number = 0;
+  displayModal: boolean;
+  motivoRechazoObjetivos: string = '';
+  mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_captura;
+  count_carapteres: number = 20;
 
   constructor(private dorService: DorService, private confirmationService: ConfirmationService,
-    private primengConfig: PrimeNGConfig, private messageService: MessageService,) {
+    private primengConfig: PrimeNGConfig, private messageService: MessageService) {
     this.userMail = localStorage.getItem('userMail');
   }
 
   ngOnInit(): void {
     //console.log(this.userMail);
+    this.getInfoEmpleado();
+
+  }
+
+  getInfoEmpleado(){
     this.dorService.getDatosEmpleado(this.userMail).subscribe(emp => {
       this.empleado = emp.data || new Subordinados();
-      console.log(this.empleado);
-      this.dorService.getObjetivosByProyecto('2023', this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '').subscribe(objetivos => {
-        this.listObjetivos = objetivos.data;
-        //console.log(this.listObjetivos);
-      });
+      //console.log(this.empleado);
+
+      this.getObjetivosPorProyecto('2023', this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '', this.empleado.nivel || '', EstatusObjetivosPorProyecto.capturado_por_ejecutivo, false)
 
       this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
         this.listObjGenrales = generales.data;
@@ -42,13 +52,42 @@ export class DorObjetivosComponent implements OnInit {
     });
   }
 
+  getObjetivosPorProyecto(anio: string, numProyecto: string, noEmpleado: string, nivel: string, tipo: number, isRecursivo: boolean) {
+
+    this.dorService.getObjetivosByProyecto(anio, numProyecto, noEmpleado, nivel, tipo).subscribe(obj => {
+
+      if (obj.data.length == 0) {
+        this.listObjetivos = [];
+      }
+      else {
+        this.listObjetivos = obj.data;
+        this.listObjetivos.forEach(obj => {
+          this.totalObjetivosCualitativos += Number(obj.valor || '');
+        });
+      }
+    });
+  }
+
   getTablasObjetivosGenerales() {
 
     let tipos = this.listObjGenrales.map(item => item.concepto)
       .filter((value, index, self) => self.indexOf(value) === index);
+    let indiceCorporativo = tipos.indexOf('CORPORATIVO');
+    //console.log(indiceCorporativo);
+    if (indiceCorporativo == 0) {
+      tipos = tipos.reverse();
+    }
     this.tiposTablasObjGenerales = tipos;
-    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == tipos[0]);
-    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == tipos[1]);
+    this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
+    this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
+
+    this.listObjGenralesTipoUno.forEach(obj => {
+      this.totalObjetivosTipoUno += Number(obj.valor || '');
+    });
+
+    this.listObjGenralesTipoDos.forEach(obj => {
+      this.totalObjetivosTipoDos += Number(obj.valor || '');
+    });
   }
 
   confirm1() {
@@ -59,11 +98,12 @@ export class DorObjetivosComponent implements OnInit {
       acceptLabel: 'Aceptar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        this.messageService.add({
+        this.saveAllObjetivos('2');
+      /*   this.messageService.add({
           severity: "success",
           summary: "Dor",
           detail: "Objetivos aprobados correctamente"
-        });
+        }); */
         /*  this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}]; */
       },
       reject: () => {
@@ -75,6 +115,31 @@ export class DorObjetivosComponent implements OnInit {
         /* this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}]; */
       }
     });
+  }
+
+  showModalDialog() {
+    this.displayModal = true;
+  }
+
+  async saveAllObjetivos(tipoAcept: string) {
+    let tipoSaveMensaje = '';
+     this.listObjetivos.forEach(async objetivo => {
+      objetivo.acepto = tipoAcept;
+      if (tipoAcept == '3') {
+        objetivo.motivoR = this.motivoRechazoObjetivos;
+        tipoSaveMensaje = 'rechazados'
+      }
+      else{
+        tipoSaveMensaje = 'aprobados'
+      }
+      await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
+        console.log(udt);
+      });
+    });
+    this.displayModal = false;
+    console.log(3333);
+    this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
+    this.getInfoEmpleado();
   }
 
 
