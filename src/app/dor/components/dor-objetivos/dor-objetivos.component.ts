@@ -146,5 +146,4 @@ export class DorObjetivosComponent implements OnInit {
     }
   }
 
-
 }

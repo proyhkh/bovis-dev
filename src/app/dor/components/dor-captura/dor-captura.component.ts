@@ -66,6 +66,7 @@ export class DorCapturaComponent implements OnInit {
     /*console.log('event :' + event);
      console.log(event.value);*/
     if (event.value) {
+      this.clearPorcentajes();
       let select = <EmpleadosSub>event.value
       //console.log(this.listSubordinados);
       let subordinado = this.listSubordinados.find(xx => xx.nombre == select.value) ?? {};
@@ -83,6 +84,13 @@ export class DorCapturaComponent implements OnInit {
         this.getTablasObjetivosGenerales();
       });
     }
+  }
+
+  clearPorcentajes(){
+    this.totalObjetivosTipoUno = 0;
+    this.totalObjetivosTipoDos = 0;
+    this.totalObjetivosCualitativos = 0;
+    this.totalObjetivosGeneral = 0;
   }
 
   getObjetivosPorProyecto(anio: string, numProyecto: string, noEmpleado: string, nivel: string, tipo: number, isRecursivo: boolean) {
