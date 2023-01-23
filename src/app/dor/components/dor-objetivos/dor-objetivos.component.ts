@@ -118,28 +118,32 @@ export class DorObjetivosComponent implements OnInit {
   }
 
   showModalDialog() {
+    this.motivoRechazoObjetivos = '';
     this.displayModal = true;
   }
 
   async saveAllObjetivos(tipoAcept: string) {
-    let tipoSaveMensaje = '';
-     this.listObjetivos.forEach(async objetivo => {
-      objetivo.acepto = tipoAcept;
-      if (tipoAcept == '3') {
-        objetivo.motivoR = this.motivoRechazoObjetivos;
-        tipoSaveMensaje = 'rechazados'
-      }
-      else{
-        tipoSaveMensaje = 'aprobados'
-      }
-      await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
-        console.log(udt);
-      });
-    });
-    this.displayModal = false;
-    console.log(3333);
-    this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
-    this.getInfoEmpleado();
+
+    if(this.motivoRechazoObjetivos.length >= this.count_carapteres){
+      let tipoSaveMensaje = '';
+      this.listObjetivos.forEach(async objetivo => {
+       objetivo.acepto = tipoAcept;
+       if (tipoAcept == '3') {
+         objetivo.motivoR = this.motivoRechazoObjetivos;
+         tipoSaveMensaje = 'rechazados'
+       }
+       else{
+         tipoSaveMensaje = 'aprobados'
+       }
+       await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
+         console.log(udt);
+       });
+     });
+     this.displayModal = false;
+     console.log(3333);
+     this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
+     this.getInfoEmpleado();
+    }
   }
 
 
