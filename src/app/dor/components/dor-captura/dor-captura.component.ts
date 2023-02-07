@@ -32,7 +32,7 @@ export class DorCapturaComponent implements OnInit {
   totalObjetivosTipoDos: number = 0;
   totalObjetivosCualitativos: number = 0;
   totalObjetivosGeneral: number = 0;
-  msgs = [];
+  msgs: any = [];
   mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_captura;
   motivoRechazoObjetivos: string = '';
   isMotivoRechazo: boolean = false;

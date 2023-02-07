@@ -10,7 +10,7 @@ export class MenuSidebarComponent implements OnInit {
   @Output() nameModule = new EventEmitter<string>();
 
   rol: string;
-  _accesos = [];
+  _accesos: any = [];
   get accesos(): any {
     return this._accesos;
   }

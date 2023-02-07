@@ -31,11 +31,14 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ViaticosService } from './services/viaticos.service';
 import { TooltipModule } from 'primeng/tooltip';
+import { TagModule } from 'primeng/tag';
+import { CatalogosGeneralesComponent } from './components/catalogos-generales/catalogos-generales.component';
 
 @NgModule({
   declarations: [
     CatalogosComponent,
-    ViaticosComponent
+    ViaticosComponent,
+    CatalogosGeneralesComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +64,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ConfirmDialogModule,
     InputTextareaModule,
     TooltipModule,
+    TagModule
   ],
   providers: [
     CatalogosService,

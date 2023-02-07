@@ -29,6 +29,11 @@ const routes: Routes = [
         path: 'catalogos',
         loadChildren: () =>
           import('./catalogos/catalogos.module').then((m) => m.CatalogosModule),
+      },
+      {
+        path: 'facturacion',
+        loadChildren: () =>
+          import('./facturacion/facturacion.module').then((m) => m.FacturacionModule),
       }
     ],
     /* canActivate: [MsalGuard] */

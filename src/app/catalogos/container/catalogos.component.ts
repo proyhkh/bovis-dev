@@ -8,152 +8,142 @@ import { Component, OnInit } from '@angular/core';
 export class CatalogosComponent implements OnInit {
 
   catalogos: any[] = [
-    {
+   /*  {
       catalogo: 'cat_viaticos',
       id: null,
       nombre: 'Viaticos',
+      orden: 1,
+      nameService: ''
+    }, */
+    {
+      catalogo: 'cat_beneficios',
+      id: null,
+      nombre: 'Beneficios',
+      orden: 1,
+      nameService: 'beneficio'
     },
     {
-      catalogo: 'normativa_tipoInstrumento',
+      catalogo: 'cat_categoria',
       id: null,
-      nombre: 'Catalogo 2',
+      nombre: 'Categoria',
+      orden: 2,
+      nameService: 'categoria'
     },
     {
-      catalogo: 'normativa_tipoCircular',
+      catalogo: 'cat_clasificacion',
       id: null,
-      nombre: 'Catalogo 3',
+      nombre: 'Clasificación',
+      orden: 3,
+      nameService: 'Clasificacion'
     },
     {
-      catalogo: 'normativa_materiaRegulacion',
+      catalogo: 'cat_costos_indirectos_salarios',
       id: null,
-      nombre: 'Catalogo 4',
-    },
-   /*  {
-      catalogo: 'normativa_ambitoIncide',
-      id: null,
-      nombre: 'Ámbito incide (Diversa normativa)',
-    },
-    { catalogo: 'acuerdos_votacion', id: null, nombre: 'Votación (Acuerdos)' },
-    { catalogo: 'acuerdos_vigencia', id: null, nombre: 'Vigencia (Acuerdos)' },
-    { catalogo: 'acuerdos_organo', id: null, nombre: 'Órgano (Acuerdos)' },
-    {
-      catalogo: 'voto_tipoTemaSustantivo',
-      id: null,
-      nombre: 'Tema sustantivo (Votos)',
+      nombre: 'Costos Indirectos Salarios',
+      orden: 4,
+      nameService: 'CostoIndirectoSalarios'
     },
     {
-      catalogo: 'voto_tipoTemaProcesal',
+      catalogo: 'cat_departamento',
       id: null,
-      nombre: 'Tema procesal (Votos)',
+      nombre: 'Departamento',
+      orden: 5,
+      nameService: 'Departamento'
     },
     {
-      catalogo: 'voto_tipoTemaAbordado',
+      catalogo: 'cat_documento',
       id: null,
-      nombre: 'Tema abordado (Votos)',
-    },
-    { catalogo: 'voto_tipoVoto', id: null, nombre: 'Tipo voto (Votos)' },
-    { catalogo: 'voto_tipoAsunto', id: null, nombre: 'Tipo asunto (Votos)' },
-    {
-      catalogo: 'sentencia_sentidoResolucion',
-      id: null,
-      nombre: 'Sentido resolución (Sentencias)',
+      nombre: 'Documento',
+      orden: 6,
+      nameService: ''
     },
     {
-      catalogo: 'sentencia_tramiteEngrose',
+      catalogo: 'cat_estatus_proyecto',
       id: null,
-      nombre: 'Trámite engrose (Sentencias)',
+      nombre: 'Estatus Proyecto',
+      orden: 7,
+      nameService: 'Estatus'
     },
     {
-      catalogo: 'sentencia_momentoEfectoInvalidez',
+      catalogo: 'cat_ingreso',
       id: null,
-      nombre: 'Momento efecto invalidez (Sentencias)',
+      nombre: 'Ingreso',
+      orden: 8,
+      nameService: 'Ingreso'
     },
     {
-      catalogo: 'sentencia_invacionPoderesAnalizado',
+      catalogo: 'cat_nivel_puesto',
       id: null,
-      nombre: 'Invasión poderes analizado (Sentencias)',
+      nombre: 'Nivel de Puestos',
+      orden: 9,
+      nameService: 'NivelPuesto'
     },
     {
-      catalogo: 'sentencia_invacionEsferasAnalizado',
+      catalogo: 'cat_prestacion',
       id: null,
-      nombre: 'Invasión esferas analizado (Sentencias)',
+      nombre: 'Prestación',
+      orden: 10,
+      nameService: 'Prestacion'
     },
     {
-      catalogo: 'sentencia_congresoEmitio',
+      catalogo: 'cat_puesto',
       id: null,
-      nombre: 'Congreso emitió (Sentencias)',
+      nombre: 'Puesto',
+      orden: 11,
+      nameService: ''
     },
     {
-      catalogo: 'sentencia_tipoSentencia',
+      catalogo: 'cat_rubro_ingreso',
       id: null,
-      nombre: 'Tipo sentencia (Sentencias)',
+      nombre: 'Rubro ingreso rembomsable, no rembomsable',
+      orden: 12,
+      nameService: 'RubroIngresoReembolsable'
     },
     {
-      catalogo: 'sentencias_metodologiaAnalisisConstitucionalidad',
+      catalogo: 'cat_sector',
       id: null,
-      nombre: 'Metodología análisis constitucionalidad (Sentencias)',
+      nombre: 'Sector',
+      orden: 13,
+      nameService: 'Sector'
     },
     {
-      catalogo: 'sentencias_causasImprocedenciaAnalizadas',
+      catalogo: 'cat_cie',
       id: null,
-      nombre: 'Causas improcedencia (Sentencias)',
+      nombre: 'Tipo Cie',
+      orden: 14,
+      nameService: 'TipoCie'
     },
     {
-      catalogo: 'sentencias_violacionInvacionPoderes',
+      catalogo: 'cat_cta_contable',
       id: null,
-      nombre: 'Violación invasión poderes (Sentencias)',
+      nombre: 'Tipo Cta Contable',
+      orden: 15,
+      nameService: ''
     },
     {
-      catalogo: 'sentencias_violacionInvacionEsferas',
+      catalogo: 'cat_tipo_cuenta',
       id: null,
-      nombre: 'Violación invasión esferas (Sentencias)',
+      nombre: 'Tipo cuenta',
+      orden: 16,
+      nameService: 'TipoCuenta'
     },
     {
-      catalogo: 'sentencia_tipoVicioProcesoLegislativo',
+      catalogo: 'cat_tipo_documento',
       id: null,
-      nombre: 'Vicio proceso legislativo (Sentencias)',
-    },
-    {
-      catalogo: 'sentencias_violacionOrganicaAnalizada',
-      id: null,
-      nombre: 'Violación Orgánica (Sentencias)',
-    },
-    {
-      catalogo: 'sentencias_derechosHumanos',
-      id: null,
-      nombre: 'Derechos humanos (Sentencias)',
-    },
-    {
-      catalogo: 'sentencia_tipoViolacionPlanteadaenlaDemanda',
-      id: null,
-      nombre: 'Planteada en la demanda (Sentencias)',
-    },
-    {
-      catalogo: 'sentencia_tipoPersonaJuridicaColectiva',
-      id: null,
-      nombre: 'Persona jurídica (Sentencias)',
-    },
-    {
-      catalogo: 'sentencia_tipoPersonaPromovente',
-      id: null,
-      nombre: 'Persona promovente (Sentencias)',
-    },
-    {
-      catalogo: 'sentencia_organoRadicacion',
-      id: null,
-      nombre: 'Órgano radicación (Sentencias)',
-    },
-    {
-      catalogo: 'sentencia_tipoAsunto',
-      id: null,
-      nombre: 'Tipo asunto (Sentencias)',
-    },
-    { catalogo: 'ministros', id: null, nombre: 'Ministros' }, */
+      nombre: 'Tipo Documento',
+      orden: 17,
+      nameService: 'TipoDocumento'
+    }
+
   ];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  asignarUrlService(nameServise: string){
+    localStorage.setItem('nombreService', nameServise)
   }
 
 }

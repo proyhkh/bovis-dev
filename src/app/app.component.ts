@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //ngStyle: string;
   user: string = '';
   isModulos = false;
-  roles = null;
+  roles: any = null;
   private _mobileQueryListener!: () => void;
 
   constructor(

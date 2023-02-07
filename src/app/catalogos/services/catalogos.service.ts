@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Viaticos } from '../Models/viaticos';
+import { Viaticos } from '../Models/catalogos';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

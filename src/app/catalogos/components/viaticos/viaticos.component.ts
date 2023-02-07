@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Viaticos } from '../../Models/viaticos';
+import { Viaticos } from '../../Models/catalogos';
 import { ViaticosService } from '../../services/viaticos.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PrimeIcons} from 'primeng/api';
