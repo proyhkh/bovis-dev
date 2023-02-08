@@ -80,18 +80,12 @@
           <textarea id="description" [(ngModel)]="catElement.descripcion" pInputTextarea required rows="3"
             cols="20"></textarea>
         </div>
-        <div class="p-field" *ngIf="isNuevo">
+        <div class="p-field" *ngIf="false">
           <label class="p-mb-3">Estatus</label>
           <div class="p-formgrid p-grid">
             <p-dropdown [options]="listEstatus" [(ngModel)]="selectedEstatus" placeholder="Seleccione un Estatus"
               optionLabel="label" [showClear]="true"></p-dropdown>
           </div>
-        </div>
-
-        <div class="p-field" *ngIf="isNuevo">
-          <br>
-          <br>
-          <br>
         </div>
 
       </ng-template>

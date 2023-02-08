@@ -26,7 +26,7 @@ export class CatalogosGeneralesService {
   }
 
   updateElement(registro: CatalogosGenerales, pathServicio: string): Observable<any> {
-    console.log(registro);
+    //console.log(registro);
     return this.http.post(`${this.baseUrl}/api/catalogo/${pathServicio}/Actualizar`, registro, { headers: this.httpHeaders });
   }
 

@@ -74,11 +74,10 @@ export class CatalogosGeneralesComponent implements OnInit {
         }
       });
     }else{
-      this.catElement.activo = this.selectedEstatus.value;
-      console.log(this.catElement);
+      //console.log(this.catElement);
       this.getPosicion();
-      /* this.catalogosService.updateElement(this.catElement, this.nombreServicio).subscribe(data => {
-        console.log(data);
+      this.catalogosService.updateElement(this.catElement, this.nombreServicio).subscribe(data => {
+       // console.log(data);
         if (data.success) {
           this.messageService.add({
             severity: "success",
@@ -88,7 +87,7 @@ export class CatalogosGeneralesComponent implements OnInit {
           });
           this.getDataCatalogo();
         }
-      }); */
+      });
     }
     this.isDialog = false;
   }
