@@ -6,7 +6,7 @@ import { ConfirmationService, Message, MessageService, PrimeNGConfig } from 'pri
 @Component({
   selector: 'app-dor-objetivos',
   templateUrl: './dor-objetivos.component.html',
-  styleUrls: ['./dor-objetivos.component.css']
+  styleUrls: ['./dor-objetivos.component.scss']
 })
 export class DorObjetivosComponent implements OnInit {
   userMail: string | null = '';

@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-menu-sidebar',
   templateUrl: './menu-sidebar.component.html',
-  styleUrls: ['./menu-sidebar.component.css']
+  styleUrls: ['./menu-sidebar.component.scss']
 })
 export class MenuSidebarComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class MenuSidebarComponent implements OnInit {
     if (value) {
       this._accesos = value;
       this.rol = value[0].split('.')[0];
-      //console.log(this.rol);
+      console.log(this.rol);
     }
   }
 

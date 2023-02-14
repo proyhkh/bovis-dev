@@ -101,9 +101,17 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-obj>
                       <tr>
-                        <td pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
-                        <td>{{obj.meta}}</td>
-                        <td>{{obj.valor}}%</td>
+                        <ng-container *ngIf="obj.descripcion.includes('GPM')" >
+                          <td class="text-info" pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
+                          <td class="text-info">{{obj.meta}}</td>
+                          <td class="text-info">{{obj.valor}}%</td>
+                        </ng-container>
+
+                        <ng-container *ngIf="!obj.descripcion.includes('GPM')">
+                          <td pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
+                          <td>{{obj.meta}}</td>
+                          <td>{{obj.valor}}%</td>
+                        </ng-container>
                       </tr>
                     </ng-template>
                   </p-table>
@@ -121,10 +129,11 @@
         <div class="row d-flex justify-content-center">
           <label for="">
             <strong style="color: red;">Motivo del rechazo</strong>
-           </label>
+          </label>
         </div>
-        <div  class="row d-flex justify-content-center">
-            <textarea [rows]="3" [cols]="80" pInputTextarea  [(ngModel)]="motivoRechazoObjetivos" [disabled]="true"></textarea>
+        <div class="row d-flex justify-content-center">
+          <textarea [rows]="3" [cols]="80" pInputTextarea [(ngModel)]="motivoRechazoObjetivos"
+            [disabled]="true"></textarea>
         </div>
         <br>
         <br>
@@ -140,9 +149,9 @@
             <div class="col-1">
             </div>
             <div class="col-9 text-right">
-               <div class="text-end">
+              <div class="text-end">
                 <strong>Total: {{totalObjetivosCualitativos}}%</strong>&nbsp;&nbsp;
-               </div>
+              </div>
             </div>
             <div class="col-3">
             </div>
@@ -214,7 +223,8 @@
         </div>
         <br>
         <div class="text-center">
-          <strong>Total: {{totalObjetivosCualitativos + totalObjetivosTipoUno + totalObjetivosTipoDos}} %</strong>&nbsp;&nbsp;
+          <strong>Total: {{totalObjetivosCualitativos + totalObjetivosTipoUno + totalObjetivosTipoDos}}
+            %</strong>&nbsp;&nbsp;
         </div>
         <br>
         <div class="row">

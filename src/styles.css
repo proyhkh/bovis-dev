@@ -61,8 +61,8 @@ a:focus {
   align-items: stretch;
 }
 #sidebar {
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 170px;
+  max-width: 170px;
   background: #03a7bb;
   color: #fff;
   transition: all 0.3s;
@@ -114,7 +114,7 @@ a[data-toggle="collapse"] {
 
 ul ul a {
   font-size: 0.9em !important;
-  padding-left: 30px !important;
+  padding-left: 10px !important;
   background: #03a7bb;
 }
 

@@ -11,7 +11,7 @@ interface EmpleadosSub {
 @Component({
   selector: 'app-dor-captura',
   templateUrl: './dor-captura.component.html',
-  styleUrls: ['./dor-captura.component.css']
+  styleUrls: ['./dor-captura.component.scss']
 })
 export class DorCapturaComponent implements OnInit {
 
@@ -36,7 +36,7 @@ export class DorCapturaComponent implements OnInit {
   mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_captura;
   motivoRechazoObjetivos: string = '';
   isMotivoRechazo: boolean = false;
-
+  anio: number = 2023;
   constructor(private docService: DorService, private messageService: MessageService) {
     //console.log(localStorage.getItem('userMail'));
     this.userMail = localStorage.getItem('userMail');
@@ -79,16 +79,20 @@ export class DorCapturaComponent implements OnInit {
       this.subComple.direccionEjecutiva = subordinado?.direccionEjecutiva || '';
       this.subComple.centrosdeCostos = subordinado?.centrosdeCostos || '';
 
-      this.getObjetivosPorProyecto('2023', this.subComple.centrosdeCostos, this.subComple.noEmpleado, subordinado.nivel || '', EstatusObjetivosPorProyecto.inicial, true);
-      this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
-        this.listObjGenrales = generales.data;
-        //console.log(this.listObjGenrales);
-        this.getTablasObjetivosGenerales();
+      this.getObjetivosPorProyecto(String(this.anio), this.subComple.centrosdeCostos, this.subComple.noEmpleado, subordinado.nivel || '', EstatusObjetivosPorProyecto.inicial, true);
+
+      this.docService.getConsultarGPM(this.subComple.centrosdeCostos).subscribe(gpm => {
+        //console.log(gpm);
+        this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
+          this.listObjGenrales = generales.data;
+          //console.log(this.listObjGenrales);
+          this.getTablasObjetivosGenerales(gpm);
+        });
       });
     }
   }
 
-  clearPorcentajes(){
+  clearPorcentajes() {
     this.totalObjetivosTipoUno = 0;
     this.totalObjetivosTipoDos = 0;
     this.totalObjetivosCualitativos = 0;
@@ -114,14 +118,15 @@ export class DorCapturaComponent implements OnInit {
           numId++;
           obj.descripcion == 'Sustentabilidad?' ? obj.isComodin = true : obj.isComodin = false;
           obj.descripcion?.includes('Evaluación 360°') ? obj.isEditable = true : obj.isEditable = false;
+          obj.descripcion?.includes('Objetivo personal') ? obj.isEditable = true : obj.isEditable = false;
 
           this.totalObjetivosCualitativos += Number(obj.valor || '');
 
-          if(obj.motivoR != null && obj.motivoR != ''){
+          if (obj.motivoR != null && obj.motivoR != '') {
             this.motivoRechazoObjetivos = obj.motivoR;
             this.isMotivoRechazo = true;
           }
-          else{
+          else {
             this.motivoRechazoObjetivos = '';
             this.isMotivoRechazo = false;
           }
@@ -139,7 +144,7 @@ export class DorCapturaComponent implements OnInit {
 
   }
 
-  getTablasObjetivosGenerales() {
+  getTablasObjetivosGenerales(gpm: any) {
 
     let tipos = this.listObjGenrales.map(item => item.concepto)
       .filter((value, index, self) => self.indexOf(value) === index);
@@ -150,7 +155,7 @@ export class DorCapturaComponent implements OnInit {
       tipos = tipos.reverse();
     }
     this.tiposTablasObjGenerales = tipos;
-    console.log(tipos);
+    //console.log(tipos);
     this.listObjGenralesTipoUno = this.listObjGenrales.filter(xx => xx.concepto == "CORPORATIVO");
     this.listObjGenralesTipoDos = this.listObjGenrales.filter(xx => xx.concepto != "CORPORATIVO");
 
@@ -159,9 +164,19 @@ export class DorCapturaComponent implements OnInit {
       this.totalObjetivosTipoUno += Number(obj.valor || '');
     });
 
+    if(gpm.data.length > 0){
+      let objGPM: ObjetivosGenerales = gpm.data[0];
+      objGPM.valor == null ? objGPM.valor = '0' : '';
+      //console.log(objGPM);
+      this.listObjGenralesTipoDos.push(objGPM);
+    }
+
     this.listObjGenralesTipoDos.forEach(obj => {
       this.totalObjetivosTipoDos += Number(obj.valor || '');
     });
+
+    //console.log( this.listObjGenralesTipoDos);
+
   }
 
   getSubordinados() {
@@ -196,7 +211,7 @@ export class DorCapturaComponent implements OnInit {
   }
 
   async saveAllObjetivos() {
-     this.listObjetivos.forEach(async objetivo => {
+    this.listObjetivos.forEach(async objetivo => {
       objetivo.acepto = '1';
       await this.docService.updateObjetivos(objetivo).subscribe(udt => {
         console.log(udt);

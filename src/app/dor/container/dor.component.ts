@@ -5,7 +5,7 @@ import { ConfirmationService, MessageService, PrimeNGConfig, SortEvent } from 'p
 @Component({
   selector: 'app-dor',
   templateUrl: './dor.component.html',
-  styleUrls: ['./dor.component.css']
+  styleUrls: ['./dor.component.scss']
 })
 export class DorComponent implements OnInit {
 

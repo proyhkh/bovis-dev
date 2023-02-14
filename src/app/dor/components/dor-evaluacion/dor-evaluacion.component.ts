@@ -6,7 +6,7 @@ import { Objetivos, ObjetivosGenerales, Subordinados, EstatusObjetivosPorProyect
 @Component({
   selector: 'app-dor-evaluacion',
   templateUrl: './dor-evaluacion.component.html',
-  styleUrls: ['./dor-evaluacion.component.css']
+  styleUrls: ['./dor-evaluacion.component.scss']
 })
 export class DorEvaluacionComponent implements OnInit {
   userMail: string | null = '';

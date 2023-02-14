@@ -16,7 +16,7 @@ interface Objetivos {
 @Component({
   selector: 'app-dor-crud',
   templateUrl: './dor-crud.component.html',
-  styleUrls: ['./dor-crud.component.css']
+  styleUrls: ['./dor-crud.component.scss']
 })
 export class DorCrudComponent implements OnInit {
 
