@@ -22,4 +22,8 @@ export class FacturacionService {
     return this.http.post(`${this.baseUrl}/api/Factura/Enviar`, archivo, { headers: this.httpHeaders });
   }
 
+  getInfoProyecto(numProyecto: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/Factura/infoproyecto/${numProyecto}`,);
+  }
+
 }

@@ -18,3 +18,16 @@ export class ResponseXML{
   totalImpuestosTrasladados: string;
   uuid: string;
 }
+
+export class InfoProyecto{
+  nombre: string;
+  numProyecto: number;
+  rfcEmisor: string;
+  rfcReceptor: string;
+}
+
+
+export class LstFacturas{
+  NombreFactura: string;
+  FacturaB64: string;
+}

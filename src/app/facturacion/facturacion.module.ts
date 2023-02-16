@@ -13,6 +13,8 @@ import { ToastModule } from 'primeng/toast';
 import {TableModule} from 'primeng/table';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import {MessageModule} from 'primeng/message';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     FacturacionRoutingModule,
     FileUploadModule,
     HttpClientModule,
@@ -29,7 +32,8 @@ import {MessageModule} from 'primeng/message';
     ToastModule,
     TableModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    InputNumberModule
   ],
   providers: [
     FacturacionService,
