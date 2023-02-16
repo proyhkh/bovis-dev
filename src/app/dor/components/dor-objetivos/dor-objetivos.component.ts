@@ -25,7 +25,7 @@ export class DorObjetivosComponent implements OnInit {
   motivoRechazoObjetivos: string = '';
   mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_objetivos;
   count_carapteres: number = 20;
-
+  anio: number = 2023;
   constructor(private dorService: DorService, private confirmationService: ConfirmationService,
     private primengConfig: PrimeNGConfig, private messageService: MessageService) {
     this.userMail = localStorage.getItem('userMail');
@@ -37,17 +37,20 @@ export class DorObjetivosComponent implements OnInit {
 
   }
 
-  getInfoEmpleado(){
+  getInfoEmpleado() {
     this.dorService.getDatosEmpleado(this.userMail).subscribe(emp => {
       this.empleado = emp.data || new Subordinados();
       //console.log(this.empleado);
 
-      this.getObjetivosPorProyecto('2023', this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '', this.empleado.nivel || '', EstatusObjetivosPorProyecto.capturado_por_ejecutivo, false)
+      this.getObjetivosPorProyecto(String(this.anio), this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '', this.empleado.nivel || '', EstatusObjetivosPorProyecto.capturado_por_ejecutivo, false)
 
-      this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
-        this.listObjGenrales = generales.data;
-        //console.log(this.listObjGenrales);
-        this.getTablasObjetivosGenerales();
+      this.dorService.getConsultarGPM(this.empleado.centrosdeCostos).subscribe(gpm => {
+        //console.log(gpm);
+        this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
+          this.listObjGenrales = generales.data;
+          //console.log(this.listObjGenrales);
+          this.getTablasObjetivosGenerales(gpm);
+        });
       });
     });
   }
@@ -68,7 +71,7 @@ export class DorObjetivosComponent implements OnInit {
     });
   }
 
-  getTablasObjetivosGenerales() {
+  getTablasObjetivosGenerales(gpm: any) {
 
     let tipos = this.listObjGenrales.map(item => item.concepto)
       .filter((value, index, self) => self.indexOf(value) === index);
@@ -85,6 +88,14 @@ export class DorObjetivosComponent implements OnInit {
       this.totalObjetivosTipoUno += Number(obj.valor || '');
     });
 
+    if(gpm.data.length > 0){
+      let objGPM: ObjetivosGenerales = gpm.data[0];
+      objGPM.valor == null ? objGPM.valor = '0' : '';
+      //console.log(objGPM);
+      this.listObjGenralesTipoDos.push(objGPM);
+    }
+
+
     this.listObjGenralesTipoDos.forEach(obj => {
       this.totalObjetivosTipoDos += Number(obj.valor || '');
     });
@@ -99,11 +110,11 @@ export class DorObjetivosComponent implements OnInit {
       rejectLabel: 'Cancelar',
       accept: () => {
         this.saveAllObjetivos('2');
-      /*   this.messageService.add({
-          severity: "success",
-          summary: "Dor",
-          detail: "Objetivos aprobados correctamente"
-        }); */
+        /*   this.messageService.add({
+            severity: "success",
+            summary: "Dor",
+            detail: "Objetivos aprobados correctamente"
+          }); */
         /*  this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}]; */
       },
       reject: () => {
@@ -124,25 +135,25 @@ export class DorObjetivosComponent implements OnInit {
 
   async saveAllObjetivos(tipoAcept: string) {
 
-    if(this.motivoRechazoObjetivos.length >= this.count_carapteres){
+    if (this.motivoRechazoObjetivos.length >= this.count_carapteres) {
       let tipoSaveMensaje = '';
       this.listObjetivos.forEach(async objetivo => {
-       objetivo.acepto = tipoAcept;
-       if (tipoAcept == '3') {
-         objetivo.motivoR = this.motivoRechazoObjetivos;
-         tipoSaveMensaje = 'rechazados'
-       }
-       else{
-         tipoSaveMensaje = 'aprobados'
-       }
-       await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
-         console.log(udt);
-       });
-     });
-     this.displayModal = false;
-     console.log(3333);
-     this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
-     this.getInfoEmpleado();
+        objetivo.acepto = tipoAcept;
+        if (tipoAcept == '3') {
+          objetivo.motivoR = this.motivoRechazoObjetivos;
+          tipoSaveMensaje = 'rechazados'
+        }
+        else {
+          tipoSaveMensaje = 'aprobados'
+        }
+        await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
+          console.log(udt);
+        });
+      });
+      this.displayModal = false;
+      console.log(3333);
+      this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
+      this.getInfoEmpleado();
     }
   }
 

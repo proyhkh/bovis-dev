@@ -21,28 +21,32 @@ export class DorEvaluacionComponent implements OnInit {
   totalObjetivosTipoDos: number = 0;
   totalObjetivosCualitativos: number = 0;
   mensaje_sin_datos = MensajesObjetivosCualitativos.sin_datos_evaluacion;
+  anio: number = 2023;
 
   constructor(private dorService: DorService, private confirmationService: ConfirmationService,
     private primengConfig: PrimeNGConfig, private messageService: MessageService) {
-      this.userMail = localStorage.getItem('userMail');
-    }
+    this.userMail = localStorage.getItem('userMail');
+  }
 
   ngOnInit(): void {
     this.getInfoEmpleado();
 
   }
 
-  getInfoEmpleado(){
+  getInfoEmpleado() {
     this.dorService.getDatosEmpleado(this.userMail).subscribe(emp => {
       this.empleado = emp.data || new Subordinados();
-      //console.log(this.empleado);
+      console.log(this.empleado);
 
-      this.getObjetivosPorProyecto('2023', this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '', this.empleado.nivel || '', EstatusObjetivosPorProyecto.aceptado_por_empleado, true)
+      this.getObjetivosPorProyecto(String(this.anio), this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '', this.empleado.nivel || '', EstatusObjetivosPorProyecto.aceptado_por_empleado, true)
 
-      this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
-        this.listObjGenrales = generales.data;
-        //console.log(this.listObjGenrales);
-        this.getTablasObjetivosGenerales();
+      this.dorService.getConsultarGPM(this.empleado.centrosdeCostos).subscribe(gpm => {
+        //console.log(gpm);
+        this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
+          this.listObjGenrales = generales.data;
+          //console.log(this.listObjGenrales);
+          this.getTablasObjetivosGenerales(gpm);
+        });
       });
     });
   }
@@ -64,7 +68,7 @@ export class DorEvaluacionComponent implements OnInit {
     });
   }
 
-  getTablasObjetivosGenerales() {
+  getTablasObjetivosGenerales(gpm: any) {
 
     let tipos = this.listObjGenrales.map(item => item.concepto)
       .filter((value, index, self) => self.indexOf(value) === index);
@@ -80,6 +84,13 @@ export class DorEvaluacionComponent implements OnInit {
     this.listObjGenralesTipoUno.forEach(obj => {
       this.totalObjetivosTipoUno += Number(obj.valor || '');
     });
+
+    if(gpm.data.length > 0){
+      let objGPM: ObjetivosGenerales = gpm.data[0];
+      objGPM.valor == null ? objGPM.valor = '0' : '';
+      //console.log(objGPM);
+      this.listObjGenralesTipoDos.push(objGPM);
+    }
 
     this.listObjGenralesTipoDos.forEach(obj => {
       this.totalObjetivosTipoDos += Number(obj.valor || '');
