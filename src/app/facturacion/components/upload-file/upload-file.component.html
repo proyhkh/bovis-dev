@@ -3,29 +3,31 @@
 
   <div class="">
 
-    <div class="formgrid grid">
-      <div class="field col">
+    <div class="formgroup-inline">
+      <div class="field">
         <label for="firstname2">Número de Proyecto:</label>
-        <p-inputNumber id="firstname2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [(ngModel)]="numProyecto"
-          styleClass="input-styling" placeholder="Ingresa el número de proyecto y presiona la tecla 'enter'" (keydown)="changeEnter($event)">
+        <br>
+        <p-inputNumber id="firstname2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"
+          [(ngModel)]="numProyecto" styleClass="input-styling"
+          placeholder="Ingresa el número de proyecto y presiona la tecla 'enter'" (keydown)="changeEnter($event)">
         </p-inputNumber>
       </div>
-      <div class="field col">
+      <div class="field" *ngIf="isLoadingGPM">
+        <br>
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      </div>
+      <div class="field">
         <label for="concepto">Seleccion de Factruras:</label>
-        <p-fileUpload #fileUpload mode="basic" [customUpload]="true" accept=".xml" (onSelect)="onBasicUpload($event)" [multiple]="true"
-        [maxFileSize]="fileSizeMax" chooseLabel="Cargar XML" [disabled]="isXml"></p-fileUpload>
-        <p-button *ngIf="false" icon="pi pi-refresh" (onClick)="clearFile()" label="Limpiar carga"></p-button>
-        <!-- <div class="row">
-          <div class="col-6">
-
-          </div>
-          <div class="col-6">
-
-          </div>
-
-        </div> -->
-
-
+        <p-fileUpload #fileUpload mode="basic" [customUpload]="true" accept=".xml" (onSelect)="onBasicUpload($event)"
+          [multiple]="true" [maxFileSize]="fileSizeMax" chooseLabel="Cargar XML" [disabled]="isXml"></p-fileUpload>
+      </div>
+      <div class="field" *ngIf="isLoadingFacturas">
+        <br>
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      </div>
+      <div class="field">
+        <br>
+        <p-button *ngIf="isClear" icon="pi pi-refresh" (onClick)="clearFile()" label="Limpiar carga"></p-button>
       </div>
 
 
@@ -33,42 +35,44 @@
   </div>
   <br>
 
-  <div *ngIf="listResponse.length > 0">
+  <div *ngIf="listResponse && listResponse.length > 0">
     <p-table [value]="listResponse" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
       <ng-template pTemplate="header">
         <tr>
           <th>Conceptos</th>
-          <th>Fecha</th>
-          <th>Folio</th>
-          <th>Moneda</th>
           <th>Rfc Emisor</th>
           <th>Rfc Receptor</th>
-          <th>Serie</th>
-          <th>SubTotal</th>
-          <th>Tipo de Comprobante</th>
+          <th>Fecha</th>
           <th>Total</th>
-          <th>Total Impuestos Trasladados</th>
-          <th>UUID</th>
+          <th>Tipo Factura</th>
+          <th>No. Factura</th>
+          <th>Nombre Factura</th>
+          <th>Almacenada</th>
+          <th>Error</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-xml>
         <tr>
           <td>
-            <ng-container *ngFor="let concepto of xml.conceptos">
-              {{concepto}}
-            </ng-container>
+            {{xml.conceptos}}
           </td>
-          <td>{{xml.fecha}}</td>
-          <td>{{xml.folio}}</td>
-          <td>{{xml.moneda}}</td>
           <td>{{xml.rfcEmisor}}</td>
           <td>{{xml.rfcReceptor}}</td>
-          <td>{{xml.serie}}</td>
-          <td>{{xml.subTotal}}</td>
-          <td>{{xml.tipoDeComprobante}}</td>
+          <td>{{xml.fechaEmision}}</td>
           <td>{{xml.total}}</td>
-          <td>{{xml.totalImpuestosTrasladados}}</td>
-          <td>{{xml.uuid}}</td>
+          <td>{{xml.tipoFactura}}</td>
+          <td>{{xml.noFactura}}</td>
+          <td>{{xml.facturaNombre}}</td>
+          <td>
+            <ng-container *ngIf="xml.almacenada">
+              Si
+            </ng-container>
+            <ng-container *ngIf="!xml.almacenada">
+              No
+            </ng-container>
+
+          </td>
+          <td>{{xml.error}}</td>
         </tr>
       </ng-template>
     </p-table>

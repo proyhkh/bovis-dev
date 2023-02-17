@@ -5,27 +5,31 @@ export class CargaFile {
 }
 
 export class ResponseXML{
-  conceptos: Array<String> = [];
-  fecha: string;
-  folio: string;
-  moneda: string;
   rfcEmisor: string;
   rfcReceptor: string;
-  serie: string;
-  subTotal: string;
-  tipoDeComprobante: string;
+  fechaEmision: string;
   total: string;
-  totalImpuestosTrasladados: string;
-  uuid: string;
+  conceptos: String;
+  tipoFactura: string;
+  noFactura: string;
+  facturaNombre: string;
+  almacenada: string;
+  error: string;
 }
 
 export class InfoProyecto{
   nombre: string;
   numProyecto: number;
-  rfcEmisor: string;
-  rfcReceptor: string;
+  rfcBaseEmisor: string;
+  rfcBaseReceptor: string;
 }
 
+export class InfoProyectoFacturas{
+  NumProyecto: number;
+  rfcEmisor: string;
+  rfcReceptor: string;
+  LstFacturas: Array<any> = new Array<any>();
+}
 
 export class LstFacturas{
   NombreFactura: string;

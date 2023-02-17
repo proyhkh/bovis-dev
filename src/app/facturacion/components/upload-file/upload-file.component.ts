@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FacturacionService } from '../../services/facturacion.service';
-import { CargaFile, InfoProyecto, LstFacturas, ResponseXML } from '../../Models/FacturacionModels';
+import { CargaFile, InfoProyecto, InfoProyectoFacturas, LstFacturas, ResponseXML } from '../../Models/FacturacionModels';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -22,59 +22,77 @@ export class UploadFileComponent implements OnInit {
     private msgs: MessageService) { }
   strFileBase64: string = '';
   isClear: boolean = false;
+  isLoadingGPM: boolean = false;
+  isLoadingFacturas: boolean = false;
+
   @ViewChild('fileUpload') fileUpload: any;
-  listResponse: Array<ResponseXML> = new Array<ResponseXML>();
+  listResponse: Array<ResponseXML>;
   errorMEssageFile: string = '';
   ngOnInit(): void {
   }
 
   async onBasicUpload(event: any) {
     if (event && event.files) {
-      //console.log(event.files);
-      //console.log(event.files[0]);
-      for (let file of event.files) {
-        console.log(file);
-      await this.convertXML(file);
-      }
-      console.log(this.listFacturasBase64);
+      //console.log('length: ' + event.files.length);
+      this.isLoadingFacturas = true;
+      await this.convertXML(event.files)
+      //console.log(this.listFacturasBase64);
+
+      setTimeout(
+        ()=>{
+        this.cargaFile()
+      },3000);
     }
-    this.isClear = true;
   }
 
-   convertXML(file: File) {
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      const xmlData: string = (evt as any).target.result;
-      //console.log(xmlData);
-      var parser = new DOMParser();
-      var xmlz = parser.parseFromString(xmlData, "application/xml");
-      //console.log(window.btoa((new XMLSerializer()).serializeToString(xmlz)));
-      this.strFileBase64 = window.btoa((new XMLSerializer()).serializeToString(xmlz));
-      //this.cargaFile(this.strFileBase64);
-      let stXML: LstFacturas = new LstFacturas();
-      stXML.NombreFactura = file.name;
-      stXML.FacturaB64 = this.strFileBase64
-      console.log(stXML);
+  async convertXML(files: any) {
+    return new Promise((resolve, reject) => {
+      let listFacturasBase64Sub: Array<LstFacturas> = new Array<LstFacturas>();
+      for (let file of files) {
+        let reader = new FileReader();
+        reader.onload = (evt) => {
+          const xmlData: string = (evt as any).target.result;
+          var parser = new DOMParser();
+          var xmlz = parser.parseFromString(xmlData, "application/xml");
+          this.strFileBase64 = window.btoa((new XMLSerializer()).serializeToString(xmlz));
+          let stXML: LstFacturas = new LstFacturas();
+          stXML.NombreFactura = file.name;
+          stXML.FacturaB64 = this.strFileBase64
+          //console.log(stXML);
+          this.listFacturasBase64.push(stXML);
+          //listFacturasBase64Sub.push(stXML);
+          resolve(listFacturasBase64Sub);
+        };
+        reader.onerror = reject;
+        reader.readAsText(file);
+      }
 
-      this.listFacturasBase64.push(stXML);
-    };
-    reader.readAsText(file);
+    });
   }
 
-  cargaFile(file: string) {
+  cargaFile() {
 
-    this.fileBase64.B64Xml = file;
+    let procesaFactura: InfoProyectoFacturas = new InfoProyectoFacturas();
+    this.listFacturasBase64.forEach(element => {
+      procesaFactura.LstFacturas.push(element);
+
+    });
+    procesaFactura.NumProyecto = this.infoProyecto.numProyecto;
+    procesaFactura.rfcEmisor = this.infoProyecto.rfcBaseEmisor;
+    procesaFactura.rfcReceptor = this.infoProyecto.rfcBaseReceptor;
+
+    this.listResponse = new Array<ResponseXML>();
     try {
-      this.cargaFileServ.cargaXML(this.fileBase64).subscribe({
+      this.cargaFileServ.cargaXML(procesaFactura).subscribe({
         next: (data) => {
           //console.log(data);
           if (data.success) {
-            this.listResponse.push(data.data);
-            //console.log( this.listResponse);
+            this.listResponse = data.data;
+            //console.log(this.listResponse);
             this.messageService.add({
               severity: "success",
               summary: "Validar",
-              detail: "Archivo validado correctamente",
+              detail: "Facturas procesadas",
               life: 2000
             });
           }
@@ -91,7 +109,10 @@ export class UploadFileComponent implements OnInit {
 
           this.errorMEssageFile = error;
         }
+
       })
+      this.isLoadingFacturas = false;
+      this.isClear = true;
     } catch (err) {
       console.log(err);
       this.messageService.add({
@@ -108,10 +129,12 @@ export class UploadFileComponent implements OnInit {
     this.fileUpload.clear();
     this.listResponse = new Array<ResponseXML>();
     this.errorMEssageFile = '';
+    this.numProyecto = null;
   }
 
   changeEnter(val: any) {
     if (val.keyCode == 13 && this.numProyecto > 0) {
+      this.isLoadingGPM = true;
       this.getInfoProyecto();
     }
   }
@@ -121,7 +144,8 @@ export class UploadFileComponent implements OnInit {
       if (info.data) {
         this.isXml = false;
         this.infoProyecto = info.data;
-        console.log(this.infoProyecto);
+        //console.log(this.infoProyecto);
+        this.isLoadingGPM = false;
       }
     })
   }

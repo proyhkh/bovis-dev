@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CargaFile } from '../Models/FacturacionModels';
+import { CargaFile, InfoProyectoFacturas } from '../Models/FacturacionModels';
 
 
 @Injectable({
@@ -18,8 +18,9 @@ export class FacturacionService {
 
   constructor(private http: HttpClient) { }
 
-  cargaXML(archivo: CargaFile): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/Factura/Enviar`, archivo, { headers: this.httpHeaders });
+  cargaXML(procesaFactura: InfoProyectoFacturas): Observable<any> {
+    //console.log(procesaFactura);
+    return this.http.put(`${this.baseUrl}/api/Factura/agregar`, procesaFactura, { headers: this.httpHeaders });
   }
 
   getInfoProyecto(numProyecto: number): Observable<any> {
