@@ -1,33 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FacrurasNC, InfoProyecto, LstFacturas, ResponseXML } from '../../Models/FacturacionModels';
 import { FacturacionService } from '../../services/facturacion.service';
-import { CargaFile, InfoProyecto, InfoProyectoFacturas, LstFacturas, ResponseXML } from '../../Models/FacturacionModels';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-upload-file',
-  templateUrl: './upload-file.component.html',
-  styleUrls: ['./upload-file.component.scss']
+  selector: 'app-factura-crp',
+  templateUrl: './factura-crp.component.html',
+  styleUrls: ['./factura-crp.component.scss']
 })
-export class UploadFileComponent implements OnInit {
+export class FacturaCrpComponent implements OnInit {
 
-  isXml = true;
-  fileSizeMax = 1000000;
-  fileBase64: CargaFile = new CargaFile();
-  numProyecto: number;
-  infoProyecto: InfoProyecto = new InfoProyecto();
-  listFacturasBase64: Array<LstFacturas> = new Array<LstFacturas>();
-
-  constructor(private cargaFileServ: FacturacionService,
-    private messageService: MessageService,
-    private msgs: MessageService) { }
-  strFileBase64: string = '';
-  isClear: boolean = false;
-  isLoadingGPM: boolean = false;
   isLoadingFacturas: boolean = false;
-
+  fileSizeMax = 1000000;
+  isClear: boolean = false;
+  strFileBase64: string = '';
+  listFacturasBase64: Array<LstFacturas> = new Array<LstFacturas>();
+  infoProyecto: InfoProyecto = new InfoProyecto();
   @ViewChild('fileUpload') fileUpload: any;
   listResponse: Array<ResponseXML>;
   errorMEssageFile: string = '';
+
+  constructor(private cargaFileServ: FacturacionService,
+    private messageService: MessageService) { }
+
   ngOnInit(): void {
   }
 
@@ -72,18 +67,15 @@ export class UploadFileComponent implements OnInit {
 
   cargaFile() {
 
-    let procesaFactura: InfoProyectoFacturas = new InfoProyectoFacturas();
+    let procesaFactura: FacrurasNC = new FacrurasNC();
+
     this.listFacturasBase64.forEach(element => {
       procesaFactura.LstFacturas.push(element);
-
     });
-    procesaFactura.NumProyecto = this.infoProyecto.numProyecto;
-    procesaFactura.rfcEmisor = this.infoProyecto.rfcBaseEmisor;
-    procesaFactura.rfcReceptor = this.infoProyecto.rfcBaseReceptor;
 
     this.listResponse = new Array<ResponseXML>();
     try {
-      this.cargaFileServ.cargaXML(procesaFactura).subscribe({
+      this.cargaFileServ.cargaXML_CRP(procesaFactura).subscribe({
         next: (data) => {
           //console.log(data);
           if (data.success) {
@@ -129,27 +121,8 @@ export class UploadFileComponent implements OnInit {
     this.fileUpload.clear();
     this.listResponse = new Array<ResponseXML>();
     this.errorMEssageFile = '';
-    this.numProyecto = null;
     this.listFacturasBase64 = new Array<LstFacturas>();
     this.listResponse = new Array<ResponseXML>();
-  }
-
-  changeEnter(val: any) {
-    if (val.keyCode == 13 && this.numProyecto > 0) {
-      this.isLoadingGPM = true;
-      this.getInfoProyecto();
-    }
-  }
-
-  getInfoProyecto() {
-    this.cargaFileServ.getInfoProyecto(this.numProyecto).subscribe(info => {
-      if (info.data) {
-        this.isXml = false;
-        this.infoProyecto = info.data;
-        //console.log(this.infoProyecto);
-        this.isLoadingGPM = false;
-      }
-    })
   }
 
 }

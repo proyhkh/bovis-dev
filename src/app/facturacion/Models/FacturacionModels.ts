@@ -35,3 +35,7 @@ export class LstFacturas{
   NombreFactura: string;
   FacturaB64: string;
 }
+
+export class FacrurasNC{
+  LstFacturas: Array<any> = new Array<any>();
+}

@@ -15,12 +15,16 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { NotaCreditoComponent } from './components/nota-credito/nota-credito.component';
+import { FacturaCrpComponent } from './components/factura-crp/factura-crp.component';
 
 
 @NgModule({
   declarations: [
     FacturacionComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    NotaCreditoComponent,
+    FacturaCrpComponent
   ],
   imports: [
     CommonModule,

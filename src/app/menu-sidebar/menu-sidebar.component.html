@@ -30,7 +30,8 @@
       <a href="#">About</a>
     </li> -->
 
-    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'it' || rol == 'admfin' || rol == 'admin' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'nom' || rol == 'it' || rol == 'admfin' || rol == 'admin' || rol == 'dev'">
       <!-- <a href="#pageTimesheet" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Timesheet</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -38,10 +39,10 @@
         </div>
         <div class="justify-content-end">
           <a href="#pageTimesheet" data-toggle="collapse" aria-expanded="false"></a>
-         <!--  <a href="#pageTimesheet" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a> -->
+          <!--  <a href="#pageTimesheet" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a> -->
         </div>
       </div>
-     <!--  <ul class="collapse list-unstyled" id="pageTimesheet">
+      <!--  <ul class="collapse list-unstyled" id="pageTimesheet">
         <li>
           <a href="#">Opción 1</a>
         </li>
@@ -84,7 +85,8 @@
 
     <br>
 
-    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'eje' || rol == 'it' || rol == 'admfin' || rol == 'admin' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'nom' || rol == 'eje' || rol == 'it' || rol == 'admfin' || rol == 'admin' || rol == 'dev'">
       <!--  <a href="#pageCIE" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CIE</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -110,7 +112,8 @@
 
     <br>
 
-    <li routerLinkActive="active" *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'rh' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'rh' || rol == 'dev'">
       <!-- <a href="#pagePCS" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">PCS</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -136,7 +139,8 @@
 
     <br>
 
-    <li routerLinkActive="active" *ngIf="rol == 'legal' || rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'legal' || rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'dev'">
       <!-- <a href="#pageAUD" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">AUDITORIA LEGAL</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -162,7 +166,8 @@
 
     <br>
 
-    <li routerLinkActive="active" *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'rh' || rol == 'legal' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'eje' || rol == 'it' || rol == 'eje' || rol == 'adminfin' || rol == 'admin' || rol == 'rh' || rol == 'legal' || rol == 'dev'">
       <!-- <a href="#pageRep" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reportes</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -188,7 +193,8 @@
 
     <br>
 
-    <li routerLinkActive="active" *ngIf="rol == 'admfin' || rol == 'it' || rol == 'admin' || rol == 'eje' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'admfin' || rol == 'it' || rol == 'admin' || rol == 'eje' || rol == 'dev'">
       <!-- <a href="#pageDor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dor</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -214,7 +220,8 @@
 
     <br>
 
-    <li routerLinkActive="active" *ngIf="rol == 'nom' || rol == 'it' || rol == 'admfin' || rol == 'admin' || rol == 'dev'">
+    <li routerLinkActive="active"
+      *ngIf="rol == 'nom' || rol == 'it' || rol == 'admfin' || rol == 'admin' || rol == 'dev'">
       <!-- <a href="#pageFac" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Facturación</a> -->
       <div class="d-flex">
         <div class="mx-auto">
@@ -226,7 +233,20 @@
       </div>
       <ul class="collapse list-unstyled" id="pageFac">
         <li>
-          <a routerLink="/facturacion/upload-file" (click)="setModule('Facturación')">Carga archivo</a>
+          <a routerLink="/facturacion/carga-cfdi" (click)="setModule('Facturación - Carga CFDI')">Carga CFDI
+          </a>
+        </li>
+        <li>
+          <a routerLink="/facturacion/nota-credito" (click)="setModule('Facturación - NC')">NC
+          </a>
+        </li>
+        <li>
+          <a routerLink="/facturacion/crp" (click)="setModule('Facturación - CRP')">CRP
+          </a>
+        </li>
+        <li>
+          <a (click)="setModule('Facturación')">Cancelar
+          </a>
         </li>
       </ul>
     </li>
@@ -238,7 +258,7 @@
        </a> -->
       <div class="d-flex">
         <div class="mx-auto">
-          <img src="../../assets/icons-menu/Gestión-Auditoria legal.png" pTooltip="Facturación" />
+          <img src="../../assets/icons-menu/Gestión-Auditoria legal.png" pTooltip="Catalogos" />
         </div>
         <div class="justify-content-end">
           <a href="#pageAdministración" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a>
@@ -304,4 +324,6 @@
       <!-- <a href="#" class="article">article</a> -->
     </li>
   </ul>
+
+
 </nav>
