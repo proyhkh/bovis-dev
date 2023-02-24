@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatListModule } from '@angular/material/list';
+// import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,9 +17,9 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType, Bro
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 import { FailedComponent } from './failed/failed.component';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon'
-import { MatCardModule } from '@angular/material/card'
+// import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MatIconModule } from '@angular/material/icon'
+// import { MatCardModule } from '@angular/material/card'
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuSidebarComponent } from './menu-sidebar/menu-sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -103,15 +103,15 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     BrowserModule,
     NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
     AppRoutingModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatListModule,
-    MatMenuModule,
+    // MatButtonModule,
+    // MatToolbarModule,
+    // MatListModule,
+    // MatMenuModule,
     HttpClientModule,
     MsalModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatCardModule,
+    // MatSidenavModule,
+    // MatIconModule,
+    // MatCardModule,
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule,

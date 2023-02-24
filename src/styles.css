@@ -8,7 +8,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
 
 /* html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -20,7 +20,7 @@ body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
 }
-p {
+/* p {
   font-family: "Poppins", sans-serif;
   font-size: 1.1em;
   font-weight: 300;
@@ -144,10 +144,10 @@ a.article:hover {
   padding: 20px;
   min-height: 100vh;
   transition: all 0.3s;
-}
+} */
 
 @media (maz-width: 768px) {
-  #sidebar {
+  /* #sidebar {
     margin-left: -250px;
   }
   #sidebar.active {
@@ -155,5 +155,5 @@ a.article:hover {
   }
   #sidebarCollapse span {
     display: none;
-  }
+  } */
 }
