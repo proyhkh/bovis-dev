@@ -146,6 +146,11 @@ a.article:hover {
   transition: all 0.3s;
 } */
 
+/* .left-menu {
+  min-width: 190px;
+  height: 700px;
+} */
+
 @media (maz-width: 768px) {
   /* #sidebar {
     margin-left: -250px;

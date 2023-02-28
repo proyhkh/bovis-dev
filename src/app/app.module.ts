@@ -1,6 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
+import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
 // import { MatButtonModule } from '@angular/material/button';
 // import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,24 +12,22 @@ import { NgModule } from '@angular/core';
 // import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
-import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
-import { FailedComponent } from './failed/failed.component';
-
 // import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatIconModule } from '@angular/material/icon'
 // import { MatCardModule } from '@angular/material/card'
-import { MediaMatcher } from '@angular/cdk/layout';
-import { MenuSidebarComponent } from './menu-sidebar/menu-sidebar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+// import { MenuSidebarComponent } from './Shared/components/menu-sidebar/menu-sidebar.component';
+
+// import { ButtonModule } from 'primeng/button';
+// import { TooltipModule } from 'primeng/tooltip';
+// import { FailedComponent } from './shared/components/failed/failed.component';
 import { environment } from 'src/environments/environment';
+
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
 const uriRedirect = environment.redirectUri;
@@ -96,13 +98,14 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    FailedComponent,
-    MenuSidebarComponent
+    // FailedComponent,
+    // MenuSidebarComponent
   ],
   imports: [
     BrowserModule,
     NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
     AppRoutingModule,
+    SharedModule,
     // MatButtonModule,
     // MatToolbarModule,
     // MatListModule,
@@ -114,8 +117,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     // MatCardModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ButtonModule,
-    TooltipModule
+    // ButtonModule,
+    // TooltipModule
   ],
   exports: [
   ],
