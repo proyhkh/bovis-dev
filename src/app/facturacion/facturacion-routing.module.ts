@@ -6,12 +6,14 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MsalInterceptor } from '@azure/msal-angular';
 import { NotaCreditoComponent } from './components/nota-credito/nota-credito.component';
 import { FacturaCrpComponent } from './components/factura-crp/factura-crp.component';
+import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/busqueda-cancelacion.component';
 
 const routes: Routes = [
   { path: '', component: FacturacionComponent },
   { path: 'carga-cfdi', component: UploadFileComponent },
   { path: 'nota-credito', component: NotaCreditoComponent },
-  { path: 'crp', component: FacturaCrpComponent }
+  { path: 'crp', component: FacturaCrpComponent },
+  { path: 'cancelacion', component: BusquedaCancelacionComponent }
 ];
 
 @NgModule({

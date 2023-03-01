@@ -88,7 +88,7 @@ export class DorObjetivosComponent implements OnInit {
       this.totalObjetivosTipoUno += Number(obj.valor || '');
     });
 
-    if(gpm.data.length > 0){
+    if (gpm.data.length > 0) {
       let objGPM: ObjetivosGenerales = gpm.data[0];
       objGPM.valor == null ? objGPM.valor = '0' : '';
       //console.log(objGPM);
@@ -109,6 +109,7 @@ export class DorObjetivosComponent implements OnInit {
       acceptLabel: 'Aceptar',
       rejectLabel: 'Cancelar',
       accept: () => {
+
         this.saveAllObjetivos('2');
         /*   this.messageService.add({
             severity: "success",
@@ -135,24 +136,41 @@ export class DorObjetivosComponent implements OnInit {
 
   async saveAllObjetivos(tipoAcept: string) {
 
-    if (this.motivoRechazoObjetivos.length >= this.count_carapteres) {
-      let tipoSaveMensaje = '';
+    let tipoSaveMensaje = '';
+    let isProcesa = true
+    if (tipoAcept == '3') {
+      //objetivo.motivoR = this.motivoRechazoObjetivos;
+      tipoSaveMensaje = 'rechazados'
+      if (this.motivoRechazoObjetivos.length >= this.count_carapteres) {
+        isProcesa = true;
+      }
+      else{
+        isProcesa = false;
+      }
+    }
+    else {
+      tipoSaveMensaje = 'aprobados'
+    }
+    if (isProcesa) {
       this.listObjetivos.forEach(async objetivo => {
         objetivo.acepto = tipoAcept;
         if (tipoAcept == '3') {
           objetivo.motivoR = this.motivoRechazoObjetivos;
-          tipoSaveMensaje = 'rechazados'
+          //tipoSaveMensaje = 'rechazados'
         }
-        else {
+        /* else {
           tipoSaveMensaje = 'aprobados'
-        }
+        } */
+        //console.log(objetivo);
+
         await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
-          console.log(udt);
+          //console.log(udt);
+          //console.log(3333);
+          this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
         });
       });
+
       this.displayModal = false;
-      console.log(3333);
-      this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
       this.getInfoEmpleado();
     }
   }

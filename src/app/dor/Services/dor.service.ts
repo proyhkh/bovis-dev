@@ -29,6 +29,7 @@ export class DorService {
   }
 
   getObjetivosByProyecto(anio: string, numProyecto: string, noEmpleado: string, nivel: string, tipo: number) {
+
     return this.http.get<any>(`${this.baseUrl}api/DOR/ConsultarObjetivosProyecto/${anio}/${numProyecto}/${noEmpleado}/${nivel}/${tipo}`);
   }
 

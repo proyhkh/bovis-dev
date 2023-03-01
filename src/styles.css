@@ -158,3 +158,8 @@ a.article:hover {
     display: none;
   }
 }
+
+.img-logo {
+  height:40px !important;
+  width:100px !important;
+}

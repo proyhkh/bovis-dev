@@ -17,6 +17,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { NotaCreditoComponent } from './components/nota-credito/nota-credito.component';
 import { FacturaCrpComponent } from './components/factura-crp/factura-crp.component';
+import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/busqueda-cancelacion.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FacturaCrpComponent } from './components/factura-crp/factura-crp.compon
     FacturacionComponent,
     UploadFileComponent,
     NotaCreditoComponent,
-    FacturaCrpComponent
+    FacturaCrpComponent,
+    BusquedaCancelacionComponent
   ],
   imports: [
     CommonModule,
