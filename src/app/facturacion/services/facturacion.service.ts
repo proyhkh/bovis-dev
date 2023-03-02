@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CargaFile, FacrurasNC, InfoProyectoFacturas, LstFacturas } from '../Models/FacturacionModels';
+import { Busqueda, CargaFile, FacrurasNC, InfoProyectoFacturas, LstFacturas } from '../Models/FacturacionModels';
 
 
 @Injectable({
@@ -37,6 +37,10 @@ export class FacturacionService {
     console.log(procesaFactura);
     //return null;
     return this.http.put(`${this.baseUrl}api/Factura/AgregarCRP`, procesaFactura, { headers: this.httpHeaders });
+  }
+
+  getBusqueda(objBusqueda: Busqueda) {
+    return this.http.post<any>(`${this.baseUrl}api/factura/consultar`,objBusqueda, { headers: this.httpHeaders });
   }
 
 }

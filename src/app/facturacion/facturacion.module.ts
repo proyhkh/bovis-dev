@@ -18,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 import { NotaCreditoComponent } from './components/nota-credito/nota-credito.component';
 import { FacturaCrpComponent } from './components/factura-crp/factura-crp.component';
 import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/busqueda-cancelacion.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/
     TableModule,
     MessagesModule,
     MessageModule,
-    InputNumberModule
+    InputNumberModule,
+    DropdownModule,
+    CalendarModule,
+    NgbTooltipModule
   ],
   providers: [
     FacturacionService,

@@ -1,1 +1,131 @@
-<p>busqueda-cancelacion works!</p>
+<div class="content" style="margin:2%">
+  <br>
+  <br>
+
+  <div class="">
+    <br>
+    <div class="row">
+      <div class="col-sm">
+        <label for="concepto">Proyecto:</label>
+        <div class="">
+          <p-dropdown placeholder="Selecciona un proyecto" optionLabel="name" [showClear]="true"
+            [style]="{'width': '100%'}"></p-dropdown>
+        </div>
+      </div>
+      <div class="col-sm">
+        <label for="descripcion">Empresa:</label>
+        <div class="">
+          <p-dropdown placeholder="Selecciona una empresa" optionLabel="name" [showClear]="true"
+            [style]="{'width': '100%'}"></p-dropdown>
+        </div>
+
+      </div>
+      <div class="col-sm">
+        <label for="email">Cliente:</label>
+        <div class="">
+          <p-dropdown placeholder="Selecciona un cliente" optionLabel="name" [showClear]="true"
+            [style]="{'width': '100%'}"></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-sm">
+        <label for="email">Fecha Inicio:</label>
+          <div class="col-12">
+          <p-calendar [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
+          dateFormat="dd/mm/yy" ></p-calendar>
+          <!-- [disabled]="isConsulta" -->
+          </div>
+      </div>
+      <div class="col-sm">
+        <label for="email">Fecha Fin:</label>
+          <div class="col-12">
+          <p-calendar [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
+          dateFormat="dd/mm/yy" ></p-calendar>
+          <!-- [disabled]="isConsulta" -->
+          </div>
+      </div>
+      <div class="col-sm">
+        <br>
+        <div class="d-flex">
+          <div>
+          </div>
+          <div class="ml-auto">
+            <button type="button" class="btn btn-info" (click)="busqueda()" >Buscar</button>&nbsp;&nbsp;
+            <button *ngIf="false" type="button" class="btn btn-info"  [disabled]="true">Clear data</button>
+          </div>
+     </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div *ngIf="listBusquedaUnique && listBusquedaUnique.length > 0">
+
+    <div class="row">
+      <div class="flex" *ngIf="false">
+        <button type="button" (click)="exportExcel()" pButton pRipple icon="pi pi-file-excel" class="p-button-success mr-2"  pTooltip="Exportar Excel" tooltipPosition="bottom"></button>
+      </div>
+    </div>
+    <div class="row">
+      <div >
+        <p-table [value]="listBusquedaUnique" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let val of getHeadersTabla()">{{val}}</th>
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-bus>
+            <tr>
+              <td>
+                {{bus.uuid}}
+              </td>
+              <td>{{bus.numProyecto}}</td>
+              <td>{{bus.idTipoFactura}}</td>
+              <td>{{bus.idMoneda}}</td>
+              <td>{{bus.importe}}</td>
+              <td>{{bus.iva}}</td>
+              <td>{{bus.ivaRet}}</td>
+              <td>{{bus.total}}</td>
+              <td>{{bus.concepto}}</td>
+              <td>{{bus.mes}}</td>
+              <td>{{bus.anio}}</td>
+              <td>{{bus.fechaEmision}}</td>
+              <td>{{bus.fechaPago}}</td>
+              <td>{{bus.fechaCancelacion}}</td>
+              <td>{{bus.noFactura}}</td>
+              <td>{{bus.tipoCambio}}</td>
+              <td>{{bus.motivoCancelacion}}</td>
+              <td>{{bus.nC_UuidNotaCredito}}</td>
+              <td>{{bus.nC_IdMoneda}}</td>
+              <td>{{bus.nC_IdTipoRelacion}}</td>
+              <td>{{bus.nC_NotaCredito}}</td>
+              <td>{{bus.nC_Importe}}</td>
+              <td>{{bus.nC_Iva}}</td>
+              <td>{{bus.nC_Total}}</td>
+              <td>{{bus.nC_Concepto}}</td>
+              <td>{{bus.nC_Mes}}</td>
+              <td>{{bus.nC_Anio}}</td>
+              <td>{{bus.nC_TipoCambio}}</td>
+              <td>{{bus.nC_FechaNotaCredito}}</td>
+              <td>{{bus.c_UuidCobranza}}</td>
+              <td>{{bus.c_IdMonedaP}}</td>
+              <td>{{bus.c_ImportePagado}}</td>
+              <td>{{bus.c_ImpSaldoAnt}}</td>
+              <td>{{bus.c_ImporteSaldoInsoluto}}</td>
+              <td>{{bus.c_IvaP}}</td>
+              <td>{{bus.c_TipoCambioP}}</td>
+              <td>{{bus.c_FechaPago}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
