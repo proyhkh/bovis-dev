@@ -55,10 +55,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   asignarTituloModulo(url: string) {
     if(url.includes('dor')){
-      this.currentModule = 'Dirección  Orientada a Resultados';
+      this.currentModule = 'PLATAFORMA DE EXCELENCIA CORPORATIVA';
     }
     else if(url.includes('empleados')){
-      this.currentModule = 'Empleados';
+      this.currentModule = 'EMPLEDOS';
     }
   }
 
