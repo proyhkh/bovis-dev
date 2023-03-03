@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.currentModule = 'PLATAFORMA DE EXCELENCIA CORPORATIVA';
     }
     else if(url.includes('empleados')){
-      this.currentModule = 'EMPLEDOS';
+      this.currentModule = 'EMPLEADOS';
     }
   }
 
