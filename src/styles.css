@@ -20,6 +20,52 @@ body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
 }
+
+.wrapper{
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+}
+
+.menu-principal {
+  max-width: 7rem;
+}
+.menu-principal .p-menuitem-icon {
+  width: 3rem;
+  font-size: 2rem;
+}
+.menu-principal .icon-empleado {
+  content: url('assets/icons-menu/Gestión_Empleados.png');
+}
+.menu-principal .icon-timesheet {
+  content: url('assets/icons-menu/Gestión-Timesheet.png');
+}
+.menu-principal .icon-costos {
+  content: url('assets/icons-menu/Gestión-Costos.png');
+}
+.menu-principal .icon-cie {
+  content: url('assets/icons-menu/Gestión-CIE.png');
+}
+.menu-principal .icon-pcs {
+  content: url('assets/icons-menu/Gestión-PCS.png');
+}
+.menu-principal .icon-auditoria-legal {
+  content: url('assets/icons-menu/Gestión-Auditoria legal.png');
+}
+.menu-principal .icon-reportes {
+  content: url('assets/icons-menu/Gestión-Reporte.png');
+}
+.menu-principal .icon-pec {
+  content: url('assets/icons-menu/Gestión-PEC.png');
+}
+.menu-principal .icon-facturacion {
+  content: url('assets/icons-menu/Gestión-Facturación.png');
+}
+.menu-principal .p-megamenu-panel {
+  /* background-color: #f8f9fa; */
+  border-radius: 1rem;
+}
+
+
 /* p {
   font-family: "Poppins", sans-serif;
   font-size: 1.1em;

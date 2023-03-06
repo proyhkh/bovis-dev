@@ -1,5 +1,10 @@
-.name-corp {
-    color: #03a7bb;;
-    font-size: 1.5rem;
-    font-weight: bold;
+.h-logo {
+    height: 28px;
+}
+
+.user-name {
+    display: inline-block;
+    margin-right: 15px;
+    height: 2rem;
+    font-style: oblique;
 }

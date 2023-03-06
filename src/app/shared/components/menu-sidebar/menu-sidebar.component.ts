@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { RouterLink } from '@angular/router';
+import { MegaMenuItem, MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-menu-sidebar',
@@ -23,7 +24,7 @@ export class MenuSidebarComponent implements OnInit {
     }
   }
 
-  items: MenuItem[] = [];
+  items: MegaMenuItem[] = [];
 
   constructor() {
    }
@@ -31,84 +32,204 @@ export class MenuSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-         label:'Empleados',
-         icon:'pi pi-fw pi-users',
-         routerLink : 'empleados'
+        title: 'Empleados',
+        icon:'icon-empleado',
+        items: [
+        [
+          {
+            label: 'Empleados',
+            items: [
+              { 
+                label: "Generar requerimiento",
+                routerLink:['/empleados']
+              },
+              { 
+                label: "Ver requerimientos"
+              },
+              { 
+                label: "Asignar empleado a requerimiento"
+              },
+              { 
+                label: "Modificar empleados"
+              }
+            ]
+          }
+        ]
+        ]
       },
       {
-         label:'Timesheet',
-         icon:'pi pi-fw pi-clock'
+        title:'Timesheet',
+        icon:'icon-timesheet',
+        items: [
+          [
+            {
+              label:'Timesheet',
+              items:[
+                { 
+                  label: "Cargar Horas" 
+                },
+	              { 
+                  label: "Consultar / Modificar" 
+                }
+              ]
+            }
+          ]
+        ]
       },
       {
-         label:'Costo de Empleados',
-         icon:'pi pi-fw pi-dollar'
+          title:'Costo de Empleados',
+          icon:'icon-costos',
+          items:[
+            [
+              {
+                label:'Costo de Empleados',
+                items: [
+                  { 
+                    label:"Costo por empleado"
+                  },
+	                { 
+                    label:"Costo por proyecto"
+                  }
+                ]
+              }
+            ]
+          ]
       },
       {
-         label:'CIE',
-         icon:'pi pi-fw pi-comments'
+        title:'CIE',
+        icon:'icon-cie',
+        items: [
+          [
+            {
+              label:'CIE',
+              items: [
+                { 
+                  label:"Carga de SAE" 
+                },
+	              { 
+                  label:"CEI – Resultado búsqueda" 
+                }
+              ]
+            }
+          ]
+        ]
       },
       {
-         label:'PCS',
-         icon:'pi pi-fw pi-comments'
+        title:'PCS',
+        icon:'icon-pcs',
+        items:[
+          [
+            { 
+              label:'PCS',
+              items:[
+                { 
+                  label: "IP"
+                },
+                { 
+                  label: "Staffing Plan"
+                },
+                { 
+                  label: "Gastos"
+                },
+                { 
+                  label: "Ingresos"
+                },
+                { 
+                  label: "Control"
+                },
+                { 
+                  label: "PPA-KPI"
+                }
+              ]
+            }
+          ]
+        ]
       },
       {
-        label:'Auditoria Legal',
+        title:'Auditoria Legal',
+        icon:'icon-auditoria-legal',
+        items:[
+          [
+            {
+              label:'Auditoria Legal',
+              items: [
+                { 
+                  label:"Seleccionar documentos del proyecto"
+                },
+	              { 
+                  label:"Carga de documentos"
+                },
+	              { 
+                  label:"Seguimiento de auditoria"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        title:'Reportes',
+        icon:'icon-reportes',
+        routerLink:'reportes'
+      },
+      {
+        title:'PEC',
+        icon:'icon-pec',
+        items:[[
+          {
+            label:'PEC',
+            items:[
+              { 
+                label:"Captura"
+              },
+	            { 
+                label:"Consulta/Evaluación"
+              },
+	            { 
+                label:"Aceptar objetivos"
+              }
+            ]
+          }
+        ]]
+      },
+      {
+        title:'Facturación',
+        icon:'icon-facturacion',
+        items:[[
+          {
+            label:'Facturación',
+            items:[
+              { 
+                label:"Carga CFDI"
+              },
+	            { 
+                label:"NC"
+              },
+	            { 
+                label:"CRP"
+              },
+	            { 
+                label:"Busqueda/Cancelación"
+              }
+            ]
+          }
+        ]]
+      },
+      {
+        title:'Administración',
         icon:'pi pi-fw pi-briefcase'
       },
       {
-        label:'Reportes',
-        icon:'pi pi-fw pi-file'
-      },
-      {
-        label:'DOR',
-        icon:'pi pi-fw pi-verified',
+        title:'Catalogos',
+        icon:'pi pi-fw pi-book',
         items:[
-          {
-            label:'Captura',
-            icon:'pi pi-fw pi-plus',
-          },
-          {
-            label:'Consulta/Evaluación',
-            icon:'pi pi-fw pi-search'
-          },
-          {
-            label:'Aceptar Objetivos',
-            icon:'pi pi-fw pi-thumbs-up'
-          }
-        ]
-      },
-      {
-        label:'Facturación',
-        icon:'pi pi-fw pi-file',
-        items:[
-          {
-            label:'Carga archivo',
-            icon:'pi pi-fw pi-plus',
-          }
-        ]
-      },
-      {
-        label:'Catalogos',
-        icon:'pi pi-fw pi-book'
-      },
-      {
-        label:'Usuarios',
-        icon:'pi pi-fw pi-users',
-        items:[
-          {
-            label:'Opción 1',
-            icon:'pi pi-fw pi-plus',
-          }
-        ]
-      },
-      {
-        label:'Carga de Información',
-        icon:'pi pi-fw pi-cloud-upload',
-        items:[
-          {
-            label:'Opción 1',
-            icon:'pi pi-fw pi-plus',
-          }
+          [
+            {
+              label:'Catalogos',
+              items:[
+              ]
+            }
+          ]
         ]
       },
     ];
