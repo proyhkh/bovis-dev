@@ -18,7 +18,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
   font-family: "Poppins", sans-serif;
-  background: #fafafa;
+  background-color: #fafafa;
+  background-image: url('assets/images/decoration-img.png');
 }
 
 .wrapper{
@@ -63,6 +64,11 @@ body {
 .menu-principal .p-megamenu-panel {
   /* background-color: #f8f9fa; */
   border-radius: 1rem;
+}
+.menu-principal .p-menuitem-link:not(.p-disabled):hover {
+  background-image: url('assets/images/decoration-img.png');
+  background-size: 10rem;
+  border-radius: .5rem;
 }
 
 
