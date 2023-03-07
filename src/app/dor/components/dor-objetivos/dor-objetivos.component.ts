@@ -92,7 +92,8 @@ export class DorObjetivosComponent implements OnInit {
       let objGPM: ObjetivosGenerales = gpm.data[0];
       objGPM.valor == null ? objGPM.valor = '0' : '';
       //console.log(objGPM);
-      this.listObjGenralesTipoDos.push(objGPM);
+      this.listObjGenralesTipoDos.splice(0,0, objGPM);
+      //this.listObjGenralesTipoDos.push(objGPM);
     }
 
 

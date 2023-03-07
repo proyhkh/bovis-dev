@@ -88,17 +88,10 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-obj>
                   <tr>
-                    <ng-container *ngIf="obj.descripcion.includes('GPM')" >
-                      <td class="text-info" pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
-                      <td class="text-info">{{obj.meta}}</td>
-                      <td class="text-info">{{obj.valor}}%</td>
-                    </ng-container>
 
-                    <ng-container *ngIf="!obj.descripcion.includes('GPM')">
                       <td pTooltip="{{obj.tooltip}}" tooltipPosition="top">{{obj.descripcion}}</td>
                       <td>{{obj.meta}}</td>
                       <td>{{obj.valor}}%</td>
-                    </ng-container>
                   </tr>
                 </ng-template>
               </p-table>

@@ -116,9 +116,9 @@ export class DorCapturaComponent implements OnInit {
         this.listObjetivos.forEach(obj => {
           obj.id = numId.toString();
           numId++;
-          obj.descripcion == 'Sustentabilidad?' ? obj.isComodin = true : obj.isComodin = false;
+          obj.descripcion == 'Objetivo personal' ? obj.isComodin = true : obj.isComodin = false;
           obj.descripcion?.includes('Evaluación 360°') ? obj.isEditable = true : obj.isEditable = false;
-          obj.descripcion?.includes('Objetivo personal') ? obj.isEditable = true : obj.isEditable = false;
+          //obj.descripcion?.includes('Objetivo personal') ? obj.isEditable = true : obj.isEditable = false;
 
           this.totalObjetivosCualitativos += Number(obj.valor || '');
 
@@ -168,7 +168,9 @@ export class DorCapturaComponent implements OnInit {
       let objGPM: ObjetivosGenerales = gpm.data[0];
       objGPM.valor == null ? objGPM.valor = '0' : '';
       //console.log(objGPM);
-      this.listObjGenralesTipoDos.push(objGPM);
+
+      this.listObjGenralesTipoDos.splice(0,0, objGPM);
+      //this.listObjGenralesTipoDos.push(objGPM);
     }
 
     this.listObjGenralesTipoDos.forEach(obj => {
@@ -217,7 +219,7 @@ export class DorCapturaComponent implements OnInit {
         console.log(udt);
       });
     });
-    console.log(2222);
+    //console.log(this.listObjetivos);
     this.isObjetivos = false;
     this.messageService.add({ severity: 'success', summary: 'Guardar', detail: 'Todos los objetivos fueron almacenados correctamente' });
   }
