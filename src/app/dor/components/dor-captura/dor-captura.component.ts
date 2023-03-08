@@ -48,7 +48,7 @@ export class DorCapturaComponent implements OnInit {
 
   getInicialDatosEjecutivo() {
     this.docService.getDatosEjecutivo(this.userMail).subscribe(data => {
-    //  this.docService.getDatosEjecutivo('jmmorales@hunkabann.com.mx').subscribe(data => {  
+    //  this.docService.getDatosEjecutivo('jmmorales@hunkabann.com.mx').subscribe(data => {
     //console.log(data);
       const str = 'data' as any;
       let datos = data[str as keyof typeof data];
@@ -69,7 +69,7 @@ export class DorCapturaComponent implements OnInit {
     /*console.log('event :' + event);
      console.log(event.value);*/
     if (event.value) {
-      this.clearPorcentajes();
+
       let select = <EmpleadosSub>event.value
       //console.log(this.listSubordinados);
       let subordinado = this.listSubordinados.find(xx => xx.nombre == select.value) ?? {};
@@ -110,7 +110,7 @@ export class DorCapturaComponent implements OnInit {
   }
 
   getObjetivosPorProyecto(anio: string, numProyecto: string, noEmpleado: string, nivel: string, tipo: number, isRecursivo: boolean) {
-
+    this.clearPorcentajes();
     this.docService.getObjetivosByProyecto(anio, numProyecto, noEmpleado, nivel, tipo).subscribe(objetivos => {
 
       if (objetivos.data.length == 0 && isRecursivo) {
@@ -183,7 +183,7 @@ export class DorCapturaComponent implements OnInit {
       //console.log(objGPM);
       objGPM.forEach(function (value) {
         value.meta = value.meta +' %'
-      }); 
+      });
 
       //this.listObjGenralesTipoDos.splice(0,0, objGPM);
       this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
