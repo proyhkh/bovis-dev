@@ -40,7 +40,7 @@ export class DorEvaluacionComponent implements OnInit {
 
       this.getObjetivosPorProyecto(String(this.anio), this.empleado.centrosdeCostos || '', this.empleado.noEmpleado || '', this.empleado.nivel || '', EstatusObjetivosPorProyecto.aceptado_por_empleado, true)
 
-      this.dorService.getConsultarGPM(this.empleado.centrosdeCostos).subscribe(gpm => {
+      this.dorService.getConsultarMetasProyecto(this.empleado.centrosdeCostos,this.empleado.nivel).subscribe(gpm => {
         //console.log(gpm);
         this.dorService.getObjetivosGenerales(this.empleado.nivel || '', this.empleado.unidadDeNegocio || '').subscribe(generales => {
           this.listObjGenrales = generales.data;
@@ -88,6 +88,9 @@ export class DorEvaluacionComponent implements OnInit {
     if(gpm.data.length > 0){
       let objGPM: ObjetivosGenerales[];
       objGPM = gpm.data;
+      objGPM.forEach(function (value) {
+        value.meta = value.meta +' %'
+      }); 
       //console.log(objGPM);
       this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
     }

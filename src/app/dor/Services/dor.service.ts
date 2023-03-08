@@ -49,9 +49,9 @@ export class DorService {
     return this.http.post<any>(`${this.baseUrl}api/dor/DatosEmpleado`,mail, { headers: this.httpHeaders });
   }
 
-  getConsultarGPM(proyecto: string | null) {
-    return this.http.get<any>(`${this.baseUrl}api/dor/ConsultarGPM/${proyecto}`);
-  }
+  // getConsultarGPM(proyecto: string | null) {
+  //   return this.http.get<any>(`${this.baseUrl}api/dor/ConsultarGPM/${proyecto}`);
+  // }
 
   getConsultarMetasProyecto(proyecto: string | null,nivel: string | null) {
     return this.http.get<any>(`${this.baseUrl}api/dor/ConsultarMetas/${proyecto}/${nivel}`);

@@ -181,6 +181,9 @@ export class DorCapturaComponent implements OnInit {
       //objGPM.valor == null ? objGPM.valor = '0' : '';
       //console.log('objGPM');
       //console.log(objGPM);
+      objGPM.forEach(function (value) {
+        value.meta = value.meta +' %'
+      }); 
 
       //this.listObjGenralesTipoDos.splice(0,0, objGPM);
       this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
