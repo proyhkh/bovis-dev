@@ -86,10 +86,11 @@ export class DorEvaluacionComponent implements OnInit {
     });
 
     if(gpm.data.length > 0){
-      let objGPM: ObjetivosGenerales[];
-      objGPM = gpm.data;
+      let objGPM: ObjetivosGenerales = gpm.data[0];
+      objGPM.valor == null ? objGPM.valor = '0' : '';
       //console.log(objGPM);
-      this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
+      this.listObjGenralesTipoDos.splice(0,0, objGPM);
+      //this.listObjGenralesTipoDos.push(objGPM);
     }
 
     this.listObjGenralesTipoDos.forEach(obj => {

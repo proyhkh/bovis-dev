@@ -48,7 +48,8 @@ export class DorCapturaComponent implements OnInit {
 
   getInicialDatosEjecutivo() {
     this.docService.getDatosEjecutivo(this.userMail).subscribe(data => {
-      //console.log(data);
+    //  this.docService.getDatosEjecutivo('jmmorales@hunkabann.com.mx').subscribe(data => {  
+    //console.log(data);
       const str = 'data' as any;
       let datos = data[str as keyof typeof data];
       //console.log(datos['nombre' as keyof typeof datos]);
@@ -81,11 +82,20 @@ export class DorCapturaComponent implements OnInit {
 
       this.getObjetivosPorProyecto(String(this.anio), this.subComple.centrosdeCostos, this.subComple.noEmpleado, subordinado.nivel || '', EstatusObjetivosPorProyecto.inicial, true);
 
-      this.docService.getConsultarGPM(this.subComple.centrosdeCostos).subscribe(gpm => {
+/*       this.docService.getConsultarGPM(this.subComple.centrosdeCostos).subscribe(gpm => {
         //console.log(gpm);
         this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
           this.listObjGenrales = generales.data;
           //console.log(this.listObjGenrales);
+          this.getTablasObjetivosGenerales(gpm);
+        });
+      }); */
+      this.docService.getConsultarMetasProyecto(this.subComple.centrosdeCostos, subordinado.nivel).subscribe(gpm => {
+      //  this.docService.getConsultarMetasProyecto('274', '4').subscribe(gpm => {
+        console.log(gpm);
+        this.docService.getObjetivosGenerales(subordinado.nivel || '', subordinado?.unidadDeNegocio || '').subscribe(generales => {
+          this.listObjGenrales = generales.data;
+          console.log(this.listObjGenrales);
           this.getTablasObjetivosGenerales(gpm);
         });
       });
@@ -165,11 +175,15 @@ export class DorCapturaComponent implements OnInit {
     });
 
     if(gpm.data.length > 0){
-      let objGPM: ObjetivosGenerales = gpm.data[0];
-      objGPM.valor == null ? objGPM.valor = '0' : '';
+      //let objGPM: ObjetivosGenerales = gpm.data[0];
+      let objGPM: ObjetivosGenerales[];
+      objGPM = gpm.data;
+      //objGPM.valor == null ? objGPM.valor = '0' : '';
+      //console.log('objGPM');
       //console.log(objGPM);
 
-      this.listObjGenralesTipoDos.splice(0,0, objGPM);
+      //this.listObjGenralesTipoDos.splice(0,0, objGPM);
+      this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
       //this.listObjGenralesTipoDos.push(objGPM);
     }
 

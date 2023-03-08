@@ -53,5 +53,9 @@ export class DorService {
     return this.http.get<any>(`${this.baseUrl}api/dor/ConsultarGPM/${proyecto}`);
   }
 
+  getConsultarMetasProyecto(proyecto: string | null,nivel: string | null) {
+    return this.http.get<any>(`${this.baseUrl}api/dor/ConsultarMetas/${proyecto}/${nivel}`);
+  }
+
 
 }
