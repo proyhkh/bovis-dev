@@ -8,14 +8,14 @@
       <div class="col-sm">
         <label for="concepto">Proyecto:</label>
         <div class="">
-          <p-dropdown placeholder="Selecciona un proyecto" optionLabel="name" [showClear]="true"
+          <p-dropdown  [options]="filtroProyectos" placeholder="Selecciona un proyecto" optionLabel="name" [showClear]="true"
             [style]="{'width': '100%'}"></p-dropdown>
         </div>
       </div>
       <div class="col-sm">
         <label for="descripcion">Empresa:</label>
         <div class="">
-          <p-dropdown placeholder="Selecciona una empresa" optionLabel="name" [showClear]="true"
+          <p-dropdown [options]="filtroEmpresas"  placeholder="Selecciona una empresa" optionLabel="name" [showClear]="true"
             [style]="{'width': '100%'}"></p-dropdown>
         </div>
 
@@ -23,7 +23,7 @@
       <div class="col-sm">
         <label for="email">Cliente:</label>
         <div class="">
-          <p-dropdown placeholder="Selecciona un cliente" optionLabel="name" [showClear]="true"
+          <p-dropdown [options]="filtroClientes"  placeholder="Selecciona un cliente" optionLabel="name" [showClear]="true"
             [style]="{'width': '100%'}"></p-dropdown>
         </div>
       </div>
@@ -68,8 +68,8 @@
   <div *ngIf="listBusquedaUnique && listBusquedaUnique.length > 0">
 
     <div class="row">
-      <div class="flex" *ngIf="false">
-        <button type="button" (click)="exportExcel()" pButton pRipple icon="pi pi-file-excel" class="p-button-success mr-2"  pTooltip="Exportar Excel" tooltipPosition="bottom"></button>
+      <div class="flex">
+        <button type="button" (click)="exportJsonToExcel()" pButton pRipple icon="pi pi-file-excel" class="p-button-success mr-2"  pTooltip="Exportar Excel" tooltipPosition="bottom"></button>
       </div>
     </div>
     <div class="row">

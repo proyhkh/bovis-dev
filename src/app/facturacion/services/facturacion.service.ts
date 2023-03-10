@@ -43,4 +43,16 @@ export class FacturacionService {
     return this.http.post<any>(`${this.baseUrl}api/factura/consultar`,objBusqueda, { headers: this.httpHeaders });
   }
 
+  getProyectos() {
+    return this.http.get<any>(`${this.baseUrl}api/pcs/proyectos/`);
+  }
+
+  getEmpresas() {
+    return this.http.get<any>(`${this.baseUrl}api/pcs/empresas`);
+  }
+
+  getClientes() {
+    return this.http.get<any>(`${this.baseUrl}api/pcs/clientes`);
+  }
+
 }

@@ -90,3 +90,21 @@ export class BusquedaCancelacion{
   c_FechaPago: string;
 
 }
+
+export class Proyectos{
+  numProyecto: number;
+  nombre: string;
+  alcance: string;
+}
+
+export class Empresas{
+  idEmpresa: number;
+  empresa: string;
+  rfc: string;
+}
+
+export class Clientes{
+  idCliente: number;
+  rfc: string;
+  cliente: string;
+}
