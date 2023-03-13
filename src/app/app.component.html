@@ -1,74 +1,13 @@
-<!-- <mat-toolbar style="background-color:darkcyan">
-  <a class="title" href="/">{{ title }}</a>
-
-  <div class="toolbar-spacer"></div>
-
-  <a mat-button [routerLink]="['profile']">Perfiles</a>
-
-  <ng-container *ngIf="user != ''">
-    <a mat-button><strong>{{user}}</strong></a>
-  </ng-container>
-
-
-  <button mat-raised-button [matMenuTriggerFor]="loginMenu" *ngIf="!loginDisplay">{{textLogin}}</button>
-  <mat-menu #loginMenu="matMenu">
-    <button mat-menu-item (click)="loginRedirect()">Login usando pagina redireccionada</button>
-    <button mat-menu-item (click)="loginPopup()">Login usando modal</button>
-  </mat-menu>
-
-  <button mat-raised-button [matMenuTriggerFor]="logoutMenu" *ngIf="loginDisplay">Login</button>
-  <mat-menu #logoutMenu="matMenu">
-    <button mat-menu-item (click)="logout()">Cerrar sesion usando pagina redireccionda</button>
-    <button mat-menu-item (click)="logout(true)">Cerrar sesion en modal</button>
-  </mat-menu>
-
-</mat-toolbar> -->
+<app-header></app-header>
 
 <div class="wrapper">
 
   <app-menu-sidebar *ngIf="loginDisplay" [accesos]="roles" (nameModule)="onEmitter($event)"></app-menu-sidebar>
 
-  <div class="content" style="width:100%">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="content">
 
-      <mat-toolbar style="background-color:#cdcccc">
-        <ng-container *ngIf="loginDisplay">
-          <!-- {{loginDisplay}} -->
-          <button type="button" id="sidebarCollapse" class="btn" style="background-color:#cdcccc">
-            <i class="fa fa-align-justify"></i> <span> &nbsp;Menu</span>
-          </button>
-
-        </ng-container>
-
-        <div class="toolbar-spacer"></div>
-        <div class="toolbar-spacer">{{currentModule}}</div>
-        <!-- <a mat-button [routerLink]="['profile']">Perfiles</a> -->
-
-        <ng-container *ngIf="loginDisplay">
-          <a mat-button><strong>{{user}}</strong></a>
-        </ng-container>
-
-
-        <!--    <button mat-raised-button [matMenuTriggerFor]="loginMenu" *ngIf="!loginDisplay">{{textLogin}}</button> -->
-        <button *ngIf="!loginDisplay" pButton pRipple type="button" icon="pi pi-user" [matMenuTriggerFor]="loginMenu"
-          [pTooltip]="textLogin" tooltipPosition="left" class="p-button-rounded p-button-info"></button>
-        <mat-menu #loginMenu="matMenu">
-          <button mat-menu-item (click)="loginRedirect()">Inicio sesion pagina redireccionada</button>
-          <button mat-menu-item (click)="loginPopup()">Inicio sesion en modal</button>
-        </mat-menu>
-
-        <!--  <button mat-raised-button [matMenuTriggerFor]="logoutMenu" *ngIf="loginDisplay">Login</button> -->
-        <button *ngIf="loginDisplay" pButton pRipple type="button" icon="pi pi-user" [matMenuTriggerFor]="logoutMenu"
-          [pTooltip]="textLogin" tooltipPosition="left" class="p-button-rounded p-button-info"></button>
-        <mat-menu #logoutMenu="matMenu">
-          <button mat-menu-item (click)="logout()">Cerrar sesion usando pagina redireccionda</button>
-          <button mat-menu-item (click)="logout(true)">Cerrar sesion en modal</button>
-        </mat-menu>
-
-      </mat-toolbar>
-    </nav>
-    <div class="line">
       <router-outlet></router-outlet>
-    </div>
+
   </div>
 </div>
+

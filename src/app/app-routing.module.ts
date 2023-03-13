@@ -4,7 +4,7 @@ import { MsalGuard } from '@azure/msal-angular';
 import { BrowserUtils } from '@azure/msal-browser';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
-import { FailedComponent } from './failed/failed.component';
+import { FailedComponent } from './shared/components/failed/failed.component';
 
 const routes: Routes = [
  /*  {
@@ -21,7 +21,7 @@ const routes: Routes = [
           import('./empleados/empleados.module').then((m) => m.EmpleadosModule),
       },
       {
-        path: 'dor',
+        path: 'pec',
         loadChildren: () =>
           import('./dor/dor.module').then((m) => m.DorModule),
       },

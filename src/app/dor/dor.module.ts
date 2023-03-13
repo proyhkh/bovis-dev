@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DorRoutingModule } from './dor-routing.module';
 import { DorComponent } from './container/dor.component';
 import { DorCrudComponent } from './components/dor-crud/dor-crud.component';
-import { NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -41,10 +41,10 @@ import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluaci
     CommonModule,
     DorRoutingModule,
     FormsModule,
-    NgbPaginationModule,
+    // NgbPaginationModule,
     ConfirmPopupModule,
     ToastModule,
-    NgbTooltipModule,
+    // NgbTooltipModule,
     DropdownModule,
     ProgressBarModule,
     InputTextModule,
