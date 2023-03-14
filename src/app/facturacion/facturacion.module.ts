@@ -20,7 +20,7 @@ import { FacturaCrpComponent } from './components/factura-crp/factura-crp.compon
 import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/busqueda-cancelacion.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+/* import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap'; */
 import { TooltipModule } from 'primeng/tooltip';
 
 
@@ -46,7 +46,7 @@ import { TooltipModule } from 'primeng/tooltip';
     InputNumberModule,
     DropdownModule,
     CalendarModule,
-    NgbTooltipModule,
+   /*  NgbTooltipModule, */
     TooltipModule
   ],
   providers: [

@@ -5,28 +5,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
-
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatListModule } from '@angular/material/list';
-// import { MatMenuModule } from '@angular/material/menu';
-
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-
-// import { MatSidenavModule } from '@angular/material/sidenav';
-// import { MatIconModule } from '@angular/material/icon'
-// import { MatCardModule } from '@angular/material/card'
-// import { MenuSidebarComponent } from './Shared/components/menu-sidebar/menu-sidebar.component';
-
-// import { ButtonModule } from 'primeng/button';
-// import { TooltipModule } from 'primeng/tooltip';
-// import { FailedComponent } from './shared/components/failed/failed.component';
 import { environment } from 'src/environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
@@ -98,27 +83,18 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    // FailedComponent,
-    // MenuSidebarComponent
   ],
   imports: [
     BrowserModule,
     NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
     AppRoutingModule,
     SharedModule,
-    // MatButtonModule,
-    // MatToolbarModule,
-    // MatListModule,
-    // MatMenuModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MsalModule,
-    // MatSidenavModule,
-    // MatIconModule,
-    // MatCardModule,
     BrowserModule,
     BrowserAnimationsModule,
-    // ButtonModule,
-    // TooltipModule
   ],
   exports: [
   ],

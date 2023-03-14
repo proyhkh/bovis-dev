@@ -123,15 +123,16 @@
               <td>{{bus.c_TipoCambioP}}</td>
               <td>{{bus.c_FechaPago}}</td>
               <td *ngIf="bus.fechaCancelacion == null || bus.fechaCancelacion == '' ">
-                <i class="pi pi-trash c-del"  ngbTooltip="Eliminar registro"
-                tooltipPosition="left"></i>
+
+                  <i class="pi pi-trash c-del"  title="Eliminar registro"
+                  tooltipPosition="left"></i>
                 </td>
                 <td>
-                  <i class="pi pi-eye"  ngbTooltip="Ver notas de crédito"
+                  <i class="pi pi-eye"  title="Ver notas de crédito"
                   tooltipPosition="left"></i>
                   </td>
                   <td>
-                    <i class="pi pi-eye"  ngbTooltip="Ver pago"
+                    <i class="pi pi-eye"  title="Ver pago"
                     tooltipPosition="left"></i>
                     </td>
             </tr>
