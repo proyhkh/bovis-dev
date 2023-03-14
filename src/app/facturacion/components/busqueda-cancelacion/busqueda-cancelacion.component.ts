@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { Busqueda, BusquedaCancelacion, Clientes, Empresas, Proyectos } from '../../Models/FacturacionModels';
+import {
+  Busqueda,
+  BusquedaCancelacion,
+  Clientes,
+  Empresas,
+  Proyectos,
+} from '../../Models/FacturacionModels';
 import { FacturacionService } from '../../services/facturacion.service';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { Dropdown } from 'primeng/dropdown';
 
 const EXCEL_EXTENSION = '.xlsx';
 
 interface FiltroCancelacion {
-  name: string,
-  value: string
+  name: string;
+  value: string;
 }
 
 @Component({
@@ -18,18 +25,31 @@ interface FiltroCancelacion {
   styleUrls: ['./busqueda-cancelacion.component.css'],
 })
 export class BusquedaCancelacionComponent implements OnInit {
-  objBusqueda: Busqueda = new Busqueda();
+  //objBusqueda: Busqueda = new Busqueda();
   listBusquedaCompleto: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
   listBusquedaUnique: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
-    listProyectos: Proyectos[] = [];
-    listEmpresas: Empresas[] = [];
-    listClientes: Clientes[] = [];
-    filtroProyectos: FiltroCancelacion[] = [];
-    filtroEmpresas: FiltroCancelacion[] = [];
-    filtroClientes: FiltroCancelacion[] = [];
+  listProyectos: Proyectos[] = [];
+  listEmpresas: Empresas[] = [];
+  listClientes: Clientes[] = [];
+  filtroProyectos: FiltroCancelacion[] = [];
+  filtroEmpresas: FiltroCancelacion[] = [];
+  filtroClientes: FiltroCancelacion[] = [];
 
+  isDisableProyecto: boolean = false;
+  isDisableEmpresa: boolean = false;
+  isDisableCliente: boolean = false;
+  isClear: boolean = false;
+
+  @ViewChild('dropDownProyecto') dropDownProyecto: Dropdown;
+  @ViewChild('dropDownEmpresa') dropDownEmpresa: Dropdown;
+  @ViewChild('dropDownCliente') dropDownCliente: Dropdown;
+  maxDate: Date;
+  fechaInicio: Date;
+  fechaFin: Date;
+  opcionFiltro: number = 0;
+  filtroValue: number;
 
   constructor(
     private config: PrimeNGConfig,
@@ -37,46 +57,51 @@ export class BusquedaCancelacionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.maxDate = new Date();
     this.getConfigCalendar();
-    this.listBusquedaCompleto =
-    new Array<BusquedaCancelacion>();
-  this.listBusquedaUnique =
-    new Array<BusquedaCancelacion>();
+    this.listBusquedaCompleto = new Array<BusquedaCancelacion>();
+    this.listBusquedaUnique = new Array<BusquedaCancelacion>();
 
     this.getPoblarProyectos();
     this.getPoblarEmpresas();
     this.getPoblarClientes();
   }
 
-  getPoblarProyectos(){
-
-    this.facturacionService.getProyectos().subscribe(pro =>  {
+  getPoblarProyectos() {
+    this.facturacionService.getProyectos().subscribe((pro) => {
       //console.log(pro);
-      this.listProyectos = pro.data
+      this.listProyectos = pro.data;
       //console.log(this.listProyectos);
 
-      this.listProyectos.forEach(element => {
-        this.filtroProyectos.push({ name: `${String(element.numProyecto)} / ${String(element.nombre)}` , value: String(element.numProyecto) })
+      this.listProyectos.forEach((element) => {
+        this.filtroProyectos.push({
+          name: `${String(element.numProyecto)} / ${String(element.nombre)}`,
+          value: String(element.numProyecto),
+        });
       });
     });
   }
 
-  getPoblarEmpresas(){
-
-    this.facturacionService.getEmpresas().subscribe(pro =>  {
+  getPoblarEmpresas() {
+    this.facturacionService.getEmpresas().subscribe((pro) => {
       this.listEmpresas = pro.data;
-      this.listEmpresas.forEach(element => {
-        this.filtroEmpresas.push({ name: `${String(element.rfc)} / ${String(element.empresa)}` , value: String(element.idEmpresa) })
+      this.listEmpresas.forEach((element) => {
+        this.filtroEmpresas.push({
+          name: `${String(element.rfc)} / ${String(element.empresa)}`,
+          value: String(element.idEmpresa),
+        });
       });
     });
   }
 
-  getPoblarClientes(){
-
-    this.facturacionService.getClientes().subscribe(pro =>  {
+  getPoblarClientes() {
+    this.facturacionService.getClientes().subscribe((pro) => {
       this.listClientes = pro.data;
-      this.listClientes.forEach(element => {
-        this.filtroClientes.push({ name: `${String(element.rfc)} / ${String(element.cliente)}` , value: String(element.idCliente) })
+      this.listClientes.forEach((element) => {
+        this.filtroClientes.push({
+          name: `${String(element.rfc)} / ${String(element.cliente)}`,
+          value: String(element.idCliente),
+        });
       });
     });
   }
@@ -129,13 +154,8 @@ export class BusquedaCancelacionComponent implements OnInit {
   }
 
   busqueda() {
-    var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-    //console.log(utc);
 
-    this.objBusqueda.fechaFin = utc;
-    //console.log(this.objBusqueda);
-
-    this.facturacionService.getBusqueda(this.objBusqueda).subscribe((bus) => {
+    this.facturacionService.getBusqueda(this.getFiltrosVaues()).subscribe((bus) => {
       //console.log(bus);
       this.listBusquedaCompleto = bus.data;
       //console.log(this.listBusquedaCompleto);
@@ -146,6 +166,41 @@ export class BusquedaCancelacionComponent implements OnInit {
       ];
       //console.log(this.listBusquedaUnique);
     });
+  }
+
+  getFiltrosVaues() {
+    let objBusqueda: Busqueda = new Busqueda();
+    if (this.opcionFiltro == 0) {
+      let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+      //console.log(utc);
+      objBusqueda.fechaFin = utc;
+    } else {
+      let utcFin = this.fechaFin.toJSON().slice(0, 10).replace(/-/g, '-');
+      //console.log(utcFin);
+      objBusqueda.fechaFin = utcFin;
+      if (this.fechaInicio != null) {
+        let utcInicio = this.fechaInicio
+          .toJSON()
+          .slice(0, 10)
+          .replace(/-/g, '-');
+        //console.log(utcInicio);
+        objBusqueda.fechaIni = utcInicio;
+      }
+
+      switch (this.opcionFiltro) {
+        case 1:
+        objBusqueda.idProyecto = this.filtroValue;
+        break;
+        case 2:
+        objBusqueda.idEmpresa = this.filtroValue;
+        break;
+        case 3:
+        objBusqueda.idCliente = this.filtroValue;
+        break;
+      }
+    }
+    //console.log(objBusqueda);
+    return objBusqueda;
   }
 
   getHeadersTabla() {
@@ -202,7 +257,6 @@ export class BusquedaCancelacionComponent implements OnInit {
     /* pass here the table id */
     //let element = document.getElementById(this.listBusquedaCompleto);
 
-
     /* const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(this.listBusquedaCompleto);
 
    // generate workbook and add the worksheet
@@ -211,26 +265,25 @@ export class BusquedaCancelacionComponent implements OnInit {
 
   // save to file
     XLSX.writeFile(wb, "Facturacion"); */
-}
+  }
 
-saveAsExcelFile(buffer: any, fileName: string): void {
- /*  let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    /*  let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   let EXCEL_EXTENSION = '.xlsx';
   const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
   });
   FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION); */
-}
+  }
 
-public exportJsonToExcel(fileName: string = 'facturacion_cancelacion'): void {
+  public exportJsonToExcel(fileName: string = 'facturacion_cancelacion'): void {
+    // inserting first blank row
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      this.listBusquedaCompleto,
+      this.getOptions(this.listBusquedaCompleto)
+    );
 
-  // inserting first blank row
-  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
-    this.listBusquedaCompleto,
-    this.getOptions(this.listBusquedaCompleto)
-  );
-
-  //for (let i = 1, length = this.listBusquedaCompleto.length; i < length; i++) {
+    //for (let i = 1, length = this.listBusquedaCompleto.length; i < length; i++) {
     // adding a dummy row for separation
     XLSX.utils.sheet_add_json(
       worksheet,
@@ -238,37 +291,86 @@ public exportJsonToExcel(fileName: string = 'facturacion_cancelacion'): void {
       this.getOptions(
         {
           data: [],
-          skipHeader: true
-        }, -1)
+          skipHeader: true,
+        },
+        -1
+      )
     );
     XLSX.utils.sheet_add_json(
       worksheet,
       this.listBusquedaCompleto,
       this.getOptions(this.listBusquedaCompleto, 1)
     );
-  //}
-  const workbook: XLSX.WorkBook = { Sheets: { Sheet1: worksheet }, SheetNames: ['Sheet1'] };
-  // save to file
-  XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
-}
-
-
-private getOptions(json: any, origin?: number): any {
-  // adding actual data
-  const options = {
-    skipHeader: true,
-    origin: 1,
-    header: [] = []
-  };
-  options.skipHeader = json.skipHeader ? json.skipHeader : false;
-  if (!options.skipHeader && json.header && json.header.length) {
-    options.header = json.header;
+    //}
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Sheet1: worksheet },
+      SheetNames: ['Sheet1'],
+    };
+    // save to file
+    XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
   }
-  if (origin) {
-    options.origin = origin ? origin : 1;
+
+  private getOptions(json: any, origin?: number): any {
+    // adding actual data
+    const options = {
+      skipHeader: true,
+      origin: 1,
+      header: ([] = []),
+    };
+    options.skipHeader = json.skipHeader ? json.skipHeader : false;
+    if (!options.skipHeader && json.header && json.header.length) {
+      options.header = json.header;
+    }
+    if (origin) {
+      options.origin = origin ? origin : 1;
+    }
+    return options;
   }
-  return options;
-}
 
+  onChangeCombo(event: any, opcion: number) {
+    /*console.log('event :' + event);
+    console.log(event.value);*/
+    if (event.value != null) {
+      this.isClear = true;
+      this.disableFiltros(opcion);
+      this.opcionFiltro = opcion;
+      this.fechaFin = new Date();
+      this.filtroValue = event.value['value'];
+      //console.log(this.filtroValue);
+    } else {
+      this.isClear = false;
+    }
+  }
 
+  disableFiltros(opcion: number) {
+    switch (opcion) {
+      case 1:
+        this.isDisableEmpresa = true;
+        this.isDisableCliente = true;
+        break;
+      case 2:
+        this.isDisableProyecto = true;
+        this.isDisableCliente = true;
+        break;
+      case 3:
+        this.isDisableProyecto = true;
+        this.isDisableEmpresa = true;
+        break;
+    }
+  }
+
+  clearFiltros() {
+    this.dropDownProyecto.clear(null);
+    this.dropDownEmpresa.clear(null);
+    this.dropDownCliente.clear(null);
+
+    this.isDisableProyecto = false;
+    this.isDisableEmpresa = false;
+    this.isDisableCliente = false;
+
+    this.fechaInicio = null;
+    this.fechaFin = null;
+
+    this.opcionFiltro = 0;
+  }
 }

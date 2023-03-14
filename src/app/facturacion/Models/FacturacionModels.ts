@@ -42,8 +42,8 @@ export class FacrurasNC{
 
 export class Busqueda{
   idProyecto: any = null;
-  idCliente: string = null;
-  idEmpresa: string = null;
+  idCliente: any = null;
+  idEmpresa: any = null;
   fechaIni: string = null;
   fechaFin: string = null;
 }
