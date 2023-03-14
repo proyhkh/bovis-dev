@@ -50,6 +50,7 @@ export class BusquedaCancelacionComponent implements OnInit {
   fechaFin: Date;
   opcionFiltro: number = 0;
   filtroValue: number;
+  //w
 
   constructor(
     private config: PrimeNGConfig,
