@@ -7,6 +7,7 @@ import { SlideMenuModule } from 'primeng/slidemenu';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
   declarations: [],
@@ -16,14 +17,16 @@ import { TooltipModule } from 'primeng/tooltip';
     SlideMenuModule,
     MegaMenuModule,
     ButtonModule,
-    TooltipModule
+    TooltipModule,
+    TabViewModule
   ],
   exports: [
     MenubarModule,
     SlideMenuModule,
     MegaMenuModule,
     ButtonModule,
-    TooltipModule
+    TooltipModule,
+    TabViewModule
   ]
 })
 export class PrimengModule { }

@@ -164,7 +164,7 @@
                   <td pTooltip="{{objetivo.tooltip}}" tooltipPosition="top">
                     <p-cellEditor>
                       <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="objetivo.descripcion" required>
+                        <textarea [rows]="3" [cols]="80" pInputTextarea [autoResize]="true" maxlength="100" [(ngModel)]="objetivo.descripcion"></textarea>
                       </ng-template>
                       <ng-template pTemplate="output">
                         {{objetivo.descripcion}}

@@ -41,6 +41,8 @@ export class MenuSidebarComponent implements OnInit {
                 {
                   label: 'Generar requerimiento',
                   routerLink: ['/empleados'],
+                  command: () =>
+                    this.setModule('empleados'.toUpperCase()),
                 },
                 {
                   label: 'Ver requerimientos',
@@ -182,14 +184,20 @@ export class MenuSidebarComponent implements OnInit {
                 {
                   label: 'Captura',
                   routerLink: ['pec/captura'],
+                  command: () =>
+                    this.setModule('PLATAFORMA DE EXCELENCIA CORPORATIVA'.toUpperCase()),
                 },
                 {
                   label: 'Consulta/Evaluación',
                   routerLink: ['pec/evaluacion'],
+                  command: () =>
+                    this.setModule('PLATAFORMA DE EXCELENCIA CORPORATIVA'.toUpperCase()),
                 },
                 {
                   label: 'Aceptar objetivos',
                   routerLink: ['pec/objetivos'],
+                  command: () =>
+                    this.setModule('PLATAFORMA DE EXCELENCIA CORPORATIVA'.toUpperCase()),
                 },
               ],
             },
@@ -207,18 +215,26 @@ export class MenuSidebarComponent implements OnInit {
                 {
                   label: 'Carga CFDI',
                   routerLink: ['facturacion/carga-cfdi'],
+                  command: () =>
+                    this.setModule('FACTURACIÓN - CARGA CFDI'.toUpperCase()),
                 },
                 {
                   label: 'NC',
                   routerLink: ['facturacion/nota-credito'],
+                  command: () =>
+                  this.setModule('FACTURACIÓN - NC'.toUpperCase()),
                 },
                 {
                   label: 'CRP',
                   routerLink: ['facturacion/crp'],
+                  command: () =>
+                  this.setModule('FACTURACIÓN - CRP'.toUpperCase()),
                 },
                 {
                   label: 'Busqueda/Cancelación',
                   routerLink: ['facturacion/cancelacion'],
+                  command: () =>
+                  this.setModule('FACTURACIÓN - CANCELACIÓN'.toUpperCase()),
                 },
               ],
             },
@@ -249,7 +265,9 @@ export class MenuSidebarComponent implements OnInit {
     ];
   }
 
+
   setModule(name: any) {
+    console.log(name);
     this.nameModule.next(name);
   }
 }
