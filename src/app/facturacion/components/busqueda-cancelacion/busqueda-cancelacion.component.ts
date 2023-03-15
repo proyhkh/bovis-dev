@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import {
   Busqueda,
   BusquedaCancelacion,
   Clientes,
   Empresas,
   Proyectos,
+  facturaCancelacion,
 } from '../../Models/FacturacionModels';
 import { FacturacionService } from '../../services/facturacion.service';
 import * as FileSaver from 'file-saver';
@@ -50,11 +51,15 @@ export class BusquedaCancelacionComponent implements OnInit {
   fechaFin: Date;
   opcionFiltro: number = 0;
   filtroValue: number;
-  //w
+  displayModal: boolean;
+  motivoCancelacion: string = '';
+  count_carapteres: number = 20;
+  idCancelacion: number;
 
   constructor(
     private config: PrimeNGConfig,
-    private facturacionService: FacturacionService
+    private facturacionService: FacturacionService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -156,13 +161,15 @@ export class BusquedaCancelacionComponent implements OnInit {
 
   busqueda() {
 
+    this.listBusquedaCompleto = new Array<BusquedaCancelacion>();
+    this.listBusquedaUnique = new Array<BusquedaCancelacion>();
     this.facturacionService.getBusqueda(this.getFiltrosVaues()).subscribe((bus) => {
       //console.log(bus);
       this.listBusquedaCompleto = bus.data;
       //console.log(this.listBusquedaCompleto);
       this.listBusquedaUnique = [
         ...new Map(
-          this.listBusquedaCompleto.map((item) => [item['numProyecto'], item])
+          this.listBusquedaCompleto.map((item) => [item['uuid'], item])
         ).values(),
       ];
       //console.log(this.listBusquedaUnique);
@@ -374,4 +381,26 @@ export class BusquedaCancelacionComponent implements OnInit {
 
     this.opcionFiltro = 0;
   }
+
+  showModalDialog(id: number) {
+    this.idCancelacion = id;
+    this.motivoCancelacion = '';
+    this.displayModal = true;
+  }
+
+  changeCancelar(){
+
+    let cancelacion: facturaCancelacion = new facturaCancelacion();
+    cancelacion.id = this.idCancelacion;
+    cancelacion.MotivoCancelacion = this.motivoCancelacion;
+
+    this.facturacionService.facturaCancelacion(cancelacion).subscribe(cancel => {
+      if(cancel.data){
+        this.messageService.add({ severity: 'success', summary: 'Cancelar registro', detail: `Cancelación realizada correctamente` });
+        this.busqueda();
+      }
+    });
+    this.displayModal = false;
+  }
+
 }

@@ -213,7 +213,8 @@ export class DorCapturaComponent implements OnInit {
   saveObjetivo(objetivo: Objetivos) {
     /* objetivo.Proyecto = this.subComple.proyecto;
     objetivo.Empleado = this.subComple.noEmpleado; */
-    objetivo.acepto = '1';
+    objetivo.acepto = '0';
+    objetivo.nivel = objetivo.valor;
     //console.log(objetivo);
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
       console.log(udt);
@@ -232,6 +233,7 @@ export class DorCapturaComponent implements OnInit {
   async saveAllObjetivos() {
     this.listObjetivos.forEach(async objetivo => {
       objetivo.acepto = '1';
+      objetivo.nivel = objetivo.valor;
       await this.docService.updateObjetivos(objetivo).subscribe(udt => {
         console.log(udt);
       });

@@ -41,10 +41,8 @@ import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluaci
     CommonModule,
     DorRoutingModule,
     FormsModule,
-    // NgbPaginationModule,
     ConfirmPopupModule,
     ToastModule,
-    // NgbTooltipModule,
     DropdownModule,
     ProgressBarModule,
     InputTextModule,
@@ -56,8 +54,6 @@ import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluaci
     MessagesModule,
     MessageModule,
     DialogModule,
-   /*  BrowserModule,
-    BrowserAnimationsModule, */
     InputTextareaModule
   ],
   providers: [ConfirmationService, MessageService, DorService]

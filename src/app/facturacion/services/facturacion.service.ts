@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Busqueda, CargaFile, FacrurasNC, InfoProyectoFacturas, LstFacturas } from '../Models/FacturacionModels';
+import { Busqueda, CargaFile, FacrurasNC, InfoProyectoFacturas, LstFacturas, facturaCancelacion } from '../Models/FacturacionModels';
 
 
 @Injectable({
@@ -53,6 +53,10 @@ export class FacturacionService {
 
   getClientes() {
     return this.http.get<any>(`${this.baseUrl}api/pcs/clientes`);
+  }
+
+  facturaCancelacion(cancelacion: facturaCancelacion) {
+    return this.http.post<any>(`${this.baseUrl}api/factura/cancelar`,cancelacion, { headers: this.httpHeaders });
   }
 
 }

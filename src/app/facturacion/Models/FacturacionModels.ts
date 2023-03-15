@@ -108,3 +108,8 @@ export class Clientes{
   rfc: string;
   cliente: string;
 }
+
+export class facturaCancelacion{
+  id: number;
+  MotivoCancelacion: string;
+}

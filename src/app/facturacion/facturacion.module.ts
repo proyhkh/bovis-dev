@@ -8,7 +8,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import { FacturacionService } from './services/facturacion.service';
 import {ButtonModule} from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import {TableModule} from 'primeng/table';
 import {MessagesModule} from 'primeng/messages';
@@ -22,6 +22,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 /* import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap'; */
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 
 @NgModule({
@@ -46,10 +49,13 @@ import { TooltipModule } from 'primeng/tooltip';
     InputNumberModule,
     DropdownModule,
     CalendarModule,
-   /*  NgbTooltipModule, */
-    TooltipModule
+    TooltipModule,
+    DialogModule,
+    ConfirmDialogModule,
+    ConfirmPopupModule
   ],
   providers: [
+    ConfirmationService,
     FacturacionService,
     MessageService
   ]

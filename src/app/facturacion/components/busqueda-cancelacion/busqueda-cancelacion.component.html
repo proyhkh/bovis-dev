@@ -125,7 +125,7 @@
               <td *ngIf="bus.fechaCancelacion == null || bus.fechaCancelacion == '' ">
 
                   <i class="pi pi-trash c-del"  title="Eliminar registro"
-                  tooltipPosition="left"></i>
+                  tooltipPosition="left" (click)="showModalDialog(bus.id)"></i>
                 </td>
                 <td>
                   <i class="pi pi-eye"  title="Ver notas de crédito"
@@ -142,3 +142,23 @@
     </div>
   </div>
 </div>
+
+<p-confirmDialog [style]="{width: '30vw'}" [baseZIndex]="10000"></p-confirmDialog>
+<p-toast></p-toast>
+
+
+<p-dialog header="Cancelación" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <div class="row d-flex justify-content-center">
+      <label for="">
+        <strong style="color: red;">* Debe ingresar una descripción</strong>
+       </label>
+    </div>
+    <div  class="row d-flex justify-content-center">
+        <textarea placeholder="Ingrese al menos {{count_carapteres}} caracteres" [rows]="3" [cols]="80" pInputTextarea  [(ngModel)]="motivoCancelacion"></textarea>
+    </div>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="changeCancelar()" label="Aceptar" class="p-button-text" [disabled]="motivoCancelacion.length < count_carapteres"></p-button>
+            <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancelar"></p-button>
+        </ng-template>
+</p-dialog>
