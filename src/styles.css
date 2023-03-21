@@ -19,7 +19,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body {
   font-family: "Poppins", sans-serif;
   background-color: #fafafa;
-  background-image: url('assets/images/decoration-img.png');
+  /* background-image: url('assets/images/decoration-img.png'); */
 }
 
 .wrapper{
@@ -66,7 +66,7 @@ body {
   border-radius: 1rem;
 }
 .menu-principal .p-menuitem-link:not(.p-disabled):hover {
-  background-image: url('assets/images/decoration-img.png');
+  /* background-image: url('assets/images/decoration-img.png'); */
   background-size: 10rem;
   border-radius: .5rem;
 }
