@@ -102,7 +102,7 @@
               <td>{{bus.noFactura}}</td>
               <td>{{bus.tipoCambio}}</td>
               <td>{{bus.motivoCancelacion}}</td>
-              <td>{{bus.nC_UuidNotaCredito}}</td>
+             <!--  <td>{{bus.nC_UuidNotaCredito}}</td>
               <td>{{bus.nC_IdMoneda}}</td>
               <td>{{bus.nC_IdTipoRelacion}}</td>
               <td>{{bus.nC_NotaCredito}}</td>
@@ -121,7 +121,7 @@
               <td>{{bus.c_ImporteSaldoInsoluto}}</td>
               <td>{{bus.c_IvaP}}</td>
               <td>{{bus.c_TipoCambioP}}</td>
-              <td>{{bus.c_FechaPago}}</td>
+              <td>{{bus.c_FechaPago}}</td> -->
               <td *ngIf="bus.fechaCancelacion == null || bus.fechaCancelacion == '' ">
 
                   <i class="pi pi-trash c-del"  title="Eliminar registro"
@@ -129,11 +129,11 @@
                 </td>
                 <td>
                   <i class="pi pi-eye"  title="Ver notas de crédito"
-                  tooltipPosition="left"></i>
+                  tooltipPosition="left" (click)="show(true, bus.uuid)"></i>
                   </td>
                   <td>
                     <i class="pi pi-eye"  title="Ver pago"
-                    tooltipPosition="left"></i>
+                    tooltipPosition="left" (click)="show(false, bus.uuid)"></i>
                     </td>
             </tr>
           </ng-template>
@@ -161,4 +161,52 @@
             <p-button icon="pi pi-check" (click)="changeCancelar()" label="Aceptar" class="p-button-text" [disabled]="motivoCancelacion.length < count_carapteres"></p-button>
             <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancelar"></p-button>
         </ng-template>
+</p-dialog>
+
+<p-dialog [header]="headerModalCancelacion"
+    [(visible)]="isCancelacionVisible" [modal]="true"
+    [draggable]="true" [resizable]="true"
+    [style]="{width: '75vw'}"
+    [baseZIndex]="10000">
+    <p>
+      <p-table [value]="listBusquedaModal" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header" ngIf="isTypeHeader">
+          <tr>
+            <th *ngFor="let val of getHeadersModal()">{{val}}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-bus>
+          <ng-container *ngIf="isTypeHeader">
+            <tr>
+            <td>{{bus.nC_UuidNotaCredito}}</td>
+            <td>{{bus.nC_IdMoneda}}</td>
+            <td>{{bus.nC_IdTipoRelacion}}</td>
+            <td>{{bus.nC_NotaCredito}}</td>
+            <td>{{bus.nC_Importe}}</td>
+            <td>{{bus.nC_Iva}}</td>
+            <td>{{bus.nC_Total}}</td>
+            <td>{{bus.nC_Concepto}}</td>
+            <td>{{bus.nC_Mes}}</td>
+            <td>{{bus.nC_Anio}}</td>
+            <td>{{bus.nC_TipoCambio}}</td>
+            <td>{{bus.nC_FechaNotaCredito}}</td>
+            </tr>
+          </ng-container>
+
+          <ng-container *ngIf="!isTypeHeader">
+            <tr>
+              <td>{{bus.c_UuidCobranza}}</td>
+              <td>{{bus.c_IdMonedaP}}</td>
+              <td>{{bus.c_ImportePagado}}</td>
+              <td>{{bus.c_ImpSaldoAnt}}</td>
+              <td>{{bus.c_ImporteSaldoInsoluto}}</td>
+              <td>{{bus.c_IvaP}}</td>
+              <td>{{bus.c_TipoCambioP}}</td>
+              <td>{{bus.c_FechaPago}}</td>
+            </tr>
+          </ng-container>
+
+        </ng-template>
+    </p-table>
+    </p>
 </p-dialog>

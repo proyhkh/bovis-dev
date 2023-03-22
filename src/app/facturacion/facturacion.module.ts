@@ -20,11 +20,11 @@ import { FacturaCrpComponent } from './components/factura-crp/factura-crp.compon
 import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/busqueda-cancelacion.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
-/* import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap'; */
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -52,7 +52,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     TooltipModule,
     DialogModule,
     ConfirmDialogModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    DynamicDialogModule
   ],
   providers: [
     ConfirmationService,
