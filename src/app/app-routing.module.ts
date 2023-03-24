@@ -36,12 +36,12 @@ const routes: Routes = [
           import('./facturacion/facturacion.module').then((m) => m.FacturacionModule),
       }
     ],
-    /* canActivate: [MsalGuard] */
+    canActivate: [MsalGuard]
   },
-  {
-    path: 'login-failed',
-    component: FailedComponent
-  }
+ /*  {
+    path: '',
+    component: HomeComponent
+  } */
 ];
 
 @NgModule({

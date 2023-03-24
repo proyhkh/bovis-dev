@@ -32,7 +32,7 @@ export class BusquedaCancelacionComponent implements OnInit {
     new Array<BusquedaCancelacion>();
   listBusquedaUnique: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
-    listBusquedaModal: Array<BusquedaCancelacion> =
+  listBusquedaModal: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
   listProyectos: Proyectos[] = [];
   listEmpresas: Empresas[] = [];
@@ -81,42 +81,80 @@ export class BusquedaCancelacionComponent implements OnInit {
   }
 
   getPoblarProyectos() {
-    this.facturacionService.getProyectos().subscribe((pro) => {
-      //console.log(pro);
-      this.listProyectos = pro.data;
-      //console.log(this.listProyectos);
+    this.facturacionService.getProyectos().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.listProyectos = data.data;
 
-      this.listProyectos.forEach((element) => {
-        this.filtroProyectos.push({
-          name: `${String(element.numProyecto)} / ${String(element.nombre)}`,
-          value: String(element.numProyecto),
-        });
-      });
+          this.listProyectos.forEach((element) => {
+            this.filtroProyectos.push({
+              name: `${String(element.numProyecto)} / ${String(element.nombre)}`,
+              value: String(element.numProyecto),
+            });
+          });
+        } else {
+          this.messageError(data.message, 'Información de Proyectos');
+        }
+      },
+      error: (e) => {
+        this.messageError(e.message, 'Información de Proyectos');
+      }
     });
   }
 
   getPoblarEmpresas() {
-    this.facturacionService.getEmpresas().subscribe((pro) => {
-      this.listEmpresas = pro.data;
-      this.listEmpresas.forEach((element) => {
-        this.filtroEmpresas.push({
-          name: `${String(element.rfc)} / ${String(element.empresa)}`,
-          value: String(element.idEmpresa),
-        });
-      });
+    this.facturacionService.getEmpresas().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.listEmpresas = data.data;
+          this.listEmpresas.forEach((element) => {
+            this.filtroEmpresas.push({
+              name: `${String(element.rfc)} / ${String(element.empresa)}`,
+              value: String(element.idEmpresa),
+            });
+          });
+        }
+        else{
+          this.messageError(data.message, 'Información de Empresas');
+        }
+      },
+      error: (e) => {
+        this.messageError(e.message, 'Información de Empresas');
+      }
     });
   }
 
   getPoblarClientes() {
-    this.facturacionService.getClientes().subscribe((pro) => {
-      this.listClientes = pro.data;
-      this.listClientes.forEach((element) => {
-        this.filtroClientes.push({
-          name: `${String(element.rfc)} / ${String(element.cliente)}`,
-          value: String(element.idCliente),
-        });
-      });
+    this.facturacionService.getClientes().subscribe({
+
+      next: (data) => {
+        if (data.success) {
+          this.listClientes = data.data;
+          this.listClientes.forEach((element) => {
+            this.filtroClientes.push({
+              name: `${String(element.rfc)} / ${String(element.cliente)}`,
+              value: String(element.idCliente),
+            });
+          });
+        }
+        else{
+          this.messageError(data.message, 'Información de Clientes');
+        }
+
+      },
+      error: (e) => {
+        this.messageError(e.message, 'Información de Clientes');
+      }
     });
+  }
+
+  messageError(message: string, tipo: string) {
+    this.messageService.add({
+      severity: "error",
+      summary: tipo,
+      detail: String(message)
+    });
+
   }
 
   getConfigCalendar() {
@@ -278,7 +316,7 @@ export class BusquedaCancelacionComponent implements OnInit {
         'NC Tipo Cambio',
         'NC Fecha Nota Credito',
       ];
-    }else{
+    } else {
       this.headerModalCancelacion = 'Pagos';
       return [
         'C Uuid Cobranza',
@@ -455,8 +493,9 @@ export class BusquedaCancelacionComponent implements OnInit {
     this.listBusquedaModal = new Array<BusquedaCancelacion>();
     console.log(this.listBusquedaCompleto);
 
-    this.listBusquedaModal = this.listBusquedaCompleto.filter(xx => xx.uuid == uuid);
+    this.listBusquedaModal = this.listBusquedaCompleto.filter(
+      (xx) => xx.uuid == uuid
+    );
     console.log(this.listBusquedaModal);
   }
-
 }

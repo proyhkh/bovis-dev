@@ -124,7 +124,7 @@
               <td>{{bus.c_FechaPago}}</td> -->
               <td *ngIf="bus.fechaCancelacion == null || bus.fechaCancelacion == '' ">
 
-                  <i class="pi pi-trash c-del"  title="Eliminar registro"
+                  <i class="pi pi-trash c-del"  title="Cancelar factura"
                   tooltipPosition="left" (click)="showModalDialog(bus.id)"></i>
                 </td>
                 <td>
@@ -177,7 +177,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-bus>
           <ng-container *ngIf="isTypeHeader">
-            <tr>
+            <tr *ngIf="bus.nC_Anio != '0'">
             <td>{{bus.nC_UuidNotaCredito}}</td>
             <td>{{bus.nC_IdMoneda}}</td>
             <td>{{bus.nC_IdTipoRelacion}}</td>

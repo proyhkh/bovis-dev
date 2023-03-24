@@ -114,6 +114,8 @@ export class UploadFileComponent implements OnInit {
       this.isLoadingFacturas = false;
       this.isClear = true;
     } catch (err) {
+      this.isLoadingFacturas = false;
+      this.isClear = true;
       console.log(err);
       this.messageService.add({
         severity: "error",
@@ -147,9 +149,9 @@ export class UploadFileComponent implements OnInit {
         this.isXml = false;
         this.infoProyecto = info.data;
         //console.log(this.infoProyecto);
-        this.isLoadingGPM = false;
       }
-    })
+    });
+    this.isLoadingGPM = false;
   }
 
 }
