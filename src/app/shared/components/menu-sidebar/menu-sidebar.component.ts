@@ -41,10 +41,7 @@ export class MenuSidebarComponent implements OnInit {
               label: 'EMPLEADOS',
               items: [
                 {
-                  label: 'Generar requerimiento',
-                  routerLink: ['/empleados'],
-                  command: () =>
-                    this.setModule('empleados'.toUpperCase()),
+                  label: 'Generar requerimiento'
                 },
                 {
                   label: 'Ver requerimientos',
@@ -54,6 +51,18 @@ export class MenuSidebarComponent implements OnInit {
                 },
                 {
                   label: 'Modificar empleados',
+                },
+                {
+                  label: 'Carga persona',
+                  routerLink: ['/empleados/registro-persona'],
+                  command: () =>
+                    this.setModule('Registro de Persona'.toUpperCase()),
+                },
+                {
+                  label: 'Carga empleados',
+                  routerLink: ['/empleados/registro-empleado'],
+                  command: () =>
+                    this.setModule('Registro de Empleado'.toUpperCase()),
                 },
               ],
             },
