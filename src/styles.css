@@ -71,6 +71,24 @@ body {
   border-radius: .5rem;
 }
 
+/** BOTONES **/
+.p-button {
+  padding: 0.5rem 1.25rem;
+  background: var(--bluegray-300);
+  border: 1px solid var(--bluegray-300);
+}
+
+.p-button:enabled:hover {
+  background: var(--bluegray-400);
+  border: 1px solid var(--bluegray-400);
+}
+
+/**  CALENDARIO **/
+.p-inputtext,
+.p-button.p-button-icon-only {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 
 /* p {
   font-family: "Poppins", sans-serif;

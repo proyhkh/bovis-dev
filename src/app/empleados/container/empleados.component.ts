@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Empleado } from '../Models/empleados';
-import { faAlignJustify } from '@fortawesome/free-solid-svg-icons';
+// import { faAlignJustify } from '@fortawesome/free-solid-svg-icons';
 import {
   ConfirmationService,
   MessageService,
@@ -30,7 +30,7 @@ export class EmpleadosComponent implements OnInit {
     'Avance captura'
   ];
 
-  faAlignJustify = faAlignJustify;
+  // faAlignJustify = faAlignJustify;
   filtroApellido = '';
   requerid = {
     tipoVoto: false,

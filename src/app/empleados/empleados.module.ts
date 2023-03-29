@@ -5,7 +5,7 @@ import { EmpleadosComponent } from './container/empleados.component';
 import { EmpleadosRegistroComponent } from './components/empleados-registro/empleados-registro.component';
 // import { NgbAccordionModule, NgbDatepickerModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastModule } from "primeng/toast";
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from "primeng/api";
@@ -24,7 +24,7 @@ import { CalendarModule } from 'primeng/calendar';
     FormsModule,
     EmpleadosRoutingModule,
     // NgbDatepickerModule,
-    FontAwesomeModule,
+    // FontAwesomeModule,
     // NgbTooltipModule,
     // NgbAccordionModule,
     ConfirmPopupModule,
