@@ -1,151 +1,330 @@
 <div class="content" style="margin:2%">
-  <button type="button" class="btn btn-info" (click)="guardar()" [disabled]="isConsulta">Guardar</button>&nbsp;&nbsp;
-  <button type="button" class="btn btn-info" (click)="clear()" [disabled]="isConsulta">Clear data</button>
+  <button type="button" class="btn btn-info" (click)="guardar()" [disabled]="isConsultaButons">Guardar</button>&nbsp;&nbsp;
+  <button type="button" class="btn btn-info" (click)="clear()" [disabled]="isConsultaButons">Clear data</button>
 
   <br>
   <br>
-  <!-- <ngb-accordion [closeOthers]="true" activeIds="static-1">
-    <ngb-panel id="static-1" title="Datos generales">
-      <ng-template ngbPanelContent>
-        <div class="">
-          <br>
-          <div class="row">
-            <div class="col-sm">
-              <label for="email">Nombre:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.nombre" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">Apellido Paterno:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_paterno"
-                [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">Apellido Materno:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.apellido_materno"
-                [disabled]="isConsulta">
-            </div>
+
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="Datos del Empleado">
+      <div class="">
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nunum_empleado_rr_hh:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
           </div>
-          <br>
-          <div class="row">
-            <div class="col-sm">
-              <label for="email">Datos de contacto:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.datosContacto" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">Fecha de Nacimiento:</label>
-                <div class="col-12">
-                <p-calendar [(ngModel)]="empleadoModel.fechaNacimiento" [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
-                dateFormat="dd/mm/yy" [disabled]="isConsulta"></p-calendar>
-                </div>
-            </div>
-            <div class="col-sm">
-              <label for="email">Edad:</label>
-              <div class="form-outline" style="width: 100%;">
-                <input value="0" type="number" id="typeNumber" min="0" class="form-control"
-                  [(ngModel)]="empleadoModel.edad" [disabled]="isConsulta" />
-              </div>
-            </div>
+          <div class="col-sm">
+            <label for="email">nukidpersona:</label>
+            <p-dropdown
+            placeholder=""
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-sm">
-              <label for="email">Sexo:</label>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="Masculino"
-                  [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault1" [disabled]="isConsulta">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Masculino
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" value="Femenino"
-                  [(ngModel)]="empleadoModel.sexo" id="flexRadioDefault2" [disabled]="isConsulta">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  Femenino
-                </label>
-              </div>
-            </div>
-            <div class="col-sm">
-              <label for="email">Direccion:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.direccion" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">Clave ID FED:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.clave_id_fed" [disabled]="isConsulta">
-            </div>
-          </div>
-
-          <br>
-
-          <div class="row">
-            <div class="col-sm">
-              <label for="email">Email:</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="" [(ngModel)]="empleadoModel.email" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">Telefono:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.telefono" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">KFC:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.kfc" [disabled]="isConsulta">
-            </div>
-          </div>
-
-          <br>
-
-          <div class="row">
-            <div class="col-sm">
-              <label for="email">Curp:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.curp" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-              <label for="email">NSS:</label>
-              <input type="text" class="form-control" [(ngModel)]="empleadoModel.nss" [disabled]="isConsulta">
-            </div>
-            <div class="col-sm">
-
-            </div>
+          <div class="col-sm">
+            <label for="email">nukidtipo_empleado:</label>
+            <p-dropdown
+            placeholder=""
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
           </div>
         </div>
-      </ng-template>
-    </ngb-panel>
 
-  </ngb-accordion> -->
+        <br>
 
-  <br>
-  <br>
-  <!-- <ngb-accordion activeIds="">
-    <ngb-panel id="IdSeccion2" title="Seccion 2">
-      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nukidcategoria:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukidtipo_contrato:</label>
+              <div class="col-12">
+                <p-dropdown
+                optionLabel="name"
+                [showClear]="true"
+                [style]="{ width: '100%' }"
+              ></p-dropdown>
+              </div>
+          </div>
+          <div class="col-sm">
+            <label for="email">chcve_puesto:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+        </div>
 
-      </ng-template>
-    </ngb-panel>
+        <br>
 
-  </ngb-accordion> -->
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nukidempresa:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukidciudad:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukidnivel_estudios:</label>
+            <p-dropdown
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+        </div>
 
-  <br>
-  <br>
-  <!-- <ngb-accordion activeIds="">
-    <ngb-panel id="IdSeccion3" title="Seccion 3">
-      <ng-template ngbPanelContent>
+        <br>
 
-      </ng-template>
-    </ngb-panel>
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nukidforma_pago:</label>
+            <p-dropdown
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukidjornada:</label>
+            <p-dropdown
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukiddepartamento:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+        </div>
 
-  </ngb-accordion> -->
+        <br>
 
-  <br>
-  <br>
-  <!-- <ngb-accordion activeIds="">
-    <ngb-panel id="IdSeccion4" title="Seccion 4">
-      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nukidclasificacion:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukidjefe_directo:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nukidunidad_negocio:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+        </div>
 
-      </ng-template>
-    </ngb-panel>
+        <br>
 
-  </ngb-accordion> -->
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nukidtipo_contrato_sat:</label>
+            <p-dropdown
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+          </div>
+          <div class="col-sm">
+            <label for="email">nunum_empleado:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">dtfecha_ingreso:</label>
+            <p-calendar [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
+            dateFormat="dd/mm/yy" [disabled]="isConsulta"></p-calendar>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">dtfecha_salida:</label>
+            <p-calendar [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
+            dateFormat="dd/mm/yy" [disabled]="isConsulta"></p-calendar>
+          </div>
+          <div class="col-sm">
+            <label for="email">dtfecha_ultimo_reingreso:</label>
+            <p-calendar [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
+            dateFormat="dd/mm/yy" [disabled]="isConsulta"></p-calendar>
+          </div>
+          <div class="col-sm">
+            <label for="email">chnss:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">chemail_bovis:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">chexperiencias:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">chhabilidades:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">churl_repositorio:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">nusalario:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">chprofesion:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nuantiguedad:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">chturno:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">nuunidad_medica:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">chregistro_patronal:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">chcotizacion:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">nuduracion:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">boactivo:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">bodescuento_pension:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+          <div class="col-sm">
+            <label for="email">nuporcentaje_pension:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nufondo_fijo:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">nucredito_infonavit:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">chtipo_descuento:</label>
+            <input type="text" class="form-control" [disabled]="isConsulta">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <label for="email">nuvalor_descuento:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+            <label for="email">nuno_empleado_noi:</label>
+            <input value="0" type="number" id="typeNumber" min="0" class="form-control"
+            [disabled]="isConsulta" />
+          </div>
+          <div class="col-sm">
+
+          </div>
+        </div>
+
+      </div>
+    </p-accordionTab>
+</p-accordion>
 
 
 </div>

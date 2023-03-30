@@ -15,6 +15,7 @@ export class EmpleadosRegistroComponent implements OnInit {
   disabled = false;
   isEditar = true;
   isConsulta: boolean = true;
+  isConsultaButons: boolean = true;
 
   constructor(private router: Router, private params: ActivatedRoute, private config: PrimeNGConfig) {
 
