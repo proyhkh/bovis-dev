@@ -20,3 +20,11 @@ export class Empleado {
   porcentajeCaptura: number = 35;
 
 }
+
+
+export class Catalogo{
+  id: string = '';
+  descripcion: string = '';
+  activo: boolean;
+}
+
