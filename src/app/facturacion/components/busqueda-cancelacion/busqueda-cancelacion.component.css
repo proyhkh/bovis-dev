@@ -1,3 +1,19 @@
-.p-datatable .p-datatable-thead > tr > th {
+/* .p-datatable .p-datatable-thead > tr > th {
   width: 100px !important;
+}
+ */
+
+ .container-table {
+  padding-left: 0;
+  margin-bottom: 2rem;
+ }
+
+ .cls-id {
+  font-size: .6rem;
+  word-wrap: break-word;
+  width: 100px;
+}
+
+.cls-desc {
+  width: 250px;
 }

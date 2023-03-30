@@ -22,6 +22,11 @@ body {
   /* background-image: url('assets/images/decoration-img.png'); */
 }
 
+/** PERSONALIZACION **/
+.bg-white {
+  background-color: #fff;
+}
+
 .wrapper{
   display: grid;
   grid-template-columns: 7rem 1fr;
@@ -88,6 +93,26 @@ body {
 .p-button.p-button-icon-only {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+/** TABLA **/
+table {
+  font-size: 0.9rem;
+}
+
+table th {
+  background-color: var(--bluegray-300) !important;
+  color: var(--surface-50) !important;
+  padding: 0.75rem !important;
+}
+
+table > tbody > tr > td {
+  padding: 0.75rem !important;
+}
+
+/** CHIP **/
+.p-chip-text {
+  font-size: 0.75rem;
 }
 
 /* p {
