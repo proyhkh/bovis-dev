@@ -59,20 +59,21 @@
     </div>
   </div>
 </div>
-<!-- barra de herramientas -->
-<p-toolbar styleClass="p-1">
-  <div class="p-toolbar-group-start">
-      <p-button
-        icon="pi pi-file-excel" 
-        pTooltip="Exportar Excel" 
-        styleClass="p-button-success f-2x" 
-        (click)="exportJsonToExcel()">
-      </p-button>
-  </div>
-</p-toolbar>
+
 <!-- contenedor de Grid -->
-<div class="container-fluid container-table"> 
-  <p-table *ngIf="listBusquedaUnique && listBusquedaUnique.length > 0" 
+<div *ngIf="listBusquedaUnique && listBusquedaUnique.length > 0" class="container-fluid container-table"> 
+  <!-- barra de herramientas -->
+  <p-toolbar styleClass="p-1">
+    <div class="p-toolbar-group-start">
+        <p-button
+          icon="pi pi-file-excel" 
+          pTooltip="Exportar Excel" 
+          styleClass="p-button-success f-2x" 
+          (click)="exportJsonToExcel()">
+        </p-button>
+    </div>
+  </p-toolbar>
+  <p-table
     [value]="listBusquedaUnique" 
     [paginator]="true"
     [rows]="5"
@@ -185,18 +186,18 @@
         <ng-template pTemplate="body" let-bus>
           <ng-container *ngIf="isTypeHeader">
             <tr *ngIf="bus.nC_Anio != '0'">
-            <td>{{bus.nC_UuidNotaCredito}}</td>
+            <td><div class="cls-id">{{bus.nC_UuidNotaCredito}}</div></td>
             <td>{{bus.nC_IdMoneda}}</td>
             <td>{{bus.nC_IdTipoRelacion}}</td>
             <td>{{bus.nC_NotaCredito}}</td>
-            <td>{{bus.nC_Importe}}</td>
-            <td>{{bus.nC_Iva}}</td>
-            <td>{{bus.nC_Total}}</td>
-            <td>{{bus.nC_Concepto}}</td>
+            <td>{{bus.nC_Importe|currency}}</td>
+            <td>{{bus.nC_Iva|currency}}</td>
+            <td>{{bus.nC_Total|currency}}</td>
+            <td><div class="cls-desc">{{bus.nC_Concepto}}</div></td>
             <td>{{bus.nC_Mes}}</td>
             <td>{{bus.nC_Anio}}</td>
             <td>{{bus.nC_TipoCambio}}</td>
-            <td>{{bus.nC_FechaNotaCredito}}</td>
+            <td>{{bus.nC_FechaNotaCredito|date:'d/MM/yyyy'}}</td>
             </tr>
           </ng-container>
 
