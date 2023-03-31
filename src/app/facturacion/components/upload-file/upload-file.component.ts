@@ -138,6 +138,7 @@ export class UploadFileComponent implements OnInit {
 
   changeEnter(val: any) {
     if (val.keyCode == 13 && this.numProyecto > 0) {
+      console.log(this.numProyecto);
       this.isLoadingGPM = true;
       this.getInfoProyecto();
     }
@@ -148,7 +149,9 @@ export class UploadFileComponent implements OnInit {
       if (info.data) {
         this.isXml = false;
         this.infoProyecto = info.data;
-        //console.log(this.infoProyecto);
+      }else{
+        this.isXml = true;
+        this.infoProyecto.nombre = info.message;
       }
     });
     this.isLoadingGPM = false;
