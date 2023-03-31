@@ -1,5 +1,5 @@
 <!-- contenedor de filtros -->
-<div class="container">
+<div class="container-fluid container-filter">
 
   <div class="row mt-3 mx-2">
     <div class="col-4">
@@ -59,20 +59,19 @@
     </div>
   </div>
 </div>
+<!-- barra de herramientas -->
+<p-toolbar styleClass="p-1">
+  <div class="p-toolbar-group-start">
+      <p-button
+        icon="pi pi-file-excel" 
+        pTooltip="Exportar Excel" 
+        styleClass="p-button-success f-2x" 
+        (click)="exportJsonToExcel()">
+      </p-button>
+  </div>
+</p-toolbar>
 <!-- contenedor de Grid -->
-<div class="container container-table">
-
-  <p-toolbar styleClass="p-1">
-    <div class="p-toolbar-group-start">
-        <p-button label="Excel"
-          icon="pi pi-file-excel" 
-          pTooltip="Exportar Excel" 
-          styleClass="p-button-success py-1" 
-          (click)="exportJsonToExcel()">
-        </p-button>
-    </div>
-  </p-toolbar>
-  
+<div class="container-fluid container-table"> 
   <p-table *ngIf="listBusquedaUnique && listBusquedaUnique.length > 0" 
     [value]="listBusquedaUnique" 
     [paginator]="true"
@@ -120,17 +119,17 @@
           <div *ngIf="bus.fechaCancelacion == null || bus.fechaCancelacion == '' ">
             <!-- <i class="pi pi-trash c-del" title="Cancelar factura"
             tooltipPosition="left" (click)="showModalDialog(bus.id)"></i> -->
-            <p-button icon="pi pi-trash c-del" pTooltip="Cancelar factura" 
-            styleClass="p-button-rounded p-button-secondary p-button-text"
-            tooltipPosition="left"
-            (click)="showModalDialog(bus.id)">
-          </p-button>
+            <p-button icon="pi pi-times-circle c-del" pTooltip="Cancelar factura" 
+              styleClass="p-button-rounded p-button-secondary p-button-text"
+              tooltipPosition="left"
+              (click)="showModalDialog(bus.id)">
+            </p-button>
           </div>
         </td>
         <td>
           <!-- <i class="pi pi-eye" title="Ver notas de crédito"
           tooltipPosition="left" (click)="show(true, bus.uuid)"></i> -->
-          <p-button icon="pi pi-eye" pTooltip="Ver notas de crédito" 
+          <p-button icon="pi pi-file" pTooltip="Ver notas de crédito" 
             styleClass="p-button-rounded p-button-secondary p-button-text"
             tooltipPosition="left"
             (click)="show(true, bus.uuid)">
@@ -139,7 +138,7 @@
         <td>
           <!-- <i class="pi pi-eye" title="Ver pago"
           tooltipPosition="left" (click)="show(false, bus.uuid)"></i> -->
-          <p-button icon="pi pi-eye" pTooltip="Ver pago" 
+          <p-button icon="pi pi-dollar" pTooltip="Ver pago" 
             styleClass="p-button-rounded p-button-secondary p-button-text"
             tooltipPosition="left"
             (click)="show(false, bus.uuid)">
@@ -203,14 +202,14 @@
 
           <ng-container *ngIf="!isTypeHeader">
             <tr>
-              <td>{{bus.c_UuidCobranza}}</td>
+              <td><div class="cls-id">{{bus.c_UuidCobranza}}</div></td>
               <td>{{bus.c_IdMonedaP}}</td>
-              <td>{{bus.c_ImportePagado}}</td>
-              <td>{{bus.c_ImpSaldoAnt}}</td>
-              <td>{{bus.c_ImporteSaldoInsoluto}}</td>
-              <td>{{bus.c_IvaP}}</td>
+              <td>{{bus.c_ImportePagado|currency}}</td>
+              <td>{{bus.c_ImpSaldoAnt|currency}}</td>
+              <td>{{bus.c_ImporteSaldoInsoluto|currency}}</td>
+              <td>{{bus.c_IvaP|currency}}</td>
               <td>{{bus.c_TipoCambioP}}</td>
-              <td>{{bus.c_FechaPago}}</td>
+              <td>{{bus.c_FechaPago|date:'d/MM/yyyy'}}</td>
             </tr>
           </ng-container>
 
