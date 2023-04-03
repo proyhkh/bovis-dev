@@ -1,120 +1,141 @@
-<div class="content" style="margin:2%">
+<div class="content" style="margin: 2%">
   <div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-info" routerLink="/empleados/registro">Nuevo</button>
+    <button
+      type="button"
+      class="btn btn-info"
+      routerLink="/empleados/registro-persona"
+    >
+      Nuevo
+    </button>
   </div>
 
-  <br>
+  <br />
 
   <div class="busqueda">
-    <div class="head-busqueda">
-      <p style="color:white">Parámetros de búsqueda</p>
-    </div>
-    <br>
-    <div class="row">
-
-      <div class="col-6 relative">
-        <label for="">Apellido:</label>
-        <!-- <input type="text" class="form-control" name="exp" placeholder="Ingrese Apellido Paterno ó Materno" [ngClass]="{'invalid': requerid.numExpediente }"
-          [(ngModel)]="filtroApellido">
-          <i *ngIf="filtroApellido" class="pi pi-times clear-autocomplete" (click)="filtroApellido = ''"></i> -->
-          <input type="search" class="form-control" [(ngModel)]="filtroApellido"  placeholder="Ingrese Apellido Paterno ó Materno">
+    <ng-container *ngIf="false">
+      <div class="head-busqueda">
+        <p style="color: white">Parámetros de búsqueda</p>
       </div>
+      <br />
+      <div class="row">
+        <div class="col-6 relative">
+          <label for="">Apellido:</label>
+          <input
+            type="search"
+            class="form-control"
+            [(ngModel)]="filtroApellido"
+            placeholder="Ingrese Apellido Paterno ó Materno"
+          />
+        </div>
 
-      <div class="col-6" *ngIf="false">
-       <!--  <label for="apellidoPaterno">Apellido Paterno:</label> -->
-       <!--  <input type="text" class="form-control"> -->
-       <!-- <h5>Left Icon</h5>
-       <span class="p-input-icon-left" style="width:auto">
-        <i class="pi pi-search"></i>
-        <input type="text" class="form-control" pInputText placeholder="Search" />
-    </span> -->
+        <div class="col-6" *ngIf="false"></div>
+        <div class="col-6 relative" *ngIf="false"></div>
       </div>
-      <div class="col-6 relative" *ngIf="false">
-       <!--  <label for="apellidoMaterno">Apellido Materno:</label>
-        <input type="text" class="form-control"> -->
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-info"
+          routerLink="/empleados/registro-persona"
+        >
+          Buscar
+        </button>
       </div>
+    </ng-container>
+    <br />
 
-
-
-
-
-    </div>
-    <br>
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-info" routerLink="/empleados/registro">Buscar</button>
-    </div>
-    <br>
+    <br />
     <div class="d-flex justify-content-end align-items-center pb-3">
-      <div class="p-1">
-
-      </div>
-      <div class="d-flex justify-content-center align-items-center">
+      <div class="p-1"></div>
+      <div class="d-flex justify-content-center align-items-center" *ngIf="false">
         <span class="mr-2">Mostrar: </span>
-        <p-dropdown [options]="[{size:10},{size:20},{size:30},{size:50},{size:100}]" optionLabel="size" optionValue="size" [(ngModel)]="size"
-          ></p-dropdown>
+        <p-dropdown
+          [options]="[
+            { size: 10 },
+            { size: 20 },
+            { size: 30 },
+            { size: 50 },
+            { size: 100 }
+          ]"
+          optionLabel="size"
+          optionValue="size"
+          [(ngModel)]="size"
+        ></p-dropdown>
       </div>
-
     </div>
-    <br>
+    <br />
     <div class="table-responsive">
-      <table class="table ">
+      <table class="table">
         <thead>
           <tr>
-            <th *ngFor="let h of header">{{h}}</th>
+            <th *ngFor="let h of header">{{ h }}</th>
           </tr>
         </thead>
-        <tbody *ngFor="let empleado of ListEmpleadosModel">
-
+        <tbody *ngFor="let persona of listPersonas">
           <tr>
-            <td>{{empleado.nombre}} {{empleado.apellido_paterno}} {{empleado.apellido_materno}}</td>
-            <td>{{empleado.datosContacto}}</td>
-            <td>{{empleado.fechaNacimiento | date: 'dd/MM/yyyy'}}</td>
-            <td>{{empleado.edad}}</td>
-
-            <td>{{empleado.sexo}}</td>
-            <td>{{empleado.direccion}}</td>
-            <td>{{empleado.clave_id_fed}}</td>
-            <td>{{empleado.email}}</td>
-            <td>{{empleado.telefono}}</td>
-            <td>{{empleado.kfc}}</td>
-            <td>{{empleado.curp}}</td>
-            <td>{{empleado.nss}}</td>
             <td>
-              <p-progressBar [value]="porcentaje" ></p-progressBar>
+              {{ persona.nombre }} {{ persona.apPaterno }}
+              {{ persona.apMaterno }}
+            </td>
+            <td>{{ persona.rfc }}</td>
+            <td>{{ persona.fechaNacimiento | date : "dd/MM/yyyy" }}</td>
+            <td>{{ persona.email }}</td>
+
+            <td>{{ persona.telefono }}</td>
+            <td>{{ persona.celular }}</td>
+            <td>{{ persona.curp }}</td>
+            <td>
+              <p class="text-center">{{ persona.sexo }}</p>
+              </td>
+            <td>
+              <p class="text-center">{{ persona.tipoPersona }}</p>
+              </td>
+            <td>
+              <p class="text-center">{{ persona.idEdoCivil }}</p>
+             </td>
+            <td>
+              <p class="text-center">{{ persona.idTipoSangre }}</p>
+             </td>
+            <ng-container>
+              <td *ngIf="persona.activo">Activo</td>
+              <td *ngIf="!persona.activo">Inactivo</td>
+            </ng-container>
+
+            <td>
+              <p-progressBar [value]="porcentaje"></p-progressBar>
             </td>
             <td>
-              <a [routerLink]="['edicion',empleado.id]" ngbTooltip="Editar registro">
+              <a
+                [routerLink]="['edicion', persona.id]"
+                ngbTooltip="Editar registro"
+              >
                 <i class="fas fa-edit"></i>
               </a>
             </td>
             <td>
-            <i class="pi pi-trash c-del"  ngbTooltip="Eliminar registro" (click)="confirm($event, empleado)" pTooltip="Da clic para eliminar el registro capturado"
-            tooltipPosition="left"></i>
+              <!-- (click)="confirm($event, persona)" -->
+              <i *ngIf="false"
+                class="pi pi-trash c-del"
+                ngbTooltip="Eliminar registro"
+
+                pTooltip="Da clic para eliminar el registro capturado"
+                tooltipPosition="left"
+              ></i>
             </td>
             <td>
-              <a ngbTooltip="Consultar empleado" [routerLink]="['consulta',empleado.id]">
+              <a
+                ngbTooltip="Consultar persona"
+                [routerLink]="['consulta', persona.id]"
+              >
                 <i class="fas fa-eye"></i>
               </a>
             </td>
           </tr>
-
         </tbody>
       </table>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center">
-      <!-- <ngb-pagination
-      [collectionSize]="120"
-      [(page)]="page"
-      [maxSize]="5"
-      [rotate]="true"
-      [ellipses]="false"
-      [boundaryLinks]="true"
-    ></ngb-pagination> -->
-    </div>
-
+    <div class="d-flex justify-content-center align-items-center"></div>
   </div>
-
 </div>
 <p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>

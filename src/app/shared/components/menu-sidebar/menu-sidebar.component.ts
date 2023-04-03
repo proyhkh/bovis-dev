@@ -54,13 +54,13 @@ export class MenuSidebarComponent implements OnInit {
                 },
                 {
                   label: 'Carga persona',
-                  routerLink: ['/empleados/registro-persona'],
+                  routerLink: ['/empleados/persona'],
                   command: () =>
                     this.setModule('Registro de Persona'.toUpperCase()),
                 },
                 {
                   label: 'Carga empleados',
-                  routerLink: ['/empleados/registro-empleado'],
+                  routerLink: ['/empleados/empleado-pri'],
                   command: () =>
                     this.setModule('Registro de Empleado'.toUpperCase()),
                 },

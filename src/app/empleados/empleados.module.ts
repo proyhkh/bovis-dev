@@ -9,16 +9,19 @@ import { ToastModule } from "primeng/toast";
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from "primeng/api";
 import { DropdownModule } from 'primeng/dropdown';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { CalendarModule } from 'primeng/calendar';
 import { AccordionModule } from 'primeng/accordion';
 import { PersonaRegistroComponent } from './components/persona-registro/persona-registro.component';
+import { MessagesModule } from 'primeng/messages';
+import { EmpleadosPrincipalComponent } from './components/empleados-principal/empleados-principal.component';
 
 @NgModule({
   declarations: [
     EmpleadosComponent,
     EmpleadosRegistroComponent,
-    PersonaRegistroComponent
+    PersonaRegistroComponent,
+    EmpleadosPrincipalComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,8 @@ import { PersonaRegistroComponent } from './components/persona-registro/persona-
     DropdownModule,
     ProgressBarModule,
     CalendarModule,
-    AccordionModule
+    AccordionModule,
+    MessagesModule
   ],
   exports:[
 

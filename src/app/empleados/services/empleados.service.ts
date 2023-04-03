@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CatPersona, Persona } from '../Models/empleados';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +10,10 @@ import { environment } from 'src/environments/environment';
 export class EmpleadosService {
 
   baseUrl = environment.urlApiBovis;
+
+  private httpHeaders = new HttpHeaders(
+    { 'Content-Type': 'application/json' }
+  )
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +27,66 @@ export class EmpleadosService {
 
   getTipoPersona() {
     return this.http.get<any>(`${this.baseUrl}api/catalogo/TipoPersona/`);
+  }
+
+  getTipoSexo() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/Sexo/`);
+  }
+
+  getCatPersonas() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/TipoPersona/`);
+  }
+
+  getCatEmpleados() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/TipoEmpleado/`);
+  }
+
+  getCatCategorias() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/categoria/`);
+  }
+
+  getCatTiposContratos() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/TipoContrato/`);
+  }
+
+  getCatCiudades() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/ciudad/`);
+  }
+
+  getCatNivelEstudios() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/NivelEstudios/`);
+  }
+
+  getCatFormasPago() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/FormaPago/`);
+  }
+
+  getCatJornadas() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/Jornada/`);
+  }
+
+  getCatDepartamentos() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/Departamento/`);
+  }
+
+  getCatClasificacion() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/Clasificacion/`);
+  }
+
+  getCatUnidadNegocio() {
+    return this.http.get<any>(`${this.baseUrl}api/catalogo/UnidadNegocio/`);
+  }
+
+  getPersonas() {
+    return this.http.get<any>(`${this.baseUrl}api/empleado/persona/Consultar`);
+  }
+
+  savePersona(persona: Persona): Observable<any> {
+    return this.http.put(`${this.baseUrl}api/empleado/persona/Agregar`, persona, { headers: this.httpHeaders });
+  }
+
+  getEmpleados() {
+    return this.http.get<any>(`${this.baseUrl}api/empleado/Consultar`);
   }
 
 }
