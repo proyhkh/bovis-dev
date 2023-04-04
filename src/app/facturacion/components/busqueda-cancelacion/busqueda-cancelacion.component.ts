@@ -12,6 +12,7 @@ import { FacturacionService } from '../../services/facturacion.service';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { Dropdown } from 'primeng/dropdown';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -30,6 +31,8 @@ export class BusquedaCancelacionComponent implements OnInit {
   listBusquedaCompleto: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
   listBusquedaUnique: Array<BusquedaCancelacion> =
+    new Array<BusquedaCancelacion>();
+  listBusquedaModal: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
   listProyectos: Proyectos[] = [];
   listEmpresas: Empresas[] = [];
@@ -55,6 +58,10 @@ export class BusquedaCancelacionComponent implements OnInit {
   motivoCancelacion: string = '';
   count_carapteres: number = 20;
   idCancelacion: number;
+  ref: DynamicDialogRef;
+  headerModalCancelacion: string = '';
+  isCancelacionVisible: boolean;
+  isTypeHeader: boolean;
 
   constructor(
     private config: PrimeNGConfig,
@@ -74,42 +81,80 @@ export class BusquedaCancelacionComponent implements OnInit {
   }
 
   getPoblarProyectos() {
-    this.facturacionService.getProyectos().subscribe((pro) => {
-      //console.log(pro);
-      this.listProyectos = pro.data;
-      //console.log(this.listProyectos);
+    this.facturacionService.getProyectos().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.listProyectos = data.data;
 
-      this.listProyectos.forEach((element) => {
-        this.filtroProyectos.push({
-          name: `${String(element.numProyecto)} / ${String(element.nombre)}`,
-          value: String(element.numProyecto),
-        });
-      });
+          this.listProyectos.forEach((element) => {
+            this.filtroProyectos.push({
+              name: `${String(element.numProyecto)} / ${String(element.nombre)}`,
+              value: String(element.numProyecto),
+            });
+          });
+        } else {
+          this.messageError(data.message, 'Información de Proyectos');
+        }
+      },
+      error: (e) => {
+        this.messageError(e.message, 'Información de Proyectos');
+      }
     });
   }
 
   getPoblarEmpresas() {
-    this.facturacionService.getEmpresas().subscribe((pro) => {
-      this.listEmpresas = pro.data;
-      this.listEmpresas.forEach((element) => {
-        this.filtroEmpresas.push({
-          name: `${String(element.rfc)} / ${String(element.empresa)}`,
-          value: String(element.idEmpresa),
-        });
-      });
+    this.facturacionService.getEmpresas().subscribe({
+      next: (data) => {
+        if (data.success) {
+          this.listEmpresas = data.data;
+          this.listEmpresas.forEach((element) => {
+            this.filtroEmpresas.push({
+              name: `${String(element.rfc)} / ${String(element.empresa)}`,
+              value: String(element.idEmpresa),
+            });
+          });
+        }
+        else{
+          this.messageError(data.message, 'Información de Empresas');
+        }
+      },
+      error: (e) => {
+        this.messageError(e.message, 'Información de Empresas');
+      }
     });
   }
 
   getPoblarClientes() {
-    this.facturacionService.getClientes().subscribe((pro) => {
-      this.listClientes = pro.data;
-      this.listClientes.forEach((element) => {
-        this.filtroClientes.push({
-          name: `${String(element.rfc)} / ${String(element.cliente)}`,
-          value: String(element.idCliente),
-        });
-      });
+    this.facturacionService.getClientes().subscribe({
+
+      next: (data) => {
+        if (data.success) {
+          this.listClientes = data.data;
+          this.listClientes.forEach((element) => {
+            this.filtroClientes.push({
+              name: `${String(element.rfc)} / ${String(element.cliente)}`,
+              value: String(element.idCliente),
+            });
+          });
+        }
+        else{
+          this.messageError(data.message, 'Información de Clientes');
+        }
+
+      },
+      error: (e) => {
+        this.messageError(e.message, 'Información de Clientes');
+      }
     });
+  }
+
+  messageError(message: string, tipo: string) {
+    this.messageService.add({
+      severity: "error",
+      summary: tipo,
+      detail: String(message)
+    });
+
   }
 
   getConfigCalendar() {
@@ -160,20 +205,21 @@ export class BusquedaCancelacionComponent implements OnInit {
   }
 
   busqueda() {
-
     this.listBusquedaCompleto = new Array<BusquedaCancelacion>();
     this.listBusquedaUnique = new Array<BusquedaCancelacion>();
-    this.facturacionService.getBusqueda(this.getFiltrosVaues()).subscribe((bus) => {
-      //console.log(bus);
-      this.listBusquedaCompleto = bus.data;
-      //console.log(this.listBusquedaCompleto);
-      this.listBusquedaUnique = [
-        ...new Map(
-          this.listBusquedaCompleto.map((item) => [item['uuid'], item])
-        ).values(),
-      ];
-      //console.log(this.listBusquedaUnique);
-    });
+    this.facturacionService
+      .getBusqueda(this.getFiltrosVaues())
+      .subscribe((bus) => {
+        //console.log(bus);
+        this.listBusquedaCompleto = bus.data;
+        //console.log(this.listBusquedaCompleto);
+        this.listBusquedaUnique = [
+          ...new Map(
+            this.listBusquedaCompleto.map((item) => [item['uuid'], item])
+          ).values(),
+        ];
+        //console.log(this.listBusquedaUnique);
+      });
   }
 
   getFiltrosVaues() {
@@ -197,14 +243,14 @@ export class BusquedaCancelacionComponent implements OnInit {
 
       switch (this.opcionFiltro) {
         case 1:
-        objBusqueda.idProyecto = this.filtroValue;
-        break;
+          objBusqueda.idProyecto = this.filtroValue;
+          break;
         case 2:
-        objBusqueda.idEmpresa = this.filtroValue;
-        break;
+          objBusqueda.idEmpresa = this.filtroValue;
+          break;
         case 3:
-        objBusqueda.idCliente = this.filtroValue;
-        break;
+          objBusqueda.idCliente = this.filtroValue;
+          break;
       }
     }
     //console.log(objBusqueda);
@@ -230,7 +276,7 @@ export class BusquedaCancelacionComponent implements OnInit {
       'No Factura',
       'Tipo Cambio',
       'Motivo Cancelacion',
-      'NC Uuid Nota Credito',
+      /* 'NC Uuid Nota Credito',
       'NC Id Moneda',
       'NC Id Tipo Relacion',
       'NC Nota Credito',
@@ -249,8 +295,40 @@ export class BusquedaCancelacionComponent implements OnInit {
       'C Importe Saldo Insoluto',
       'C Iva P',
       'C Tipo Cambio P',
-      'C Fecha Pago',
+      'C Fecha Pago', */
     ];
+  }
+
+  getHeadersModal() {
+    if (this.isTypeHeader) {
+      this.headerModalCancelacion = 'Notas de crédito';
+      return [
+        'NC Uuid Nota Credito',
+        'NC Id Moneda',
+        'NC Id Tipo Relacion',
+        'NC Nota Credito',
+        'NC Importe',
+        'NC Iva',
+        'NC Total',
+        'NC Concepto',
+        'NC Mes',
+        'NC Año',
+        'NC Tipo Cambio',
+        'NC Fecha Nota Credito',
+      ];
+    } else {
+      this.headerModalCancelacion = 'Pagos';
+      return [
+        'C Uuid Cobranza',
+        'C Id MonedaP',
+        'C Importe Pagado',
+        'C Imp Saldo Ant',
+        'C Importe Saldo Insoluto',
+        'C Iva P',
+        'C Tipo Cambio P',
+        'C Fecha Pago',
+      ];
+    }
   }
 
   exportExcel() {
@@ -388,19 +466,36 @@ export class BusquedaCancelacionComponent implements OnInit {
     this.displayModal = true;
   }
 
-  changeCancelar(){
-
+  changeCancelar() {
     let cancelacion: facturaCancelacion = new facturaCancelacion();
     cancelacion.id = this.idCancelacion;
     cancelacion.MotivoCancelacion = this.motivoCancelacion;
 
-    this.facturacionService.facturaCancelacion(cancelacion).subscribe(cancel => {
-      if(cancel.data){
-        this.messageService.add({ severity: 'success', summary: 'Cancelar registro', detail: `Cancelación realizada correctamente` });
-        this.busqueda();
-      }
-    });
+    this.facturacionService
+      .facturaCancelacion(cancelacion)
+      .subscribe((cancel) => {
+        if (cancel.data) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cancelar registro',
+            detail: `Cancelación realizada correctamente`,
+          });
+          this.busqueda();
+        }
+      });
     this.displayModal = false;
   }
 
+  show(tipoModal: boolean, uuid: string) {
+    this.isCancelacionVisible = true;
+    tipoModal ? (this.isTypeHeader = true) : (this.isTypeHeader = false);
+
+    this.listBusquedaModal = new Array<BusquedaCancelacion>();
+    console.log(this.listBusquedaCompleto);
+
+    this.listBusquedaModal = this.listBusquedaCompleto.filter(
+      (xx) => xx.uuid == uuid
+    );
+    console.log(this.listBusquedaModal);
+  }
 }

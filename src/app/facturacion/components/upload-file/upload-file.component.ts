@@ -114,6 +114,8 @@ export class UploadFileComponent implements OnInit {
       this.isLoadingFacturas = false;
       this.isClear = true;
     } catch (err) {
+      this.isLoadingFacturas = false;
+      this.isClear = true;
       console.log(err);
       this.messageService.add({
         severity: "error",
@@ -136,6 +138,7 @@ export class UploadFileComponent implements OnInit {
 
   changeEnter(val: any) {
     if (val.keyCode == 13 && this.numProyecto > 0) {
+      console.log(this.numProyecto);
       this.isLoadingGPM = true;
       this.getInfoProyecto();
     }
@@ -146,10 +149,12 @@ export class UploadFileComponent implements OnInit {
       if (info.data) {
         this.isXml = false;
         this.infoProyecto = info.data;
-        //console.log(this.infoProyecto);
-        this.isLoadingGPM = false;
+      }else{
+        this.isXml = true;
+        this.infoProyecto.nombre = info.message;
       }
-    })
+    });
+    this.isLoadingGPM = false;
   }
 
 }

@@ -22,9 +22,18 @@ body {
   /* background-image: url('assets/images/decoration-img.png'); */
 }
 
+/** PERSONALIZACION **/
+.bg-white {
+  background-color: #fff;
+}
+
 .wrapper{
   display: grid;
   grid-template-columns: 7rem 1fr;
+}
+
+.content {
+  overflow: auto;
 }
 
 .menu-principal {
@@ -71,6 +80,77 @@ body {
   border-radius: .5rem;
 }
 
+/** BOTONES **/
+.p-button {
+  padding: 0.5rem 1.25rem;
+  background: var(--bluegray-300);
+  border: 1px solid var(--bluegray-300);
+}
+
+.p-button:enabled:hover {
+  background: var(--bluegray-400);
+  border: 1px solid var(--bluegray-400);
+}
+
+.p-button.f-2x .p-button-icon-left {
+  font-size: 1.5rem;
+}
+
+.p-button.f-2x .p-button-icon {
+  font-size: 1.5rem;
+}
+
+/**  CALENDARIO **/
+.p-inputtext,
+.p-button.p-button-icon-only {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/** TABLA **/
+table {
+  font-size: 0.9rem;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: var(--bluegray-300) !important;
+  color: var(--surface-50) !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.75rem !important;
+}
+
+/** CALENDARIO **/
+.p-datepicker .p-datepicker-header {
+  padding: 0;
+}
+
+.p-datepicker table {
+  margin: 0;
+}
+
+.p-datepicker table th {
+  background-color: var(--bluegray-300) !important;
+  color: var(--surface-50) !important;
+  text-align: center;
+}
+
+.p-datepicker table th,
+.p-datepicker table td {
+  padding: 0.25rem;
+}
+
+.p-datepicker table td > span {
+  height: 2rem;
+  width: 2rem;
+}
+
+/** CHIP **/
+.p-chip-text {
+  font-size: 0.75rem;
+}
 
 /* p {
   font-family: "Poppins", sans-serif;

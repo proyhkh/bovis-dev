@@ -1,0 +1,187 @@
+<div class="content" style="margin: 2%">
+  <div class="d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-info"
+      routerLink="/empleados/registro-empleado"
+    >
+      Nuevo
+    </button>
+  </div>
+
+  <br />
+
+  <div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let h of header">{{ h }}</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let empleado of listEmpleados">
+          <tr>
+            <td>
+              {{ empleado.numEmpleadoRrHh }}
+            </td>
+            <td>{{ empleado.idPersona }}</td>
+            <!-- <td>{{ empleado.fechaNacimiento | date : "dd/MM/yyyy" }}</td> -->
+            <td>{{ empleado.idTipoEmpleado }}</td>
+
+            <td>{{ empleado.idCategoria }}</td>
+            <td>{{ empleado.idTipoContrato }}</td>
+            <td>{{ empleado.cvePuesto }}</td>
+            <td>
+              <p class="text-center">{{ empleado.idEmpresa }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idCiudad }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idNivelEstudios }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idFormaPago }}</p>
+            </td>
+
+            <td>
+              <p class="text-center">{{ empleado.idJornada }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idDepartamento }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idClasificacion }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idJefeDirecto }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idUnidadNegocio }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.idTipoContratoSat }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.numEmpleado }}</p>
+            </td>
+            <td>
+              <p class="text-center">
+                {{ empleado.fechaIngreso | date : "dd/MM/yyyy" }}
+              </p>
+            </td>
+            <td>
+              <p class="text-center">
+                {{ empleado.fechaSalida | date : "dd/MM/yyyy" }}
+              </p>
+            </td>
+            <td>
+              <p class="text-center">
+                {{ empleado.fechaUltimoReingreso | date : "dd/MM/yyyy" }}
+              </p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.nss }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.emailBovis }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.experiencias }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.habilidades }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.urlRepositorio }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.salario }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.profesion }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.antiguedad }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.turno }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.unidadMedica }}</p>
+            </td>
+
+            <td>
+              <p class="text-center">{{ empleado.registroPatronal }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.cotizacion }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.duracion }}</p>
+            </td>
+
+              <ng-container>
+                <td *ngIf="empleado.activo"> <p class="text-center">Activo</p></td>
+                <td *ngIf="!empleado.activo"><p class="text-center">Inactivo</p></td>
+              </ng-container>
+
+            <td>
+              <p class="text-center">{{ empleado.descuentoPension }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.porcentajePension }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.fondoFijo }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.creditoInfonavit }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.tipoDescuento }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.valorDescuento }}</p>
+            </td>
+            <td>
+              <p class="text-center">{{ empleado.empleadoNoi }}</p>
+            </td>
+
+            <td>
+              <!-- [value]="porcentaje" -->
+              <p-progressBar></p-progressBar>
+            </td>
+            <td><!--  [routerLink]="['edicion', empleado.id]" -->
+              <a ngbTooltip="Editar registro">
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+            <td>
+              <!-- (click)="confirm($event, empleado)" -->
+              <i
+                *ngIf="false"
+                class="pi pi-trash c-del"
+                ngbTooltip="Eliminar registro"
+                pTooltip="Da clic para eliminar el registro capturado"
+                tooltipPosition="left"
+              ></i>
+            </td>
+            <td>
+              <!-- [routerLink]="['consulta', empleado.id]" -->
+              <a
+                ngbTooltip="Consultar empleado"
+
+              >
+                <i class="fas fa-eye"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>

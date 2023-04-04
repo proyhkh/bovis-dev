@@ -3,36 +3,37 @@ import { CommonModule } from '@angular/common';
 import { EmpleadosRoutingModule } from './empleados-routing.module';
 import { EmpleadosComponent } from './container/empleados.component';
 import { EmpleadosRegistroComponent } from './components/empleados-registro/empleados-registro.component';
-// import { NgbAccordionModule, NgbDatepickerModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { ToastModule } from "primeng/toast";
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from "primeng/api";
-// import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { CalendarModule } from 'primeng/calendar';
+import { AccordionModule } from 'primeng/accordion';
+import { PersonaRegistroComponent } from './components/persona-registro/persona-registro.component';
+import { MessagesModule } from 'primeng/messages';
+import { EmpleadosPrincipalComponent } from './components/empleados-principal/empleados-principal.component';
 
 @NgModule({
   declarations: [
     EmpleadosComponent,
-    EmpleadosRegistroComponent
+    EmpleadosRegistroComponent,
+    PersonaRegistroComponent,
+    EmpleadosPrincipalComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     EmpleadosRoutingModule,
-    // NgbDatepickerModule,
-    FontAwesomeModule,
-    // NgbTooltipModule,
-    // NgbAccordionModule,
     ConfirmPopupModule,
     ToastModule,
-    // NgbPaginationModule,
     DropdownModule,
     ProgressBarModule,
-    CalendarModule
+    CalendarModule,
+    AccordionModule,
+    MessagesModule
   ],
   exports:[
 

@@ -93,7 +93,7 @@ export class DorObjetivosComponent implements OnInit {
       objGPM = gpm.data;
       objGPM.forEach(function (value) {
         value.meta = value.meta +' %'
-      }); 
+      });
       //console.log(objGPM);
       this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
     }
@@ -142,7 +142,6 @@ export class DorObjetivosComponent implements OnInit {
     let tipoSaveMensaje = '';
     let isProcesa = true
     if (tipoAcept == '3') {
-      //objetivo.motivoR = this.motivoRechazoObjetivos;
       tipoSaveMensaje = 'rechazados'
       if (this.motivoRechazoObjetivos.length >= this.count_carapteres) {
         isProcesa = true;
@@ -157,18 +156,12 @@ export class DorObjetivosComponent implements OnInit {
     if (isProcesa) {
       this.listObjetivos.forEach(async objetivo => {
         objetivo.acepto = tipoAcept;
+        objetivo.nivel = objetivo.valor;
         if (tipoAcept == '3') {
           objetivo.motivoR = this.motivoRechazoObjetivos;
-          //tipoSaveMensaje = 'rechazados'
         }
-        /* else {
-          tipoSaveMensaje = 'aprobados'
-        } */
-        //console.log(objetivo);
 
         await this.dorService.updateObjetivos(objetivo).subscribe(udt => {
-          //console.log(udt);
-          //console.log(3333);
           this.messageService.add({ severity: 'success', summary: 'Guardar', detail: `Todos los objetivos fueron ${tipoSaveMensaje} correctamente` });
         });
       });

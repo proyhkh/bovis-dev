@@ -29,7 +29,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       clientId: clientID,
       authority: urlAuthority,
       redirectUri: uriRedirect,
-      postLogoutRedirectUri: uriRedirect
+      postLogoutRedirectUri: uriRedirect,
+
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,

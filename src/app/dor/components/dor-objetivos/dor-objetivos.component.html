@@ -144,7 +144,11 @@
                 <ng-template pTemplate="body" let-obj>
                   <tr>
                     <td>{{obj.descripcion}}</td>
-                    <td>{{obj.meta}}</td>
+                    <td>{{obj.meta}}
+                      <ng-container *ngIf="obj.descripcion == 'Capacitación'">
+                        &nbsp; &nbsp; &nbsp; &nbsp; <strong>Cursos</strong>
+                      </ng-container>
+                    </td>
                     <td>
                       {{obj.valor}}%&nbsp;&nbsp;
                     </td>

@@ -20,3 +20,94 @@ export class Empleado {
   porcentajeCaptura: number = 35;
 
 }
+export class Catalogo{
+  id: string = '';
+  descripcion: string = '';
+  activo: boolean;
+}
+
+export class Persona{
+
+  IdEdoCivil: number = 0;
+  IdTipoSangre: number = 0;
+  Nombre: string = '';
+  ApPaterno: string = '';
+  ApMaterno: string = '';
+  Sexo: number = 0;
+  Rfc: string = '';
+  FechaNacimiento: string = '';
+  Email: string = '';
+  Telefono: string = '';
+  Celular: string = '';
+  Curp: string = '';
+  TipoPersona: number = 0;
+}
+
+export class CatPersona{
+
+  idPersona: number = 0;
+  idEdoCivil: number = 0;
+  idTipoSangre: number = 0;
+  nombre: string = '';
+  id: string = '';
+  apPaterno: string = '';
+  apMaterno: string = '';
+  Sexo: number = 0;
+  sexo: string = '';
+  rfc: string = '';
+  fechaNacimiento: string = '';
+  email: string = '';
+  telefono: string = '';
+  celular: string = '';
+  curp: string = '';
+  activo: boolean = true;
+  tipoPersona: number = 0;
+
+}
+
+export class CatEmpleado {
+
+  numEmpleadoRrHh: number = null;
+  idPersona: number = null;
+  idTipoEmpleado: number = null;
+  idCategoria: number = null;
+  idTipoContrato: number = null;
+  cvePuesto: string = '';
+  idEmpresa: number = 0;
+  idCiudad: number = null;
+  idNivelEstudios: number = null;
+  idFormaPago: number = null;
+  idJornada: number = null;
+  idDepartamento: number = null;
+  idClasificacion: number = null;
+  idJefeDirecto: number = 0;
+  idUnidadNegocio: number = null;
+  idTipoContratoSat: number = 0;
+  numEmpleado: number = null;
+  fechaIngreso: string = '';
+  fechaSalida: string = '';;
+  fechaUltimoReingreso: string = '';
+  nss: number = null;;
+  emailBovis: string = '';
+  experiencias: string = '';
+  habilidades: string = '';
+  urlRepositorio: string = '';
+  salario: number = null;
+  profesion: string = '';
+  antiguedad: number = null;
+  turno: string = 'M';
+  unidadMedica: number = null;
+  registroPatronal: string = '';
+  cotizacion: string = '';
+  duracion: number = null;
+  activo: boolean = false;
+  descuentoPension: boolean = false;
+  porcentajePension: number = null;
+  fondoFijo: number = null;
+  creditoInfonavit: number = null;
+  tipoDescuento: string = '';
+  valorDescuento: number = null;
+  empleadoNoi: number = null;
+
+}
+
