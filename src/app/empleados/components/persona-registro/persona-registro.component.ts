@@ -249,7 +249,7 @@ export class PersonaRegistroComponent implements OnInit {
       severity: "error",
       summary: "Error",
       detail: mensaje,
-      life: 2000
+      life: 4000
     });
   }
 
@@ -268,4 +268,5 @@ export class PersonaRegistroComponent implements OnInit {
       ? (this.mensajeCamposRequeridos += 'Fecha de Nacimiento, ')
       : '';
   }
+
 }

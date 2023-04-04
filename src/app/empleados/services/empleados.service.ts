@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CatPersona, Persona } from '../Models/empleados';
+import { CatEmpleado, CatPersona, Persona } from '../Models/empleados';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -87,6 +87,11 @@ export class EmpleadosService {
 
   getEmpleados() {
     return this.http.get<any>(`${this.baseUrl}api/empleado/Consultar`);
+  }
+
+  saveEmpleado(empleado: CatEmpleado): Observable<any> {
+    console.log(empleado);
+    return this.http.put(`${this.baseUrl}api/empleado/Agregar`, empleado, { headers: this.httpHeaders });
   }
 
 }

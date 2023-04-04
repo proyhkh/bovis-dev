@@ -1,15 +1,13 @@
 <div class="content" style="margin:2%">
   <div>
-    <button type="button" class="btn btn-info" (click)="guardar()"  [disabled]="isConsultaButons">Guardar</button>&nbsp;&nbsp;
-    <button type="button" class="btn btn-info" (click)="clearData()"  [disabled]="isConsultaButons">Clear data</button>&nbsp;&nbsp;
-    <button
-    type="button"
-    class="btn btn-info"
-    routerLink="/empleados/persona"
-  >
-    Regresar
+    <button type="button" class="btn btn-info" (click)="guardar()"
+      [disabled]="isConsultaButons">Guardar</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-info" (click)="clearData()" [disabled]="isConsultaButons">Clear
+      data</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-info" routerLink="/empleados/persona">
+      Regresar
 
-  </button>
+    </button>
 
   </div>
 
@@ -40,33 +38,24 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Estado Civil:</label>
-            <p-dropdown
-            [options]="catEstadoCivil"
-            (onChange)="onChangeComboEdoCivil($event)"
-            placeholder="Seleccionar un estado civil"
-            optionLabel="name"
-            [showClear]="true"
-            [style]="{ width: '100%' }"
-          ></p-dropdown>
+            <p-dropdown [options]="catEstadoCivil" (onChange)="onChangeComboEdoCivil($event)"
+              placeholder="Seleccionar un estado civil" optionLabel="name" [showClear]="true"
+              [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Fecha de Nacimiento:</label>
-              <div class="col-12">
-              <p-calendar [(ngModel)]="fechaNacimiento" [showIcon]="true" [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}"
-              dateFormat="dd/mm/yy" [disabled]="isConsulta"></p-calendar>
-              </div>
+            <div class="col-12">
+              <p-calendar [(ngModel)]="fechaNacimiento" [showIcon]="true"
+                [style]="{'width':'100%', 'display': 'inline-flex','height':'39px'}" dateFormat="dd/mm/yy"
+                [disabled]="isConsulta"></p-calendar>
+            </div>
           </div>
           <div class="col-sm">
             <label for="email">Tipo de Sangre:</label>
             <div class="form-outline" style="width: 100%;">
-              <p-dropdown
-              [options]="catTipoSangre"
-              (onChange)="onChangeComboTipoSangre($event)"
-              placeholder="Seleccione un tipo de sangre"
-              optionLabel="name"
-              [showClear]="true"
-              [style]="{ width: '100%' }"
-            ></p-dropdown>
+              <p-dropdown [options]="catTipoSangre" (onChange)="onChangeComboTipoSangre($event)"
+                placeholder="Seleccione un tipo de sangre" optionLabel="name" [showClear]="true"
+                [style]="{ width: '100%' }"></p-dropdown>
             </div>
           </div>
         </div>
@@ -74,14 +63,9 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Sexo:</label>
-            <p-dropdown
-            [options]="catSexo"
-            (onChange)="onChangeComboSexo($event)"
-            placeholder="Seleccionar un estado civil"
-            optionLabel="name"
-            [showClear]="true"
-            [style]="{ width: '100%' }"
-          ></p-dropdown>
+            <p-dropdown [options]="catSexo" (onChange)="onChangeComboSexo($event)"
+              placeholder="Seleccionar un estado civil" optionLabel="name" [showClear]="true"
+              [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">RFC:</label>
@@ -89,14 +73,9 @@
           </div>
           <div class="col-sm">
             <label for="email">Tipo de persona:</label>
-            <p-dropdown
-            [options]="catTipoPersona"
-            (onChange)="onChangeComboTipoPersona($event)"
-              placeholder="Seleccione un tipo de persona"
-              optionLabel="name"
-              [showClear]="true"
-              [style]="{ width: '100%' }"
-            ></p-dropdown>
+            <p-dropdown [options]="catTipoPersona" (onChange)="onChangeComboTipoPersona($event)"
+              placeholder="Seleccione un tipo de persona" optionLabel="name" [showClear]="true"
+              [style]="{ width: '100%' }"></p-dropdown>
           </div>
         </div>
 
@@ -105,16 +84,18 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Email:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-              placeholder="" maxlength="60" [(ngModel)]="persona.Email" [disabled]="isConsulta">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=""
+              maxlength="60" [(ngModel)]="persona.Email" [disabled]="isConsulta">
           </div>
           <div class="col-sm">
             <label for="email">Telefono:</label>
-            <input type="text" class="form-control" maxlength="20" [(ngModel)]="persona.Telefono" [disabled]="isConsulta">
+            <input type="text" class="form-control" maxlength="20" [(ngModel)]="persona.Telefono"
+              [disabled]="isConsulta">
           </div>
           <div class="col-sm">
             <label for="email">Celular:</label>
-            <input type="text" class="form-control" maxlength="20" [(ngModel)]="persona.Celular" [disabled]="isConsulta">
+            <input type="text" class="form-control" maxlength="20" [(ngModel)]="persona.Celular"
+              [disabled]="isConsulta">
           </div>
         </div>
 
@@ -141,6 +122,6 @@
       </ng-container>
 
     </p-accordionTab>
-</p-accordion>
-<p-toast></p-toast>
+  </p-accordion>
+  <p-toast></p-toast>
 </div>
