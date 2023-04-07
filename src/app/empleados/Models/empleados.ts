@@ -20,10 +20,15 @@ export class Empleado {
   porcentajeCaptura: number = 35;
 
 }
-export class Catalogo{
-  id: string = '';
-  descripcion: string = '';
+export interface ICatalogo{
+  id: string;
+  descripcion: string;
   activo: boolean;
+}
+
+export interface ICatalogoCombos {
+  name: string;
+  value: string;
 }
 
 export class Persona{
@@ -110,4 +115,18 @@ export class CatEmpleado {
   empleadoNoi: number = null;
 
 }
+
+export interface IEmpresa{
+  rfc: string;
+  empresa: string;
+  idEmpresa: string;
+}
+
+export interface ICatPersona{
+  nombre: string;
+  apPaterno: string;
+  apMaterno: string;
+  idPersona: string;
+}
+
 

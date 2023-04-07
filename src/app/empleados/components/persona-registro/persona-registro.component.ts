@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Message, MessageService, PrimeNGConfig } from 'primeng/api';
-import { CatPersona, Catalogo, Empleado, Persona } from '../../Models/empleados';
+import { ICatalogo, ICatalogoCombos, Persona } from '../../Models/empleados';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Router } from '@angular/router';
 
-interface ICatalogo {
-  name: string;
-  value: string;
-}
+
 
 @Component({
   selector: 'app-persona-registro',
   templateUrl: './persona-registro.component.html',
   styleUrls: ['./persona-registro.component.css'],
 })
+
 export class PersonaRegistroComponent implements OnInit {
   isConsulta: boolean = false;
   isConsultaButons: boolean = false;
-  listEstadoCivil: Array<Catalogo> = [];
-  listTipoSangre: Array<Catalogo> = [];
-  listTipoPersona: Array<Catalogo> = [];
-  listSexo: Array<Catalogo> = [];
-  catEstadoCivil: ICatalogo[] = [];
-  catTipoSangre: ICatalogo[] = [];
-  catTipoPersona: ICatalogo[] = [];
-  catSexo: ICatalogo[] = [];
+  listEstadoCivil: Array<ICatalogo> = [];
+  listTipoSangre: Array<ICatalogo> = [];
+  listTipoPersona: Array<ICatalogo> = [];
+  listSexo: Array<ICatalogo> = [];
+  catEstadoCivil: ICatalogoCombos[] = [];
+  catTipoSangre: ICatalogoCombos[] = [];
+  catTipoPersona: ICatalogoCombos[] = [];
+  catSexo: ICatalogoCombos[] = [];
   fechaNacimiento: Date;
   persona: Persona = new Persona();
   messages1: Message[];
@@ -98,7 +96,7 @@ export class PersonaRegistroComponent implements OnInit {
     this.empleadosServ.getEstadoCivil().subscribe((data) => {
       //console.log(data);
       if (data.success) {
-        this.listEstadoCivil = <Catalogo[]>data['data'];
+        this.listEstadoCivil = <ICatalogo[]>data['data'];
         this.listEstadoCivil.forEach((element) => {
           this.catEstadoCivil.push({
             name: String(element.descripcion),
@@ -113,7 +111,7 @@ export class PersonaRegistroComponent implements OnInit {
     this.listEstadoCivil = [];
     this.empleadosServ.getTipoSangre().subscribe((data) => {
       if (data.success) {
-        this.listTipoSangre = <Catalogo[]>data['data'];
+        this.listTipoSangre = <ICatalogo[]>data['data'];
 
         this.listTipoSangre.forEach((element) => {
           this.catTipoSangre.push({
@@ -129,7 +127,7 @@ export class PersonaRegistroComponent implements OnInit {
     this.listEstadoCivil = [];
     this.empleadosServ.getTipoPersona().subscribe((data) => {
       if (data.success) {
-        this.listTipoPersona = <Catalogo[]>data['data'];
+        this.listTipoPersona = <ICatalogo[]>data['data'];
 
         this.listTipoPersona.forEach((element) => {
           this.catTipoPersona.push({
@@ -145,7 +143,7 @@ export class PersonaRegistroComponent implements OnInit {
     this.listSexo = [];
     this.empleadosServ.getTipoSexo().subscribe((data) => {
       if (data.success) {
-        this.listSexo = <Catalogo[]>data['data'];
+        this.listSexo = <ICatalogo[]>data['data'];
 
         this.listSexo.forEach((element) => {
           this.catSexo.push({

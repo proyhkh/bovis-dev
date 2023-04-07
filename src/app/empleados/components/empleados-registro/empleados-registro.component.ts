@@ -1,53 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 // import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { CatEmpleado, Catalogo, Empleado } from '../../Models/empleados';
+import { CatEmpleado, ICatalogo, Empleado, IEmpresa, ICatalogoCombos, ICatPersona } from '../../Models/empleados';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message, MessageService, PrimeNGConfig } from 'primeng/api';
 import { EmpleadosService } from '../../services/empleados.service';
 
-interface ICatalogo {
-  name: string;
-  value: string;
-}
+
 @Component({
   selector: 'app-empleados-registro',
   templateUrl: './empleados-registro.component.html',
   styleUrls: ['./empleados-registro.component.css'],
 })
+
 export class EmpleadosRegistroComponent implements OnInit {
+
   empleadoModel: Empleado = new Empleado();
   idEmpleado: number;
   disabled = false;
   isEditar = true;
   isConsulta: boolean = false;
   isConsultaButons: boolean = false;
-  listPersonas: Array<Catalogo> = [];
-  listTipoEmpleados: Array<Catalogo> = [];
-  listCategorias: Array<Catalogo> = [];
-  listTipoContratos: Array<Catalogo> = [];
-  listEmpresas: Array<Catalogo> = [];
-  listCiudades: Array<Catalogo> = [];
-  listNivelEstudios: Array<Catalogo> = [];
-  listFormasPago: Array<Catalogo> = [];
-  listJornadas: Array<Catalogo> = [];
-  listDepartamentos: Array<Catalogo> = [];
-  listClasificacion: Array<Catalogo> = [];
-  listJefesDirecto: Array<Catalogo> = [];
-  listUnidadNegocio: Array<Catalogo> = [];
+  listPersonas: Array<ICatPersona> = [];
+  listTipoEmpleados: Array<ICatalogo> = [];
+  listCategorias: Array<ICatalogo> = [];
+  listTipoContratos: Array<ICatalogo> = [];
+  listEmpresas: Array<IEmpresa> = [];
+  listCiudades: Array<ICatalogo> = [];
+  listNivelEstudios: Array<ICatalogo> = [];
+  listFormasPago: Array<ICatalogo> = [];
+  listJornadas: Array<ICatalogo> = [];
+  listDepartamentos: Array<ICatalogo> = [];
+  listClasificacion: Array<ICatalogo> = [];
+  listJefesDirecto: Array<ICatalogo> = [];
+  listUnidadNegocio: Array<ICatalogo> = [];
 
-  catPersonas: ICatalogo[] = [];
-  catTipoEmpleados: ICatalogo[] = [];
-  catCategorias: ICatalogo[] = [];
-  catTipoContratos: ICatalogo[] = [];
-  catEmpresas: ICatalogo[] = [];
-  catCiudades: ICatalogo[] = [];
-  catNivelEstudios: ICatalogo[] = [];
-  catFormasPago: ICatalogo[] = [];
-  catJornadas: ICatalogo[] = [];
-  catDepartamentos: ICatalogo[] = [];
-  catClasificacion: ICatalogo[] = [];
-  catJefesDirecto: ICatalogo[] = [];
-  catUnidadNegocio: ICatalogo[] = [];
+  catPersonas: ICatalogoCombos[] = [];
+  catTipoEmpleados: ICatalogoCombos[] = [];
+  catCategorias: ICatalogoCombos[] = [];
+  catTipoContratos: ICatalogoCombos[] = [];
+  catEmpresas: ICatalogoCombos[] = [];
+  catCiudades: ICatalogoCombos[] = [];
+  catNivelEstudios: ICatalogoCombos[] = [];
+  catFormasPago: ICatalogoCombos[] = [];
+  catJornadas: ICatalogoCombos[] = [];
+  catDepartamentos: ICatalogoCombos[] = [];
+  catClasificacion: ICatalogoCombos[] = [];
+  catJefesDirecto: ICatalogoCombos[] = [];
+  catUnidadNegocio: ICatalogoCombos[] = [];
 
   fechaIngreso: Date;
   fechaSalida: Date;
@@ -57,6 +56,8 @@ export class EmpleadosRegistroComponent implements OnInit {
   mensajeCamposRequeridos: string = '';
   isCamposRequeridos = false;
   messages1: Message[];
+
+  selectedPersona: string = '';
 
   constructor(
     private params: ActivatedRoute,
@@ -72,7 +73,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.getCatTipoEmpleado();
     this.getCatCategorias();
     this.getCatTipoContratos();
-    //this.getCatEmpresas(); //falta servicio
+    this.getCatEmpresas();
     this.getCatCiudades();
     this.getCatNivelEstuidios();
     this.getCatFormasPago();
@@ -255,9 +256,9 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.empleado.cvePuesto == ''
       ? (this.mensajeCamposRequeridos += 'Puesto, ')
       : '';
-    /* this.empleado.idEmpresa == null
+    this.empleado.idEmpresa == null
       ? (this.mensajeCamposRequeridos += 'Empresa, ')
-      : ''; */
+      : '';
     this.empleado.idCiudad == null
       ? (this.mensajeCamposRequeridos += 'Ciudad, ')
       : '';
@@ -296,11 +297,11 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.empleadosServ.getCatPersonas().subscribe((data) => {
       //console.log(data);
       if (data.success) {
-        this.listPersonas = <Catalogo[]>data['data'];
+        this.listPersonas = <ICatPersona[]>data['data'];
         this.listPersonas.forEach((element) => {
           this.catPersonas.push({
-            name: String(element.descripcion),
-            value: String(element.id),
+            name: String(`${element.nombre} ${element.apMaterno} ${element.apMaterno}`),
+            value: String(element.idPersona),
           });
         });
       }
@@ -311,7 +312,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listTipoEmpleados = [];
     this.empleadosServ.getCatEmpleados().subscribe((data) => {
       if (data.success) {
-        this.listTipoEmpleados = <Catalogo[]>data['data'];
+        this.listTipoEmpleados = <ICatalogo[]>data['data'];
         this.listTipoEmpleados.forEach((element) => {
           this.catTipoEmpleados.push({
             name: String(element.descripcion),
@@ -326,7 +327,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listCategorias = [];
     this.empleadosServ.getCatCategorias().subscribe((data) => {
       if (data.success) {
-        this.listCategorias = <Catalogo[]>data['data'];
+        this.listCategorias = <ICatalogo[]>data['data'];
         this.listCategorias.forEach((element) => {
           this.catCategorias.push({
             name: String(element.descripcion),
@@ -341,7 +342,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listTipoContratos = [];
     this.empleadosServ.getCatTiposContratos().subscribe((data) => {
       if (data.success) {
-        this.listTipoContratos = <Catalogo[]>data['data'];
+        this.listTipoContratos = <ICatalogo[]>data['data'];
         this.listTipoContratos.forEach((element) => {
           this.catTipoContratos.push({
             name: String(element.descripcion),
@@ -354,13 +355,13 @@ export class EmpleadosRegistroComponent implements OnInit {
 
   getCatEmpresas() {
     this.listEmpresas = [];
-    this.empleadosServ.getCatTiposContratos().subscribe((data) => {
+    this.empleadosServ.getCatEmpresas().subscribe((data) => {
       if (data.success) {
-        this.listEmpresas = <Catalogo[]>data['data'];
+        this.listEmpresas = <IEmpresa[]>data['data'];
         this.listEmpresas.forEach((element) => {
           this.catEmpresas.push({
-            name: String(element.descripcion),
-            value: String(element.id),
+            name: String(`${element.empresa} / ${element.rfc}` ),
+            value: String(element.idEmpresa),
           });
         });
       }
@@ -371,7 +372,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listCiudades = [];
     this.empleadosServ.getCatCiudades().subscribe((data) => {
       if (data.success) {
-        this.listCiudades = <Catalogo[]>data['data'];
+        this.listCiudades = <ICatalogo[]>data['data'];
         this.listCiudades.forEach((element) => {
           this.catCiudades.push({
             name: String(element.descripcion),
@@ -386,7 +387,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listNivelEstudios = [];
     this.empleadosServ.getCatNivelEstudios().subscribe((data) => {
       if (data.success) {
-        this.listNivelEstudios = <Catalogo[]>data['data'];
+        this.listNivelEstudios = <ICatalogo[]>data['data'];
         this.listNivelEstudios.forEach((element) => {
           this.catNivelEstudios.push({
             name: String(element.descripcion),
@@ -401,7 +402,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listFormasPago = [];
     this.empleadosServ.getCatFormasPago().subscribe((data) => {
       if (data.success) {
-        this.listFormasPago = <Catalogo[]>data['data'];
+        this.listFormasPago = <ICatalogo[]>data['data'];
         this.listFormasPago.forEach((element) => {
           this.catFormasPago.push({
             name: String(element.descripcion),
@@ -416,7 +417,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listJornadas = [];
     this.empleadosServ.getCatJornadas().subscribe((data) => {
       if (data.success) {
-        this.listJornadas = <Catalogo[]>data['data'];
+        this.listJornadas = <ICatalogo[]>data['data'];
         this.listJornadas.forEach((element) => {
           this.catJornadas.push({
             name: String(element.descripcion),
@@ -431,7 +432,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listDepartamentos = [];
     this.empleadosServ.getCatDepartamentos().subscribe((data) => {
       if (data.success) {
-        this.listDepartamentos = <Catalogo[]>data['data'];
+        this.listDepartamentos = <ICatalogo[]>data['data'];
         this.listDepartamentos.forEach((element) => {
           this.catDepartamentos.push({
             name: String(element.descripcion),
@@ -446,7 +447,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listClasificacion = [];
     this.empleadosServ.getCatClasificacion().subscribe((data) => {
       if (data.success) {
-        this.listClasificacion = <Catalogo[]>data['data'];
+        this.listClasificacion = <ICatalogo[]>data['data'];
         this.listClasificacion.forEach((element) => {
           this.catClasificacion.push({
             name: String(element.descripcion),
@@ -461,7 +462,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listJefesDirecto = [];
     this.empleadosServ.getCatClasificacion().subscribe((data) => {
       if (data.success) {
-        this.listJefesDirecto = <Catalogo[]>data['data'];
+        this.listJefesDirecto = <ICatalogo[]>data['data'];
         this.listJefesDirecto.forEach((element) => {
           this.catJefesDirecto.push({
             name: String(element.descripcion),
@@ -476,7 +477,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     this.listUnidadNegocio = [];
     this.empleadosServ.getCatUnidadNegocio().subscribe((data) => {
       if (data.success) {
-        this.listUnidadNegocio = <Catalogo[]>data['data'];
+        this.listUnidadNegocio = <ICatalogo[]>data['data'];
         this.listUnidadNegocio.forEach((element) => {
           this.catUnidadNegocio.push({
             name: String(element.descripcion),
@@ -493,7 +494,9 @@ export class EmpleadosRegistroComponent implements OnInit {
     if (event.value != null) {
       this.empleado.idPersona = Number.parseInt(String(event.value['value']));
     } else {
+      console.log(event);
       this.empleado.idPersona = null;
+      this.selectedPersona = '';
     }
   }
 
