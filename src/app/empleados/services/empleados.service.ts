@@ -34,7 +34,7 @@ export class EmpleadosService {
   }
 
   getCatPersonas() {
-    return this.http.get<any>(`${this.baseUrl}api/catalogo/TipoPersona/`);
+    return this.http.get<any>(`${this.baseUrl}api/empleado/persona/Consultar`);
   }
 
   getCatEmpleados() {
@@ -47,6 +47,10 @@ export class EmpleadosService {
 
   getCatTiposContratos() {
     return this.http.get<any>(`${this.baseUrl}api/catalogo/TipoContrato/`);
+  }
+
+  getCatEmpresas() {
+    return this.http.get<any>(`${this.baseUrl}api/pcs/empresas`);
   }
 
   getCatCiudades() {

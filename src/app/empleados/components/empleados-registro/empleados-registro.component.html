@@ -26,8 +26,8 @@
           </div>
           <div class="col-sm">
             <label for="email">Persona:</label>
-            <p-dropdown placeholder="" [options]="catPersonas" (onChange)="onChangeComboPersona($event)"
-              optionLabel="name" [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
+            <p-dropdown #dropDownPersona optionLabel="name" [options]="catPersonas" (onChange)="onChangeComboPersona($event)" placeholder=""
+              [showClear]="true" [style]="{ width: '100%' }"   [(ngModel)]="selectedPersona" ></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Tipo empleado:</label>
@@ -62,8 +62,8 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Empresa:</label>
-            <p-dropdown optionLabel="name" [showClear]="true" [style]="{ width: '100%' }"
-              [disabled]="true"></p-dropdown>
+            <p-dropdown optionLabel="name" [options]="catEmpresas" [showClear]="true" [style]="{ width: '100%' }"
+              [disabled]="isConsulta"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Ciudad:</label>
