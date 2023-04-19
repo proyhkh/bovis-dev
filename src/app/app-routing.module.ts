@@ -34,6 +34,11 @@ const routes: Routes = [
         path: 'facturacion',
         loadChildren: () =>
           import('./facturacion/facturacion.module').then((m) => m.FacturacionModule),
+      },
+      {
+        path: 'pcs',
+        loadChildren: () =>
+          import('./pcs/pcs.module').then((m) => m.PcsModule),
       }
     ],
     canActivate: [MsalGuard]

@@ -136,6 +136,9 @@ export class MenuSidebarComponent implements OnInit {
               items: [
                 {
                   label: 'IP',
+                  routerLink: ['/pcs/ip'],
+                  command: () =>
+                    this.setModule('IP'.toUpperCase()),
                 },
                 {
                   label: 'Staffing Plan',
