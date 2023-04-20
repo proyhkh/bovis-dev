@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { ICatalogo, ICatalogoCliente, ICatalogoCombos } from '../../models/ip';
+import { ICatalogo, ICatalogoCliente, ICatalogoCombos, IEmpleado } from '../../models/ip';
 import { CatalogosService } from '../../services/catalogos.service';
 
 @Component({
@@ -16,16 +16,19 @@ export class IpComponent implements OnInit {
   catPaises: ICatalogoCombos[] = [];
   catClientes: ICatalogoCombos[] = [];
   catEstatusProyecto: ICatalogoCombos[] = [];
+  catEmpleados: ICatalogoCombos[] = [];
 
   listCatSectores: Array<ICatalogo> = [];
   listCatPaises: Array<ICatalogo> = [];
   listCatClientes: Array<ICatalogoCliente> = [];
   listCatEstatusProyecto: Array<ICatalogo> = [];
+  listEmpleados: Array<IEmpleado> = [];
 
   constructor(private config: PrimeNGConfig, private catServ: CatalogosService) { }
 
   ngOnInit(): void {
     this.poblarCombos();
+    this.getConfigCalendar();
   }
 
   getConfigCalendar() {
@@ -80,6 +83,7 @@ export class IpComponent implements OnInit {
     this.getPaises();
     this.getClientes();
     this.getEstatusProyecto();
+    this.getEmpleados();
   }
 
   getCatCategorias() {
@@ -136,6 +140,21 @@ export class IpComponent implements OnInit {
           this.catEstatusProyecto.push({
             name: String(element.descripcion),
             value: String(element.id),
+          });
+        });
+      }
+    });
+  }
+
+  getEmpleados() {
+    this.listEmpleados = [];
+    this.catServ.getEmpleados().subscribe((data) => {
+      if (data.success) {
+        this.listEmpleados = <IEmpleado[]>data['data'];
+        this.listEmpleados.forEach((element) => {
+          this.catEmpleados.push({
+            name: String(`${element.nombre} ${element.apPaterno} ${element.apMaterno} / ${element.puesto}`),
+            value: String(element.numEmpleadoRrHh),
           });
         });
       }

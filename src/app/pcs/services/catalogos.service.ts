@@ -26,5 +26,9 @@ export class CatalogosService {
     return this.http.get<any>(`${this.baseUrl}api/pcs/clientes`);
   }
 
+  getEmpleados() {
+    return this.http.get<any>(`${this.baseUrl}api/empleado/ConsultarDetalle`);
+  }
+
 
 }

@@ -79,6 +79,9 @@ export class MenuSidebarComponent implements OnInit {
               items: [
                 {
                   label: 'Cargar Horas',
+                  routerLink: ['timesheet/carga-horas'],
+                  command: () =>
+                    this.setModule('CARGA DE HORAS'.toUpperCase()),
                 },
                 {
                   label: 'Consultar / Modificar',

@@ -39,6 +39,11 @@ const routes: Routes = [
         path: 'pcs',
         loadChildren: () =>
           import('./pcs/pcs.module').then((m) => m.PcsModule),
+      },
+      {
+        path: 'timesheet',
+        loadChildren: () =>
+          import('./timesheet/timesheet.module').then((m) => m.TimesheetModule),
       }
     ],
     canActivate: [MsalGuard]
