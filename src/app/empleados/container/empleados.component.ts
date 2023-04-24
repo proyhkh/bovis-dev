@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CatPersona, Empleado } from '../Models/empleados';
-// import { faAlignJustify } from '@fortawesome/free-solid-svg-icons';
+import { CatPersonaDetalle, Empleado } from '../Models/empleados';
 import {
   ConfirmationService,
   MessageService,
@@ -28,7 +27,7 @@ export class EmpleadosComponent implements OnInit {
     'TipoSangre',
     'Activo',
   ];
-  listPersonas: Array<CatPersona> = new Array<CatPersona>();
+  listPersonas: Array<CatPersonaDetalle> = new Array<CatPersonaDetalle>();
   // faAlignJustify = faAlignJustify;
   filtroApellido = '';
   requerid = {
@@ -63,7 +62,7 @@ export class EmpleadosComponent implements OnInit {
 
   getDataPersonas() {
     this.listPersonas = [];
-    this.empleadosServ.getPersonas().subscribe((per) => {
+    this.empleadosServ.getPersonasDetalle().subscribe((per) => {
       this.listPersonas = per.data;
     });
   }

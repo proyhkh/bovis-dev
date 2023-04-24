@@ -1,9 +1,9 @@
 <div class="content" style="margin: 2%">
-  <button type="button" class="btn btn-info" (click)="guardar()" [disabled]="isConsultaButons">
+  <button type="button" class="btn btn-info" (click)="guardar()" [disabled]="isUpdate">
     Guardar</button>&nbsp;&nbsp;
   <button type="button" class="btn btn-info" (click)="clear()" [disabled]="isConsultaButons">
     Clear data</button>&nbsp;&nbsp;
-  <button type="button" class="btn btn-info" routerLink="/empleados/empleado-pri">
+  <button type="button" class="btn btn-info" routerLink="/empleados/empleado">
     Regresar
   </button>
 
@@ -26,12 +26,12 @@
           </div>
           <div class="col-sm">
             <label for="email">Persona:</label>
-            <p-dropdown #dropDownPersona optionLabel="name" [options]="catPersonas" (onChange)="onChangeComboPersona($event)" placeholder=""
+            <p-dropdown #dropDownPersona optionLabel="name" [(ngModel)]="sPersonas" [options]="catPersonas" (onChange)="onChangeComboPersona($event)" placeholder=""
               [showClear]="true" [style]="{ width: '100%' }"   [(ngModel)]="selectedPersona" ></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Tipo empleado:</label>
-            <p-dropdown placeholder="" [options]="catTipoEmpleados" (onChange)="onChangeTipoEmpleado($event)"
+            <p-dropdown placeholder="" [options]="catTipoEmpleados" [(ngModel)]="sTipoEmpleado" (onChange)="onChangeTipoEmpleado($event)"
               optionLabel="name" [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
         </div>
@@ -41,13 +41,13 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Categoria:</label>
-            <p-dropdown optionLabel="name" [options]="catCategorias" (onChange)="onChangeCategoria($event)"
+            <p-dropdown optionLabel="name" [options]="catCategorias" [(ngModel)]="sCategoria" (onChange)="onChangeCategoria($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Tipo de contrato:</label>
             <div class="col-12">
-              <p-dropdown optionLabel="name" [options]="catTipoContratos" (onChange)="onChangeTipoContrato($event)"
+              <p-dropdown optionLabel="name" [options]="catTipoContratos" [(ngModel)]="sTipoContrato" (onChange)="onChangeTipoContrato($event)"
                 [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
             </div>
           </div>
@@ -62,17 +62,17 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Empresa:</label>
-            <p-dropdown optionLabel="name" [options]="catEmpresas" [showClear]="true" [style]="{ width: '100%' }"
+            <p-dropdown optionLabel="name" [options]="catEmpresas" [(ngModel)]="sEmpresa" [showClear]="true" [style]="{ width: '100%' }"
               [disabled]="isConsulta"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Ciudad:</label>
-            <p-dropdown optionLabel="name" [options]="catCiudades" (onChange)="onChangeCiudad($event)"
+            <p-dropdown optionLabel="name" [options]="catCiudades" [(ngModel)]="sCiudad" (onChange)="onChangeCiudad($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Nivel de estudios:</label>
-            <p-dropdown optionLabel="name" [options]="catNivelEstudios" (onChange)="onChangeNivelEstudios($event)"
+            <p-dropdown optionLabel="name" [options]="catNivelEstudios" [(ngModel)]="sNivelEstudios" (onChange)="onChangeNivelEstudios($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
         </div>
@@ -82,17 +82,17 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Forma de pago:</label>
-            <p-dropdown optionLabel="name" [options]="catFormasPago" (onChange)="onChangeFormaPago($event)"
+            <p-dropdown optionLabel="name" [options]="catFormasPago" [(ngModel)]="sFormaPago" (onChange)="onChangeFormaPago($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Jornada:</label>
-            <p-dropdown optionLabel="name" [options]="catJornadas" (onChange)="onChangeJornada($event)"
+            <p-dropdown optionLabel="name" [options]="catJornadas" [(ngModel)]="sJornada" (onChange)="onChangeJornada($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
             <label for="email">Departamento:</label>
-            <p-dropdown optionLabel="name" [options]="catDepartamentos" (onChange)="onChangeDepartamento($event)"
+            <p-dropdown optionLabel="name" [options]="catDepartamentos" [(ngModel)]="sDepartamento" (onChange)="onChangeDepartamento($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
         </div>
@@ -102,7 +102,7 @@
         <div class="row">
           <div class="col-sm">
             <label for="email">Clasificación:</label>
-            <p-dropdown optionLabel="name" [options]="catClasificacion" (onChange)="onChangeClasificacion($event)"
+            <p-dropdown optionLabel="name" [options]="catClasificacion" [(ngModel)]="sClasificacion" (onChange)="onChangeClasificacion($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
           <div class="col-sm">
@@ -112,7 +112,7 @@
           </div>
           <div class="col-sm">
             <label for="email">Número de negocio:</label>
-            <p-dropdown optionLabel="name" [options]="catUnidadNegocio" (onChange)="onChangeNumeroNegocio($event)"
+            <p-dropdown optionLabel="name" [options]="catUnidadNegocio" [(ngModel)]="sUnidadNegocio" (onChange)="onChangeNumeroNegocio($event)"
               [showClear]="true" [style]="{ width: '100%' }"></p-dropdown>
           </div>
         </div>

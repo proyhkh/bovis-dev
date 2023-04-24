@@ -7,12 +7,11 @@ import { EmpleadosPrincipalComponent } from './components/empleados-principal/em
 
 const routes: Routes = [
   { path: 'persona', component: EmpleadosComponent},
-  { path: 'empleado-pri', component: EmpleadosPrincipalComponent},
+  { path: 'empleado', component: EmpleadosPrincipalComponent},
   { path: 'registro-empleado', component: EmpleadosRegistroComponent},
+  { path: 'registro-empleado/:id', component: EmpleadosRegistroComponent},
   { path: 'registro-persona', component: PersonaRegistroComponent},
-  { path: 'edicion/:id', component: EmpleadosRegistroComponent},
-  { path: 'consulta/:id', component: EmpleadosRegistroComponent}
-
+  { path: 'registro-persona/:id', component: PersonaRegistroComponent}
 ];
 
 @NgModule({

@@ -20,7 +20,7 @@ export class MenuSidebarComponent implements OnInit {
     if (value) {
       this._accesos = value;
       this.rol = value[0].split('.')[0];
-      console.log(this.rol);
+      //console.log(this.rol);
     }
   }
 
@@ -60,7 +60,7 @@ export class MenuSidebarComponent implements OnInit {
                 },
                 {
                   label: 'Carga empleados',
-                  routerLink: ['/empleados/empleado-pri'],
+                  routerLink: ['/empleados/empleado'],
                   command: () =>
                     this.setModule('Registro de Empleado'.toUpperCase()),
                 },
@@ -342,7 +342,7 @@ export class MenuSidebarComponent implements OnInit {
 
 
   setModule(name: any) {
-    console.log(name);
+    //console.log(name);
     this.nameModule.next(name);
   }
 }

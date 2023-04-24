@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from '../../services/empleados.service';
-import { CatEmpleado } from '../../Models/empleados';
+import { CatEmpleadoDetalle } from '../../Models/empleados';
 
 @Component({
   selector: 'app-empleados-principal',
@@ -53,7 +53,7 @@ export class EmpleadosPrincipalComponent implements OnInit {
     'Número de noi'
   ];
 
-  listEmpleados: Array<CatEmpleado> = new Array<CatEmpleado>();
+  listEmpleados: Array<CatEmpleadoDetalle> = new Array<CatEmpleadoDetalle>();
 
   constructor( private empleadosServ: EmpleadosService) { }
 
@@ -63,7 +63,7 @@ export class EmpleadosPrincipalComponent implements OnInit {
 
   getDataEmpleados() {
     this.listEmpleados = [];
-    this.empleadosServ.getEmpleados().subscribe((emp) => {
+    this.empleadosServ.getEmpleadosDetalle().subscribe((emp) => {
       this.listEmpleados = emp.data;
     });
   }

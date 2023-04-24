@@ -24,43 +24,42 @@
             <td>
               {{ empleado.numEmpleadoRrHh }}
             </td>
-            <td>{{ empleado.idPersona }}</td>
-            <!-- <td>{{ empleado.fechaNacimiento | date : "dd/MM/yyyy" }}</td> -->
-            <td>{{ empleado.idTipoEmpleado }}</td>
+            <td>{{ empleado.nombre }} {{ empleado.apPaterno }} {{ empleado.apMaterno }}</td>
+            <td>{{ empleado.tipoEmpleado }}</td>
 
-            <td>{{ empleado.idCategoria }}</td>
-            <td>{{ empleado.idTipoContrato }}</td>
+            <td>{{ empleado.categoria }}</td>
+            <td>{{ empleado.tipoContrato }}</td>
             <td>{{ empleado.cvePuesto }}</td>
             <td>
-              <p class="text-center">{{ empleado.idEmpresa }}</p>
+              <p class="text-center">{{ empleado.empresa }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idCiudad }}</p>
+              <p class="text-center">{{ empleado.ciudad }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idNivelEstudios }}</p>
+              <p class="text-center">{{ empleado.nivelEstudios }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idFormaPago }}</p>
+              <p class="text-center">{{ empleado.formaPago }}</p>
             </td>
 
             <td>
-              <p class="text-center">{{ empleado.idJornada }}</p>
+              <p class="text-center">{{ empleado.jornada }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idDepartamento }}</p>
+              <p class="text-center">{{ empleado.departamento }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idClasificacion }}</p>
+              <p class="text-center">{{ empleado.clasificacion }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idJefeDirecto }}</p>
+              <p class="text-center">{{ empleado.jefeDirecto }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idUnidadNegocio }}</p>
+              <p class="text-center">{{ empleado.unidadNegocio }}</p>
             </td>
             <td>
-              <p class="text-center">{{ empleado.idTipoContratoSat }}</p>
+              <p class="text-center">{{ empleado.tipoContratoSat }}</p>
             </td>
             <td>
               <p class="text-center">{{ empleado.numEmpleado }}</p>
@@ -147,13 +146,8 @@
             <td>
               <p class="text-center">{{ empleado.empleadoNoi }}</p>
             </td>
-
             <td>
-              <!-- [value]="porcentaje" -->
-              <p-progressBar></p-progressBar>
-            </td>
-            <td><!--  [routerLink]="['edicion', empleado.id]" -->
-              <a ngbTooltip="Editar registro">
+              <a  [routerLink]="['/empleados/registro-empleado', empleado.numEmpleadoRrHh]" ngbTooltip="Editar registro">
                 <i class="fas fa-edit"></i>
               </a>
             </td>
@@ -167,7 +161,7 @@
                 tooltipPosition="left"
               ></i>
             </td>
-            <td>
+            <td *ngIf="false">
               <!-- [routerLink]="['consulta', empleado.id]" -->
               <a
                 ngbTooltip="Consultar empleado"

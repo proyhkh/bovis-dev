@@ -15,6 +15,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { PersonaRegistroComponent } from './components/persona-registro/persona-registro.component';
 import { MessagesModule } from 'primeng/messages';
 import { EmpleadosPrincipalComponent } from './components/empleados-principal/empleados-principal.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EmpleadosPrincipalComponent } from './components/empleados-principal/em
     ProgressBarModule,
     CalendarModule,
     AccordionModule,
-    MessagesModule
+    MessagesModule,
+    TooltipModule
   ],
   exports:[
 
