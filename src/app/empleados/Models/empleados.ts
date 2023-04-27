@@ -31,8 +31,7 @@ export interface ICatalogoCombos {
   value: string;
 }
 
-export class Persona{
-
+export class Persona{  
   IdEdoCivil: number = 0;
   IdTipoSangre: number = 0;
   Nombre: string = '';
@@ -57,8 +56,8 @@ export class CatPersona{
   id: string = '';
   apPaterno: string = '';
   apMaterno: string = '';
-  Sexo: number = 0;
-  sexo: string = '';
+  sexo: number = 0;
+  //sexo: string = '';
   rfc: string = '';
   fechaNacimiento: string = '';
   email: string = '';

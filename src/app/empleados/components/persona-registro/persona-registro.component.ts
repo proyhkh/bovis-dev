@@ -67,9 +67,12 @@ export class PersonaRegistroComponent implements OnInit {
       console.log(this.persona);
       this.sEstadoCivil = this.catEstadoCivil.find((xx => Number(xx.value) == this.persona.idEdoCivil));
       this.sTipoSangre = this.catTipoSangre.find((xx => Number(xx.value) == this.persona.idTipoSangre));
-      //console.log(this.catSexo);
-      this.sSexo = this.catSexo.find((xx => xx.name == this.persona.sexo));
-      console.log(this.catTipoPersona);
+      //console.log(this.persona.Sexo);
+      console.log(this.persona.sexo);
+      //this.sSexo = this.catSexo.find((xx => xx.name == this.persona.sexo));
+      this.sSexo = this.catSexo.find((xx =>  Number(xx.value) == this.persona.sexo));
+      console.log("verificando");
+      console.log(this.sSexo);
       this.sTipoPersona = this.catTipoPersona.find((xx => Number(xx.value) == this.persona.tipoPersona));
       this.fechaNacimiento = new Date(this.persona.fechaNacimiento);
     });
@@ -207,9 +210,9 @@ export class PersonaRegistroComponent implements OnInit {
 
   onChangeComboSexo(event: any) {
     if (event.value != null) {
-      this.persona.Sexo = Number.parseInt(String(event.value['value']));
+      this.persona.sexo = Number.parseInt(String(event.value['value']));
     } else {
-      this.persona.Sexo = 0;
+      this.persona.sexo = 0;
     }
   }
 
@@ -316,7 +319,7 @@ export class PersonaRegistroComponent implements OnInit {
     this.persona.nombre == ''
       ? (this.mensajeCamposRequeridos += 'Nombre, ')
       : '';
-    this.persona.Sexo == 0
+    this.persona.sexo == 0
       ? (this.mensajeCamposRequeridos += 'Sexo, ')
       : '';
     this.persona.tipoPersona == 0
