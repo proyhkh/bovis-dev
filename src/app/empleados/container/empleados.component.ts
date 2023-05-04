@@ -6,7 +6,9 @@ import {
   PrimeNGConfig,
 } from 'primeng/api';
 import { EmpleadosService } from '../services/empleados.service';
-
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+const EXCEL_EXTENSION = '.xlsx';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -27,7 +29,9 @@ export class EmpleadosComponent implements OnInit {
     'TipoSangre',
     'Activo',
   ];
-  listPersonas: Array<CatPersonaDetalle> = new Array<CatPersonaDetalle>();
+  //listPersonas: Array<CatPersonaDetalle> = new Array<CatPersonaDetalle>();
+  listPersonas: CatPersonaDetalle[];
+  selectedRegistros: CatPersonaDetalle[];
   // faAlignJustify = faAlignJustify;
   filtroApellido = '';
   requerid = {
@@ -106,4 +110,56 @@ export class EmpleadosComponent implements OnInit {
     }
     console.log(this.ListEmpleadosModel);
   }
+
+  public exportJsonToExcel(fileName: string = 'personas'): void {
+    // inserting first blank row
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      this.listPersonas,
+      this.getOptions(this.listPersonas)
+    );
+
+    //for (let i = 1, length = this.listBusquedaCompleto.length; i < length; i++) {
+    // adding a dummy row for separation
+    XLSX.utils.sheet_add_json(
+      worksheet,
+      [{}],
+      this.getOptions(
+        {
+          data: [],
+          skipHeader: true,
+        },
+        -1
+      )
+    );
+    XLSX.utils.sheet_add_json(
+      worksheet,
+      this.listPersonas,
+      this.getOptions(this.listPersonas, 1)
+    );
+    //}
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Sheet1: worksheet },
+      SheetNames: ['Sheet1'],
+    };
+    // save to file
+    XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
+  }
+
+  private getOptions(json: any, origin?: number): any {
+    // adding actual data
+    const options = {
+      skipHeader: true,
+      origin: 1,
+      header: ([] = []),
+    };
+    options.skipHeader = json.skipHeader ? json.skipHeader : false;
+    if (!options.skipHeader && json.header && json.header.length) {
+      options.header = json.header;
+    }
+    if (origin) {
+      options.origin = origin ? origin : 1;
+    }
+    return options;
+  }
+
 }

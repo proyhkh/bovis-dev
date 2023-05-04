@@ -31,7 +31,7 @@ export interface ICatalogoCombos {
   value: string;
 }
 
-export class Persona{  
+export class Persona{
   IdEdoCivil: number = 0;
   IdTipoSangre: number = 0;
   Nombre: string = '';
@@ -198,6 +198,51 @@ export class CatEmpleadoDetalle {
   tipoContratoSat: string = '';
 
 
+}
+
+export class CatEmpleadoDetalleExcel {
+  numEmpleadoRrHh: number = null;
+  nombre: string = '';
+  apPaterno: string = '';
+  apMaterno: string = '';
+  categoria: string = '';
+  tipoContrato: string = '';
+  cvePuesto: string = '';
+  empresa: string = '';
+  ciudad: string = '';
+  nivelEstudios: string = '';
+  formaPago: string = '';
+  jornada: string = '';
+  departamento: string = '';
+  clasificacion: string = '';
+  jefeDirecto:string = '';
+  unidadNegocio: string = '';
+  tipoContratoSat: string = '';
+  numEmpleado: number = null;
+  fechaIngreso: string = '';
+  fechaSalida: string = '';
+  fechaUltimoReingreso: string = '';
+  nss: number = null;;
+  emailBovis: string = '';
+  experiencias: string = '';
+  habilidades: string = '';
+  urlRepositorio: string = '';
+  salario: number = null;
+  profesion: string = '';
+  antiguedad: number = null;
+  turno: string = 'M';
+  unidadMedica: number = null;
+  registroPatronal: string = '';
+  cotizacion: string = '';
+  duracion: number = null;
+  activo: boolean = false;
+  descuentoPension: boolean = false;
+  porcentajePension: number = null;
+  fondoFijo: number = null;
+  creditoInfonavit: number = null;
+  tipoDescuento: string = '';
+  valorDescuento: number = null;
+  empleadoNoi: number = null;
 }
 
 export interface IEmpresa{
