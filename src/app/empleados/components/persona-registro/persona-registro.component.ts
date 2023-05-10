@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Message, MessageService, PrimeNGConfig } from 'primeng/api';
-import { ICatalogo, ICatalogoCombos, Persona } from '../../Models/empleados';
+import { CatPersona, ICatalogo, ICatalogoCombos, Persona } from '../../Models/empleados';
 import { EmpleadosService } from '../../services/empleados.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -24,17 +24,23 @@ export class PersonaRegistroComponent implements OnInit {
   catTipoPersona: ICatalogoCombos[] = [];
   catSexo: ICatalogoCombos[] = [];
   fechaNacimiento: Date;
-  persona: Persona = new Persona();
+  persona: CatPersona = new CatPersona();
   messages1: Message[];
   isCamposRequeridos = false;
   mensajeCamposRequeridos: string = '';
+  idPersona: number;
+  sEstadoCivil: ICatalogoCombos;
+  sTipoSangre: ICatalogoCombos;
+  sSexo: ICatalogoCombos;
+  sTipoPersona: ICatalogoCombos;
 
   constructor(
     private empleadosServ: EmpleadosService,
     private config: PrimeNGConfig,
     private messageService: MessageService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.getConfigCalendar();
@@ -42,6 +48,34 @@ export class PersonaRegistroComponent implements OnInit {
     this.getTipoSangre();
     this.getTipoPersona();
     this.getCatSexo();
+
+    this.route.paramMap.subscribe(paramMap => {
+      //console.log(paramMap.get('id'));
+      if (paramMap.get('id') != null) {
+        this.idPersona = Number(paramMap.get('id').toString());
+        this.getPersonas();
+      } else {
+        this.idPersona = null;
+      }
+    });
+  }
+
+  getPersonas() {
+    this.empleadosServ.getPersonas().subscribe(per => {
+      let listPersonas: Array<CatPersona> = per.data;
+      this.persona = listPersonas.find(xx => xx.idPersona == this.idPersona);
+      console.log(this.persona);
+      this.sEstadoCivil = this.catEstadoCivil.find((xx => Number(xx.value) == this.persona.idEdoCivil));
+      this.sTipoSangre = this.catTipoSangre.find((xx => Number(xx.value) == this.persona.idTipoSangre));
+      //console.log(this.persona.Sexo);
+      console.log(this.persona.sexo);
+      //this.sSexo = this.catSexo.find((xx => xx.name == this.persona.sexo));
+      this.sSexo = this.catSexo.find((xx =>  Number(xx.value) == this.persona.sexo));
+      console.log("verificando");
+      console.log(this.sSexo);
+      this.sTipoPersona = this.catTipoPersona.find((xx => Number(xx.value) == this.persona.tipoPersona));
+      this.fechaNacimiento = new Date(this.persona.fechaNacimiento);
+    });
   }
 
   getConfigCalendar() {
@@ -159,39 +193,39 @@ export class PersonaRegistroComponent implements OnInit {
     /* console.log('event :' + event);
     console.log(event.value); */
     if (event.value != null) {
-      this.persona.IdEdoCivil = Number.parseInt(String(event.value['value']));
+      this.persona.idEdoCivil = Number.parseInt(String(event.value['value']));
     } else {
-      this.persona.IdEdoCivil = 0;
+      this.persona.idEdoCivil = 0;
     }
     //console.log(this.persona);
   }
 
   onChangeComboTipoSangre(event: any) {
     if (event.value != null) {
-      this.persona.IdTipoSangre = Number.parseInt(String(event.value['value']));
+      this.persona.idTipoSangre = Number.parseInt(String(event.value['value']));
     } else {
-      this.persona.IdTipoSangre = 0;
+      this.persona.idTipoSangre = 0;
     }
   }
 
   onChangeComboSexo(event: any) {
     if (event.value != null) {
-      this.persona.Sexo = Number.parseInt(String(event.value['value']));
+      this.persona.sexo = Number.parseInt(String(event.value['value']));
     } else {
-      this.persona.Sexo = 0;
+      this.persona.sexo = 0;
     }
   }
 
   onChangeComboTipoPersona(event: any) {
     if (event.value != null) {
-      this.persona.TipoPersona = Number.parseInt(String(event.value['value']));
+      this.persona.tipoPersona = Number.parseInt(String(event.value['value']));
     } else {
-      this.persona.TipoPersona = 0;
+      this.persona.tipoPersona = 0;
     }
   }
 
   clearData() {
-    this.persona = new Persona();
+    this.persona = new CatPersona();
     this.fechaNacimiento = null;
     this.mensajeCamposRequeridos = '';
     this.isCamposRequeridos = false;
@@ -201,40 +235,69 @@ export class PersonaRegistroComponent implements OnInit {
     /* console.log(this.persona);
     console.log(this.fechaNacimiento);
     console.log(this.fechaNacimiento.toJSON().slice(0, 10).replace(/-/g, '-')); */
-
     this.camposRequeridos();
     if (this.mensajeCamposRequeridos == '') {
       this.isCamposRequeridos = false;
-      this.persona.FechaNacimiento = this.fechaNacimiento.toJSON().slice(0, 10).replace(/-/g, '-');
-      this.empleadosServ.savePersona(this.persona).subscribe({
-        next: (data) => {
-          //console.log(data);
-          if (data.success) {
+      this.persona.fechaNacimiento = this.fechaNacimiento.toJSON().slice(0, 10).replace(/-/g, '-');
+      //Editar
+      if (this.idPersona != null) {
+        this.empleadosServ.updatePersona(this.persona).subscribe({
+          next: (data) => {
+            //console.log(data);
+            if (data.success) {
 
-            this.messageService.add({
-              severity: "success",
-              summary: "Persona",
-              detail: "Registro guardado correctamente",
-              life: 2000
-            });
-            setTimeout(
-              ()=>{
-                this.router.navigate(['/empleados', 'persona']);
-            },1500);
-          }else{
-            console.log(data);
-            //this.menssageError(error);
+              this.messageService.add({
+                severity: "success",
+                summary: "Persona",
+                detail: "Registro actualizado correctamente",
+                life: 2000
+              });
+              setTimeout(
+                () => {
+                  this.router.navigate(['/empleados', 'persona']);
+                }, 1500);
+            } else {
+              console.log(data);
+              //this.menssageError(error);
+            }
+          },
+          error: (e) => {
+            //console.log(e);
+            let error = `${e.message} \n\n ${e.error}`
+            this.menssageError(error);
           }
-        },
-        error: (e) => {
-          //console.log(e);
-          let error = `${e.message} \n\n ${e.error}`
-         this.menssageError(error);
-        }
-      });
+        });
+      }
+      else { //Nuevo
+        this.empleadosServ.savePersona(this.persona).subscribe({
+          next: (data) => {
+            //console.log(data);
+            if (data.success) {
 
+              this.messageService.add({
+                severity: "success",
+                summary: "Persona",
+                detail: "Registro guardado correctamente",
+                life: 2000
+              });
+              setTimeout(
+                () => {
+                  this.router.navigate(['/empleados', 'persona']);
+                }, 1500);
+            } else {
+              console.log(data);
+              //this.menssageError(error);
+            }
+          },
+          error: (e) => {
+            //console.log(e);
+            let error = `${e.message} \n\n ${e.error}`
+            this.menssageError(error);
+          }
+        });
+      }
     }
-    else{
+    else {
       this.isCamposRequeridos = true;
       this.messages1 = [
         { severity: 'error', summary: 'Campos requeridos', detail: this.mensajeCamposRequeridos },
@@ -242,7 +305,7 @@ export class PersonaRegistroComponent implements OnInit {
     }
   }
 
-  menssageError(mensaje: string){
+  menssageError(mensaje: string) {
     this.messageService.add({
       severity: "error",
       summary: "Error",
@@ -253,13 +316,13 @@ export class PersonaRegistroComponent implements OnInit {
 
   camposRequeridos() {
     this.mensajeCamposRequeridos = '';
-    this.persona.Nombre == ''
+    this.persona.nombre == ''
       ? (this.mensajeCamposRequeridos += 'Nombre, ')
       : '';
-    this.persona.Sexo == 0
+    this.persona.sexo == 0
       ? (this.mensajeCamposRequeridos += 'Sexo, ')
       : '';
-    this.persona.TipoPersona == 0
+    this.persona.tipoPersona == 0
       ? (this.mensajeCamposRequeridos += 'Tipo de persona, ')
       : '';
     this.fechaNacimiento == undefined

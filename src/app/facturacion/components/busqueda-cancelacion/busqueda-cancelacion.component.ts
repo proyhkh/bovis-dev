@@ -498,4 +498,5 @@ export class BusquedaCancelacionComponent implements OnInit {
     );
     console.log(this.listBusquedaModal);
   }
+
 }

@@ -85,12 +85,24 @@ export class EmpleadosService {
     return this.http.get<any>(`${this.baseUrl}api/empleado/persona/Consultar`);
   }
 
-  savePersona(persona: Persona): Observable<any> {
+  getPersonasDetalle() {
+    return this.http.get<any>(`${this.baseUrl}api/empleado/persona/ConsultarDetalle`);
+  }
+
+  savePersona(persona: CatPersona): Observable<any> {
     return this.http.put(`${this.baseUrl}api/empleado/persona/Agregar`, persona, { headers: this.httpHeaders });
+  }
+
+  updatePersona(persona: CatPersona): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/empleado/persona/actualizar`, persona, { headers: this.httpHeaders });
   }
 
   getEmpleados() {
     return this.http.get<any>(`${this.baseUrl}api/empleado/Consultar`);
+  }
+
+  getEmpleadosDetalle() {
+    return this.http.get<any>(`${this.baseUrl}api/empleado/ConsultarDetalle`);
   }
 
   saveEmpleado(empleado: CatEmpleado): Observable<any> {

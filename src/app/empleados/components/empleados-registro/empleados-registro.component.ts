@@ -20,6 +20,7 @@ export class EmpleadosRegistroComponent implements OnInit {
   isEditar = true;
   isConsulta: boolean = false;
   isConsultaButons: boolean = false;
+  isUpdate: boolean = false;
   listPersonas: Array<ICatPersona> = [];
   listTipoEmpleados: Array<ICatalogo> = [];
   listCategorias: Array<ICatalogo> = [];
@@ -56,16 +57,30 @@ export class EmpleadosRegistroComponent implements OnInit {
   mensajeCamposRequeridos: string = '';
   isCamposRequeridos = false;
   messages1: Message[];
-
   selectedPersona: string = '';
+  numEmpleadoRrHh: number;
+
+  sPersonas: ICatalogoCombos;
+  sTipoEmpleado: ICatalogoCombos;
+  sCategoria: ICatalogoCombos;
+  sTipoContrato: ICatalogoCombos;
+  sEmpresa: ICatalogoCombos;
+  sCiudad: ICatalogoCombos;
+  sNivelEstudios: ICatalogoCombos;
+  sFormaPago: ICatalogoCombos;
+  sJornada: ICatalogoCombos;
+  sDepartamento: ICatalogoCombos;
+  sClasificacion: ICatalogoCombos;
+  sUnidadNegocio: ICatalogoCombos;
 
   constructor(
     private params: ActivatedRoute,
     private config: PrimeNGConfig,
     private empleadosServ: EmpleadosService,
     private messageService: MessageService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   poblarCombos() {
     this.getConfigCalendar();
@@ -86,6 +101,41 @@ export class EmpleadosRegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.poblarCombos();
+    this.route.paramMap.subscribe(paramMap => {
+      //console.log(paramMap.get('id'));
+      if (paramMap.get('id') != null) {
+        this.isUpdate = true;
+        this.numEmpleadoRrHh = Number(paramMap.get('id').toString());
+        this.getEmpleados();
+      } else {
+        this.numEmpleadoRrHh = null;
+      }
+    });
+  }
+
+  getEmpleados() {
+    this.empleadosServ.getEmpleados().subscribe((emp) => {
+      let listEmpleado: Array<CatEmpleado> = emp.data;
+      this.empleado = listEmpleado.find(xx => xx.numEmpleadoRrHh == this.numEmpleadoRrHh);
+      console.log(this.empleado);
+      this.fechaSalida = new Date(this.empleado.fechaSalida);
+      this.fechaReingreso = new Date(this.empleado.fechaUltimoReingreso);
+      this.fechaIngreso = new Date(this.empleado.fechaIngreso);
+
+      this.sPersonas = this.catPersonas.find((xx => Number(xx.value) == this.empleado.idPersona));
+      this.sTipoEmpleado = this.catTipoEmpleados.find((xx => Number(xx.value) == this.empleado.idTipoEmpleado));
+      this.sCategoria = this.catCategorias.find((xx => Number(xx.value) == this.empleado.idCategoria));
+      this.sTipoContrato = this.catTipoContratos.find((xx => Number(xx.value) == this.empleado.idTipoContrato));
+      this.sEmpresa = this.catEmpresas.find((xx => Number(xx.value) == this.empleado.idEmpresa));
+      this.sCiudad = this.catCiudades.find((xx => Number(xx.value) == this.empleado.idCiudad));
+      this.sNivelEstudios = this.catNivelEstudios.find((xx => Number(xx.value) == this.empleado.idNivelEstudios));
+      this.sFormaPago = this.catFormasPago.find((xx => Number(xx.value) == this.empleado.idFormaPago));
+      this.sJornada = this.catJornadas.find((xx => Number(xx.value) == this.empleado.idJornada));
+      this.sDepartamento = this.catDepartamentos.find((xx => Number(xx.value) == this.empleado.idDepartamento));
+      this.sClasificacion = this.catClasificacion.find((xx => Number(xx.value) == this.empleado.idClasificacion));
+      this.sUnidadNegocio = this.catUnidadNegocio.find((xx => Number(xx.value) == this.empleado.idUnidadNegocio));
+
+    });
   }
 
   getConfigCalendar() {
@@ -133,27 +183,6 @@ export class EmpleadosRegistroComponent implements OnInit {
       today: 'Hoy',
       clear: 'Limpiar',
     });
-
-    /*  this.es = {
-       closeText: "Cerrar",
-       prevText: "<Ant",
-       nextText: "Sig>",
-       currentText: "Hoy",
-       monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio",
-         "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-       monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun",
-         "jul", "ago", "sep", "oct", "nov", "dic"],
-       dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-       dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-       dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-       weekHeader: "Sm",
-       dateFormat: "dd/mm/yy",
-       firstDay: 1,
-       isRTL: false,
-       showMonthAfterYear: false,
-       yearSuffix: ""
-     };
- */
   }
 
   guardar() {
@@ -177,10 +206,10 @@ export class EmpleadosRegistroComponent implements OnInit {
               life: 2000
             });
             setTimeout(
-              ()=>{
+              () => {
                 this.router.navigate(['/empleados', 'empleado-pri']);
-            },1500);
-          }else{
+              }, 1500);
+          } else {
             console.log(data);
             //this.menssageError(error);
           }
@@ -188,7 +217,7 @@ export class EmpleadosRegistroComponent implements OnInit {
         error: (e) => {
           console.log(e);
           let error = `${e.message} <br/> ${e.error.errors}`
-         this.menssageError(error);
+          this.menssageError(error);
         }
       });
     } else {
@@ -203,27 +232,27 @@ export class EmpleadosRegistroComponent implements OnInit {
     }
   }
 
-  asignaValuesFechas(){
+  asignaValuesFechas() {
     this.fechaIngreso != undefined && this.fechaIngreso != null
-    ? (this.empleado.fechaIngreso = this.fechaIngreso
+      ? (this.empleado.fechaIngreso = this.fechaIngreso
         .toJSON()
         .slice(0, 10)
         .replace(/-/g, '-'))
-    : '';
+      : '';
 
     this.fechaReingreso != undefined && this.fechaReingreso != null
-    ? (this.empleado.fechaUltimoReingreso = this.fechaReingreso
+      ? (this.empleado.fechaUltimoReingreso = this.fechaReingreso
         .toJSON()
         .slice(0, 10)
         .replace(/-/g, '-'))
-    : '';
+      : '';
 
     this.fechaSalida != undefined && this.fechaSalida != null
-    ? (this.empleado.fechaSalida = this.fechaSalida
+      ? (this.empleado.fechaSalida = this.fechaSalida
         .toJSON()
         .slice(0, 10)
         .replace(/-/g, '-'))
-    : '';
+      : '';
 
   }
 
@@ -360,7 +389,7 @@ export class EmpleadosRegistroComponent implements OnInit {
         this.listEmpresas = <IEmpresa[]>data['data'];
         this.listEmpresas.forEach((element) => {
           this.catEmpresas.push({
-            name: String(`${element.empresa} / ${element.rfc}` ),
+            name: String(`${element.empresa} / ${element.rfc}`),
             value: String(element.idEmpresa),
           });
         });

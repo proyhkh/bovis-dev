@@ -33,7 +33,7 @@ body {
 }
 
 .content {
-  overflow: auto;
+  /*overflow: auto;*/
 }
 
 .menu-principal {
@@ -294,3 +294,5 @@ a.article:hover {
     display: none;
   } */
 }
+
+@import "primeicons/primeicons.css";

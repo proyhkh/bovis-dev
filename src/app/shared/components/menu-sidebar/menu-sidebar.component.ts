@@ -20,14 +20,14 @@ export class MenuSidebarComponent implements OnInit {
     if (value) {
       this._accesos = value;
       this.rol = value[0].split('.')[0];
-      console.log(this.rol);
+      //console.log(this.rol);
     }
   }
 
   menu: MegaMenuItem[] = [];
   perfilesMenu: MegaMenuItem[] = [];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.perfilesMenu = [];
@@ -60,7 +60,7 @@ export class MenuSidebarComponent implements OnInit {
                 },
                 {
                   label: 'Carga empleados',
-                  routerLink: ['/empleados/empleado-pri'],
+                  routerLink: ['/empleados/empleado'],
                   command: () =>
                     this.setModule('Registro de Empleado'.toUpperCase()),
                 },
@@ -79,6 +79,9 @@ export class MenuSidebarComponent implements OnInit {
               items: [
                 {
                   label: 'Cargar Horas',
+                  routerLink: ['timesheet/carga-horas'],
+                  command: () =>
+                    this.setModule('CARGA DE HORAS'.toUpperCase()),
                 },
                 {
                   label: 'Consultar / Modificar',
@@ -136,6 +139,9 @@ export class MenuSidebarComponent implements OnInit {
               items: [
                 {
                   label: 'IP',
+                  routerLink: ['/pcs/ip'],
+                  command: () =>
+                    this.setModule('IP'.toUpperCase()),
                 },
                 {
                   label: 'Staffing Plan',
@@ -233,19 +239,19 @@ export class MenuSidebarComponent implements OnInit {
                   label: 'NC',
                   routerLink: ['facturacion/nota-credito'],
                   command: () =>
-                  this.setModule('FACTURACIÓN - NC'.toUpperCase()),
+                    this.setModule('FACTURACIÓN - NC'.toUpperCase()),
                 },
                 {
                   label: 'CRP',
                   routerLink: ['facturacion/crp'],
                   command: () =>
-                  this.setModule('FACTURACIÓN - CRP'.toUpperCase()),
+                    this.setModule('FACTURACIÓN - CRP'.toUpperCase()),
                 },
                 {
                   label: 'Busqueda/Cancelación',
                   routerLink: ['facturacion/cancelacion'],
                   command: () =>
-                  this.setModule('FACTURACIÓN - CANCELACIÓN'.toUpperCase()),
+                    this.setModule('FACTURACIÓN - CANCELACIÓN'.toUpperCase()),
                 },
               ],
             },
@@ -255,8 +261,21 @@ export class MenuSidebarComponent implements OnInit {
       {
         title: 'ADMINISTRACIÓN',
         icon: 'pi pi-fw pi-briefcase',
+        items: [
+          [
+            {
+              label: 'CATALOGOS',
+              items: [{
+                label: 'CATALOGOS',
+                routerLink: ['catalogos'],
+                command: () =>
+                  this.setModule('CATALOGOS'.toUpperCase()),
+              },]
+            }
+          ]
+        ]
       },
-      {
+      /* {
         title: 'CATALOGOS',
         icon: 'pi pi-fw pi-book',
         items: [
@@ -272,7 +291,7 @@ export class MenuSidebarComponent implements OnInit {
             },
           ],
         ],
-      },
+      }, */
     ];
 
     //console.log(this.items);
@@ -280,55 +299,55 @@ export class MenuSidebarComponent implements OnInit {
   }
 
 
-  getMenuPerfiles(){
+  getMenuPerfiles() {
 
     //EMPLEADOS
-    if(this.rol == 'eje' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'nom' || this.rol == 'admin' || this.rol == 'rh' || this.rol == 'legal' || this.rol == 'dev'){
+    if (this.rol == 'eje' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'nom' || this.rol == 'admin' || this.rol == 'rh' || this.rol == 'legal' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[0]);
     }
 
     //TIMESHEET
-    if(this.rol == 'nom' || this.rol == 'it' || this.rol == 'admfin' || this.rol == 'admin' || this.rol == 'dev'){
+    if (this.rol == 'nom' || this.rol == 'it' || this.rol == 'admfin' || this.rol == 'admin' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[1]);
     }
 
     //COSTO DE EMPLEADOS
-    if(this.rol == 'nom' || this.rol == 'it' || this.rol == 'admin' || this.rol == 'dev'){
+    if (this.rol == 'nom' || this.rol == 'it' || this.rol == 'admin' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[2]);
     }
 
     //CIE
-    if(this.rol == 'nom' || this.rol == 'eje' || this.rol == 'it' || this.rol == 'admfin' || this.rol == 'admin' || this.rol == 'dev'){
+    if (this.rol == 'nom' || this.rol == 'eje' || this.rol == 'it' || this.rol == 'admfin' || this.rol == 'admin' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[3]);
     }
 
     //PCS
-    if(this.rol == 'eje' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'adminfin' || this.rol == 'admin' || this.rol == 'rh' || this.rol == 'dev'){
+    if (this.rol == 'eje' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'adminfin' || this.rol == 'admin' || this.rol == 'rh' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[4]);
     }
 
-     //AUDITORIA LEGAL
-     if(this.rol == 'legal' || this.rol == 'eje' || this.rol == 'it' || this.rol == 'adminfin' || this.rol == 'admin' || this.rol == 'dev'){
+    //AUDITORIA LEGAL
+    if (this.rol == 'legal' || this.rol == 'eje' || this.rol == 'it' || this.rol == 'adminfin' || this.rol == 'admin' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[5]);
     }
 
-     //REPORTES
-     if(this.rol == 'eje' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'adminfin' || this.rol == 'admin' || this.rol == 'rh' || this.rol == 'legal' || this.rol == 'dev'){
+    //REPORTES
+    if (this.rol == 'eje' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'adminfin' || this.rol == 'admin' || this.rol == 'rh' || this.rol == 'legal' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[6]);
     }
 
-     //PEC
-     if(this.rol == 'admfin' || this.rol == 'it' || this.rol == 'admin' || this.rol == 'eje' || this.rol == 'dev'){
+    //PEC
+    if (this.rol == 'admfin' || this.rol == 'it' || this.rol == 'admin' || this.rol == 'eje' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[7]);
     }
 
-     //FACTURACIÓN
-     if(this.rol == 'nom' || this.rol == 'it' || this.rol == 'admfin' || this.rol == 'admin' || this.rol == 'dev'){
+    //FACTURACIÓN
+    if (this.rol == 'nom' || this.rol == 'it' || this.rol == 'admfin' || this.rol == 'admin' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[8]);
     }
 
-    //CATALOGOS
-    if(this.rol == 'nom' || this.rol == 'rh' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'dev'){
+    //ADMINISTRACION - CATALOGOS
+    if (this.rol == 'nom' || this.rol == 'rh' || this.rol == 'it' || this.rol == 'eje' || this.rol == 'dev') {
       this.perfilesMenu.push(this.menu[9]);
     }
 
@@ -336,7 +355,7 @@ export class MenuSidebarComponent implements OnInit {
 
 
   setModule(name: any) {
-    console.log(name);
+    //console.log(name);
     this.nameModule.next(name);
   }
 }
