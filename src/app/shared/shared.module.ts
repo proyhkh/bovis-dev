@@ -7,6 +7,8 @@ import { PrimengModule } from './primeng.module';
 import { FailedComponent } from './components/failed/failed.component';
 import { MenuSidebarComponent } from './components/menu-sidebar/menu-sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
+import { BackdropComponent } from './components/backdrop/backdrop.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -14,16 +16,19 @@ import { HeaderComponent } from './components/header/header.component';
   declarations: [
     HeaderComponent,
     FailedComponent,
-    MenuSidebarComponent
+    MenuSidebarComponent,
+    BackdropComponent
   ],
   imports: [
     CommonModule,
-    PrimengModule
+    PrimengModule,
+    ProgressSpinnerModule
   ],
   exports: [
     HeaderComponent,
     FailedComponent,
-    MenuSidebarComponent
+    MenuSidebarComponent,
+    BackdropComponent
   ]
 })
 export class SharedModule { }

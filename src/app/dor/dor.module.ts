@@ -28,6 +28,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluacion.component';
+import { DorEvaluacionNuevoComponent } from './components/dor-evaluacion-nuevo/dor-evaluacion-nuevo.component';
+import { CalendarModule } from 'primeng/calendar';
+import { CalcularMetaPipe } from './pipes/calcular-meta.pipe';
+import { CalcularResultadoPipe } from './pipes/calcular-resultado.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,10 @@ import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluaci
     DorCrudComponent,
     DorCapturaComponent,
     DorObjetivosComponent,
-    DorEvaluacionComponent
+    DorEvaluacionComponent,
+    DorEvaluacionNuevoComponent,
+    CalcularMetaPipe,
+    CalcularResultadoPipe
   ],
   imports: [
     CommonModule,
@@ -54,7 +61,8 @@ import { DorEvaluacionComponent } from './components/dor-evaluacion/dor-evaluaci
     MessagesModule,
     MessageModule,
     DialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    CalendarModule
   ],
   providers: [ConfirmationService, MessageService, DorService]
 })

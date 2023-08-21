@@ -1,6 +1,8 @@
-<div class="content" style="margin: 2%">
-  <br />
-  <br />
+<div class="main-container">
+  <!-- <br />
+  <br /> -->
+
+  <h1>Captura</h1>
 
   <div class="">
     <br />
@@ -15,6 +17,8 @@
             [showClear]="true"
             [style]="{ width: '100%' }"
             (onChange)="onChangeEmpleado($event)"
+            [filter]="true" 
+            filterBy="name"
           ></p-dropdown>
         </div>
       </div>

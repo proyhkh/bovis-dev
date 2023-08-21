@@ -88,8 +88,38 @@ export class BusquedaCancelacion{
   c_IvaP: string;
   c_TipoCambioP: string;
   c_FechaPago: string;
-
+  notas: NotaCredito[];
+  cobranzas: Cobranza[];
+  totalNotasCredito: number;
+  totalCobranzas: number;
 }
+
+export interface NotaCredito {
+  nC_UuidNotaCredito:  string;
+  nC_IdMoneda:         string;
+  nC_IdTipoRelacion:   string;
+  nC_NotaCredito:      string;
+  nC_Importe:          number;
+  nC_Iva:              number;
+  nC_Total:            number;
+  nC_Concepto:         string;
+  nC_Mes:              number;
+  nC_Anio:             number;
+  nC_TipoCambio:       string | null;
+  nC_FechaNotaCredito: string;
+}
+
+export interface Cobranza {
+  c_UuidCobranza:         string;
+  c_IdMonedaP:            string;
+  c_ImportePagado:        number;
+  c_ImpSaldoAnt:          number;
+  c_ImporteSaldoInsoluto: number;
+  c_IvaP:                 number;
+  c_TipoCambioP:          number;
+  c_FechaPago:            string;
+}
+
 
 export class Proyectos{
   numProyecto: number;
@@ -112,4 +142,5 @@ export class Clientes{
 export class facturaCancelacion{
   id: number;
   MotivoCancelacion: string;
+  FechaCancelacion: string;
 }

@@ -16,6 +16,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Inicio */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import url(../node_modules//quill/dist/quill.snow.css);
+@import url(../node_modules//quill/dist/quill.core.css);
 body {
   font-family: "Poppins", sans-serif;
   background-color: #fafafa;
@@ -33,7 +35,7 @@ body {
 }
 
 .content {
-  /*overflow: auto;*/
+  overflow-x: hidden;
 }
 
 .menu-principal {
@@ -295,4 +297,73 @@ a.article:hover {
   } */
 }
 
-@import "primeicons/primeicons.css";
+/* Agregado por sebastian.flores */
+.main-app {
+  width: 100%; 
+  overflow-x: hidden;
+}
+
+.main-container {
+  margin: 2rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  min-height: 70vh;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  color: var(--dark-blue, #00436C) !important;
+  border-color: var(--dark-blue) !important;
+}
+
+.custom-input-number .p-inputnumber-input {
+  max-width: 5rem !important;
+}
+
+.p-multiselect-label {
+  flex-wrap: wrap;
+}
+
+.error-msg {
+  color: var(--red-600);
+}
+
+.p-megamenu-panel {
+z-index: 99 !important;
+}
+
+tfoot th {
+  padding: 0.75rem !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.full-width .p-inputnumber{
+  display: block;
+  width: 100% !important;
+}
+
+.full-width .p-inputnumber input{
+  width: 100% !important;
+}
+
+.invalid-tr {
+  color: red !important;
+}
+
+.readonly-field input{
+  background-color: var(--bs-gray-200);
+}
+
+.tabla-filtro table {
+  min-height: 600px !important;
+}

@@ -27,9 +27,14 @@ export class Objetivos {
   fechaCarga: string = '';
   fechaRechazo: string = '';
   nivel: string = '';
+  porcentajeEstimado: number;
+  porcentajeReal: number;
+  real: number;
+  esPersonal: boolean;
 }
 
 export class ObjetivosGenerales {
+  // [key: string]: any;
   id: string = '';
   concepto?: string = '';
   descripcion?: string = '';
@@ -38,6 +43,34 @@ export class ObjetivosGenerales {
   tooltip?: string = '';
   unidadDeNegocio?: string = '';
   valor?: string = '';
+  porcentajeEstimado: number;
+  porcentajeReal: number;
+  promedioReal: number;
+  real: number;
+  ingreso: number;
+  gasto: number;
+  mesReal: number;
+}
+
+export interface ObjetivosGeneralesNuevo {
+  id:                   number;
+  unidadDeNegocio:      string;
+  concepto:             string;
+  descripcion:          string;
+  meta:                 number;
+  metaValor:            number | null;
+  real:                 number;
+  promedioReal:         string;
+  porcentajeEstimado:   string;
+  porcentajeReal:       string;
+  nivel:                string;
+  valor:                string;
+  tooltip:              string;
+  ingresoTotal:         number | null;
+  gastoTotal:           number | null;
+  proyectadoTotal:      number | null;
+  metaMensual:          number | null;
+  empleado:             number | null;
 }
 
 export class EstatusObjetivosPorProyecto {
