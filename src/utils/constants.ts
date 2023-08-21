@@ -116,3 +116,5 @@ export const meses: Item[] = [
   {value: 11, label: 'Noviembre'},
   {value: 12, label: 'Diciembre'},
 ]
+
+const test = 'test'
