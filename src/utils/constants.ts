@@ -117,4 +117,4 @@ export const meses: Item[] = [
   {value: 12, label: 'Diciembre'},
 ]
 
-const test = 'test. asdfadsf'
+const test = 'test'
