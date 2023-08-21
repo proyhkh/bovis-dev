@@ -31,7 +31,7 @@ export class CalcularResultadoPipe implements PipeTransform {
           segundoValor *= 100
           break
         case 'presupuesto':
-          segundoValor = obj.real / obj.meta
+          segundoValor = obj.meta / obj.real
           primerValor = segundoValor * +obj.valor
           segundoValor *= 100
           // segundoValor = obj.proyectadoTotal * +obj.valor
