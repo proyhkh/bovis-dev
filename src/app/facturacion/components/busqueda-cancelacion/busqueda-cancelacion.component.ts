@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { Message, MessageService, PrimeNGConfig } from 'primeng/api';
 import {
   Busqueda,
   BusquedaCancelacion,
   Clientes,
+  Cobranza,
   Empresas,
+  NotaCredito,
   Proyectos,
   facturaCancelacion,
 } from '../../Models/FacturacionModels';
@@ -13,6 +15,10 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { Dropdown } from 'primeng/dropdown';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { finalize } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { TITLES, errorsArray } from 'src/utils/constants';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -32,14 +38,18 @@ export class BusquedaCancelacionComponent implements OnInit {
     new Array<BusquedaCancelacion>();
   listBusquedaUnique: Array<BusquedaCancelacion> =
     new Array<BusquedaCancelacion>();
-  listBusquedaModal: Array<BusquedaCancelacion> =
-    new Array<BusquedaCancelacion>();
+  // listBusquedaModal: Array<BusquedaCancelacion> =
+  //   new Array<BusquedaCancelacion>();
+  listBusquedaModal: NotaCredito[] | Cobranza[] = []
   listProyectos: Proyectos[] = [];
   listEmpresas: Empresas[] = [];
   listClientes: Clientes[] = [];
   filtroProyectos: FiltroCancelacion[] = [];
   filtroEmpresas: FiltroCancelacion[] = [];
   filtroClientes: FiltroCancelacion[] = [];
+
+  messages: Message[] | undefined;
+  showConfirm: boolean = false
 
   isDisableProyecto: boolean = false;
   isDisableEmpresa: boolean = false;
@@ -61,12 +71,58 @@ export class BusquedaCancelacionComponent implements OnInit {
   ref: DynamicDialogRef;
   headerModalCancelacion: string = '';
   isCancelacionVisible: boolean;
-  isTypeHeader: boolean;
+  isTypeHeader: boolean = false;
+  uuidPrincipal: string
+  complementoInfo: any = {
+    esPago:     false,
+    titulo:     '',
+    showModal:  false
+  }
+
+  notaCreditoHeader = [
+    'NC Uuid Nota Credito',
+    'NC Id Moneda',
+    'NC Id Tipo Relacion',
+    'NC Nota Credito',
+    'NC Importe',
+    'NC Iva',
+    'NC Total',
+    'NC Concepto',
+    'NC Mes',
+    'NC Año',
+    'NC Tipo Cambio',
+    'NC Fecha Nota Credito',
+  ];
+
+  cobranzaHeader = [
+    'C Uuid Cobranza',
+    'C Id MonedaP',
+    'C Importe Pagado',
+    'C Imp Saldo Ant',
+    'C Importe Saldo Insoluto',
+    'C Iva P',
+    'C Tipo Cambio P',
+    'C Fecha Pago',
+  ]
+
+  form = this.fb.group({
+    uuid:               [''],
+    fecha_cancelacion:  ['', Validators.required],
+    motivo_cancelacion: ['', [Validators.required, Validators.minLength(20)]]
+  })
+
+  formGeneral = this.fb.group({
+    id:                 [''],
+    FechaCancelacion:   ['', Validators.required],
+    MotivoCancelacion:  ['', [Validators.required, Validators.minLength(20)]]
+  })
 
   constructor(
     private config: PrimeNGConfig,
     private facturacionService: FacturacionService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sharedService: SharedService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -205,20 +261,21 @@ export class BusquedaCancelacionComponent implements OnInit {
   }
 
   busqueda() {
+    this.sharedService.cambiarEstado(true)
     this.listBusquedaCompleto = new Array<BusquedaCancelacion>();
     this.listBusquedaUnique = new Array<BusquedaCancelacion>();
     this.facturacionService
       .getBusqueda(this.getFiltrosVaues())
+      .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
       .subscribe((bus) => {
         //console.log(bus);
         this.listBusquedaCompleto = bus.data;
         //console.log(this.listBusquedaCompleto);
-        this.listBusquedaUnique = [
-          ...new Map(
-            this.listBusquedaCompleto.map((item) => [item['uuid'], item])
-          ).values(),
-        ];
-        //console.log(this.listBusquedaUnique);
+        // this.listBusquedaUnique = [
+        //   ...new Map(
+        //     this.listBusquedaCompleto.map((item) => [item['uuid'], item])
+        //   ).values(),
+        // ];
       });
   }
 
@@ -297,38 +354,6 @@ export class BusquedaCancelacionComponent implements OnInit {
       'C Tipo Cambio P',
       'C Fecha Pago', */
     ];
-  }
-
-  getHeadersModal() {
-    if (this.isTypeHeader) {
-      this.headerModalCancelacion = 'Notas de crédito';
-      return [
-        'NC Uuid Nota Credito',
-        'NC Id Moneda',
-        'NC Id Tipo Relacion',
-        'NC Nota Credito',
-        'NC Importe',
-        'NC Iva',
-        'NC Total',
-        'NC Concepto',
-        'NC Mes',
-        'NC Año',
-        'NC Tipo Cambio',
-        'NC Fecha Nota Credito',
-      ];
-    } else {
-      this.headerModalCancelacion = 'Pagos';
-      return [
-        'C Uuid Cobranza',
-        'C Id MonedaP',
-        'C Importe Pagado',
-        'C Imp Saldo Ant',
-        'C Importe Saldo Insoluto',
-        'C Iva P',
-        'C Tipo Cambio P',
-        'C Fecha Pago',
-      ];
-    }
   }
 
   exportExcel() {
@@ -464,15 +489,33 @@ export class BusquedaCancelacionComponent implements OnInit {
     this.idCancelacion = id;
     this.motivoCancelacion = '';
     this.displayModal = true;
+    this.formGeneral.reset()
+    this.showConfirm = false
+  }
+
+  preConfirmarCancelacion() {
+    this.showConfirm = true
+    this.messages = [{ severity: 'warn', summary: 'Importante', detail: 'Al confirmar la cancelación de esta factura, se cancelarán también sus notas de crédito y pagos.' }];
   }
 
   changeCancelar() {
-    let cancelacion: facturaCancelacion = new facturaCancelacion();
-    cancelacion.id = this.idCancelacion;
-    cancelacion.MotivoCancelacion = this.motivoCancelacion;
+    
+    if(!this.formGeneral.valid) {
+      this.formGeneral.markAllAsTouched()
+      return
+    }
+
+    // let cancelacion: facturaCancelacion = new facturaCancelacion();
+    // cancelacion.id = this.idCancelacion;
+    // cancelacion.MotivoCancelacion = this.motivoCancelacion;
+    const body: facturaCancelacion = {
+      id:                 this.idCancelacion,
+      MotivoCancelacion:  this.formGeneral.value.MotivoCancelacion,
+      FechaCancelacion:   this.formGeneral.value.FechaCancelacion
+    }
 
     this.facturacionService
-      .facturaCancelacion(cancelacion)
+      .facturaCancelacion(body)
       .subscribe((cancel) => {
         if (cancel.data) {
           this.messageService.add({
@@ -487,16 +530,93 @@ export class BusquedaCancelacionComponent implements OnInit {
   }
 
   show(tipoModal: boolean, uuid: string) {
+
+    const facturaIndex = this.listBusquedaCompleto.findIndex(factura => factura.uuid === uuid)
+    if(facturaIndex < 0) return;
+
+    const factura = this.listBusquedaCompleto.at(facturaIndex)
+
     this.isCancelacionVisible = true;
-    tipoModal ? (this.isTypeHeader = true) : (this.isTypeHeader = false);
+    this.isTypeHeader = tipoModal;
+    this.headerModalCancelacion = this.isTypeHeader ? 'Notas de crédito' : 'Pagos';
 
-    this.listBusquedaModal = new Array<BusquedaCancelacion>();
-    console.log(this.listBusquedaCompleto);
-
-    this.listBusquedaModal = this.listBusquedaCompleto.filter(
-      (xx) => xx.uuid == uuid
-    );
-    console.log(this.listBusquedaModal);
+    this.uuidPrincipal = uuid
+    
+    this.listBusquedaModal = tipoModal ? factura.notas : factura.cobranzas
   }
 
+  cancelarComplemento(esPago: boolean, uuid: string) {
+    this.complementoInfo = {
+      esPago,
+      titulo: esPago ? 'Cancelar pago' : 'Cancelar nota',
+      showModal: true
+    }
+    this.form.reset()
+    this.form.patchValue({uuid})
+  }
+
+  ejecutarCancelacion() {
+    
+    if(!this.form.valid) {
+      this.form.markAllAsTouched()
+      return
+    }
+
+    this.sharedService.cambiarEstado(true)
+
+    this.facturacionService.cancelarComplemento(this.complementoInfo.esPago, this.form.value)
+      .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
+      .subscribe({
+        next: (data) => {
+          this.complementoInfo.showModal = false
+          this.isCancelacionVisible = false
+
+          const indexFactura = this.listBusquedaCompleto.findIndex(factura => factura.uuid === this.uuidPrincipal)
+          if(this.complementoInfo.esPago) {
+            this.listBusquedaCompleto.at(indexFactura).totalCobranzas--
+          } else {
+            this.listBusquedaCompleto.at(indexFactura).totalNotasCredito--
+          }
+
+          this.messageService.add({ severity: 'success', summary: TITLES.success, detail: 'Se ha realizado la cancelación.' })
+        },
+        error: (err) => this.messageService.add({ severity: 'error', summary: TITLES.error, detail: err.error })
+      })
+  }
+
+  limpiar() {
+    this.form.reset()
+  }
+
+  esInvalido(campo: string): boolean {
+    return this.form.get(campo).invalid && 
+            (this.form.get(campo).dirty || this.form.get(campo).touched)
+  }
+
+  obtenerMensajeError(campo: string): string {
+    let mensaje = ''
+
+    errorsArray.forEach((error) => {
+      if(this.form.get(campo).hasError(error.tipo))
+        mensaje = error.mensaje.toString()
+    })
+
+    return mensaje
+  }
+
+  esInvalidoGeneral(campo: string): boolean {
+    return this.formGeneral.get(campo).invalid && 
+            (this.formGeneral.get(campo).dirty || this.formGeneral.get(campo).touched)
+  }
+
+  obtenerMensajeErrorGeneral(campo: string): string {
+    let mensaje = ''
+
+    errorsArray.forEach((error) => {
+      if(this.formGeneral.get(campo).hasError(error.tipo))
+        mensaje = error.mensaje.toString()
+    })
+
+    return mensaje
+  }
 }

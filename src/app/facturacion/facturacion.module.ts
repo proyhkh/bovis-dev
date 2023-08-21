@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import { FacturacionService } from './services/facturacion.service';
@@ -14,6 +14,9 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
 import { NotaCreditoComponent } from './components/nota-credito/nota-credito.component';
 import { FacturaCrpComponent } from './components/factura-crp/factura-crp.component';
 import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/busqueda-cancelacion.component';
+import { BadgeModule } from 'primeng/badge';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,11 @@ import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/
     FormsModule,
     FacturacionRoutingModule,
     HttpClientModule,
-    PrimengModule
+    PrimengModule,
+    BadgeModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
+    MessagesModule
   ],
   providers: [
     ConfirmationService,

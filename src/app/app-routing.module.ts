@@ -16,14 +16,34 @@ const routes: Routes = [
     path: '',
     children: [
       {
+        path: 'auditoria',
+        loadChildren: () => 
+          import('./auditoria/auditoria.module').then((m) => m.AuditoriaModule),
+      },
+      {
+        path: 'contratos',
+        loadChildren: () =>
+          import('./contratos/contratos.module').then((m) => m.ContratosModule),
+      },
+      {
         path: 'empleados',
         loadChildren: () =>
           import('./empleados/empleados.module').then((m) => m.EmpleadosModule),
       },
       {
+        path: 'cie',
+        loadChildren: () =>
+          import('./cie/cie.module').then((m) => m.CieModule),
+      },
+      {
         path: 'pec',
         loadChildren: () =>
           import('./dor/dor.module').then((m) => m.DorModule),
+      },
+      {
+        path: 'pcs',
+        loadChildren: () =>
+          import('./pcs/pcs.module').then((m) => m.PcsModule),
       },
       {
         path: 'catalogos',
@@ -36,14 +56,9 @@ const routes: Routes = [
           import('./facturacion/facturacion.module').then((m) => m.FacturacionModule),
       },
       {
-        path: 'pcs',
-        loadChildren: () =>
-          import('./pcs/pcs.module').then((m) => m.PcsModule),
-      },
-      {
         path: 'timesheet',
-        loadChildren: () =>
-          import('./timesheet/timesheet.module').then((m) => m.TimesheetModule),
+        loadChildren: () => 
+          import('./timesheet/timesheet.module').then((m) => m.TimesheetModule)
       }
     ],
     canActivate: [MsalGuard]

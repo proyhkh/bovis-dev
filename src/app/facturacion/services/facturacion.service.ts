@@ -59,4 +59,9 @@ export class FacturacionService {
     return this.http.post<any>(`${this.baseUrl}api/factura/cancelar`,cancelacion, { headers: this.httpHeaders });
   }
 
+  cancelarComplemento(esPago: boolean, body: any) {
+    const modulo = esPago ? 'Cobranza' : 'Nota'
+    return this.http.put<any>(`${this.baseUrl}api/Factura/${modulo}/Cancelar`, body)
+  }
+
 }
