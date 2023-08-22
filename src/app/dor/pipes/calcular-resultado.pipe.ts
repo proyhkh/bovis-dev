@@ -35,7 +35,7 @@ export class CalcularResultadoPipe implements PipeTransform {
           primerValor = segundoValor * +obj.valor
           segundoValor *= 100
           // segundoValor = obj.proyectadoTotal * +obj.valor
-          // primerValor = obj.proyectadoTotal
+          // primerValor = obj.proyectadoTotal test 2
           break
         default:
           segundoValor = obj.real * porcentajeEstimado
