@@ -31,9 +31,11 @@ export class DorEvaluacionNuevoComponent implements OnInit {
   listObjetivos: Objetivos[];
   subComple: Subordinados = new Subordinados();
   clonedObjetivos: { [s: string]: Objetivos; } = {};
+  clonedObjetivoTipoDos2: { [s: string]: ObjetivosGeneralesNuevo; } = {};
   listObjGenrales: ObjetivosGeneralesNuevo[];
   listObjGenralesTipoUno: ObjetivosGeneralesNuevo[];
   listObjGenralesTipoDos: ObjetivosGeneralesNuevo[];
+  listObjGenralesTipoDos2: ObjetivosGeneralesNuevo[];
   tiposTablasObjGenerales: string[];
   totalObjetivosTipoUno: number = 0;
   totalObjetivosTipoDos: number = 0;
@@ -247,6 +249,8 @@ export class DorEvaluacionNuevoComponent implements OnInit {
 
       //this.listObjGenralesTipoDos.splice(0,0, objGPM);
       this.listObjGenralesTipoDos = objGPM.concat(this.listObjGenralesTipoDos);
+      this.listObjGenralesTipoDos2 = this.listObjGenralesTipoDos
+      console.log(this.listObjGenralesTipoDos)
       //this.listObjGenralesTipoDos.push(objGPM);
     }
 
@@ -316,8 +320,8 @@ export class DorEvaluacionNuevoComponent implements OnInit {
     this.messageService.add({ severity: 'success', summary: 'Guardar', detail: 'Todos los objetivos fueron almacenados correctamente' });
   }
 
-  onRowEditInit(product: Objetivos) {
-    this.clonedObjetivos[product.id] = { ...product };
+  onRowEditInit(product: ObjetivosGeneralesNuevo) {
+    this.clonedObjetivoTipoDos2[product.id] = { ...product };
   }
 
   asignarValorComodin() {
@@ -354,11 +358,11 @@ export class DorEvaluacionNuevoComponent implements OnInit {
     }
   }
 
-  onRowEditCancel(objetivo: Objetivos, index: number) {
+  onRowEditCancel(objetivo: ObjetivosGeneralesNuevo, index: number) {
     /* console.log(product);
     console.log(index); */
-    this.objetivos2[index] = this.clonedObjetivos[objetivo.id];
-    delete this.clonedObjetivos[objetivo.id];
+    this.listObjGenralesTipoDos2[index] = this.clonedObjetivoTipoDos2[objetivo.id];
+    delete this.clonedObjetivoTipoDos2[objetivo.id];
   }
 
   /**
