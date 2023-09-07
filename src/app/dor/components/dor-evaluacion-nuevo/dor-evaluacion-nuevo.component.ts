@@ -193,7 +193,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
             this.isMotivoRechazo = false;
           }
 
-          if(+obj.acepto == 2) {
+          if(+obj.acepto == 2 || +obj.acepto == 5) {
             this.mostrarContenido = true
           }
 
