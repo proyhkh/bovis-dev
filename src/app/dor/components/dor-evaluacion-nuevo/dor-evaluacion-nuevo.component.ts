@@ -55,6 +55,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
   maxFecha: Date = null
   idEmpleado: number;
   objetivoAModificar: Objetivos;
+  aceptado: boolean = true;
   // idEmpleadoActual: number;
 
   meses: Item[] = []
@@ -174,6 +175,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
         this.isObjetivos = true;
         let numId = 1;
         this.listObjetivos.forEach(obj => {
+          this.aceptado = (obj.acepto == '5')
           obj.id = numId.toString();
           numId++;
           obj.descripcion == 'Objetivo personal' ? obj.isComodin = true : obj.isComodin = false;
@@ -465,6 +467,21 @@ export class DorEvaluacionNuevoComponent implements OnInit {
     }
 
     this.mes = 0
+  }
+  actualizarAcepto() {
+    this.sharedService.cambiarEstado(true)
+
+    this.docService.actualizarAcepto(this.numEmpleado)
+      .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
+      .subscribe({
+        next: (data) => {
+          this.messageService.add({severity: 'success', summary: TITLES.success, detail: 'El registro ha sido evaluado.'})
+          this.aceptado = true
+        },
+        error: (err) => {
+          this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
+        }
+      })
   }
 
   // limpiarMes() {
