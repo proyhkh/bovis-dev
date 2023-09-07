@@ -54,6 +54,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
   mesCurso: Date = null
   maxFecha: Date = null
   idEmpleado: number;
+  numEmpleado: number;
   objetivoAModificar: Objetivos;
   aceptado: boolean = true;
   // idEmpleadoActual: number;
@@ -107,6 +108,8 @@ export class DorEvaluacionNuevoComponent implements OnInit {
       this.sharedService.cambiarEstado(true)
 
       this.idEmpleado = event.value;
+      
+      this.numEmpleado = event.value.id
 
       let select = <EmpleadosSub>event.value
       //console.log(this.listSubordinados);
