@@ -32,6 +32,7 @@ import { DorEvaluacionNuevoComponent } from './components/dor-evaluacion-nuevo/d
 import { CalendarModule } from 'primeng/calendar';
 import { CalcularMetaPipe } from './pipes/calcular-meta.pipe';
 import { CalcularResultadoPipe } from './pipes/calcular-resultado.pipe';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { CalcularResultadoPipe } from './pipes/calcular-resultado.pipe';
     TableModule,
     ButtonModule,
     TooltipModule,
+    ToolbarModule,
     ConfirmDialogModule,
     MessagesModule,
     MessageModule,

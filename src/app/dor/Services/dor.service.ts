@@ -77,11 +77,12 @@ export class DorService {
   actualizarRealCualitativos(body: any) {
     return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateObjetivoPersonal`, body)
   }
-  
+
   actualizarAcepto(num_empleado: number) {
     return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateAcepto`, {
       num_empleado,
       acepto: 5
     })
   }
+
 }

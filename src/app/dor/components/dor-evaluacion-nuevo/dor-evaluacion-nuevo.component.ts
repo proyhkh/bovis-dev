@@ -108,7 +108,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
       this.sharedService.cambiarEstado(true)
 
       this.idEmpleado = event.value;
-      
+
       this.numEmpleado = event.value.id
 
       let select = <EmpleadosSub>event.value
@@ -445,7 +445,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
     const anioActual  = +format(fechaActual, 'Y')
     const mesActual   = +format(fechaActual, 'M')
     const diaActual   = +format(fechaActual, 'd')
-    const diaLimite   = 31
+    const diaLimite   = 20// 31
     let mesMaximo     = 0
 
     if(anio === anioActual) {
@@ -471,6 +471,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
 
     this.mes = 0
   }
+
   actualizarAcepto() {
     this.sharedService.cambiarEstado(true)
 
