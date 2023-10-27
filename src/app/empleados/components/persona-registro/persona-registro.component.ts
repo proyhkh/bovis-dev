@@ -42,7 +42,7 @@ export class PersonaRegistroComponent implements OnInit {
     apellido_materno: [''],
     id_edo_civil:     ['', Validators.required],
     fecha_nacimiento: [null, Validators.required],
-    id_tipo_sangre:   ['', Validators.required],
+    id_tipo_sangre:   [null],
     id_sexo:          ['', Validators.required],
     rfc:              ['', Validators.required],
     id_tipo_persona:  ['', Validators.required],
@@ -170,6 +170,11 @@ export class PersonaRegistroComponent implements OnInit {
       this.form.markAllAsTouched()
       return
     }
+
+    this.form.patchValue({
+      rfc:  this.form.value.rfc.toUpperCase(),
+      curp: this.form.value.curp.toUpperCase()
+    })
 
     this.sharedService.cambiarEstado(true)
 

@@ -18,6 +18,7 @@
           [useGrouping]="false"
           formControlName="num_empleado_rr_hh"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('num_empleado_rr_hh')}"
+          [disabled]="esActualizacion"
         ></p-inputNumber>
         <div *ngIf="esInvalido('num_empleado_rr_hh')">
           <small
@@ -29,26 +30,36 @@
       </div>
       <div class="col-4">
         <label for="id_persona">Persona:</label>
-        <p-dropdown 
-          id="id_persona"
-          [options]="catPersonas"
-          placeholder="Seleccionar una persona" 
-          optionLabel="name" 
-          [showClear]="true"
-          [style]="{ width: '100%' }"
-          formControlName="id_persona"
-          [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_persona')}"
-          optionValue="value"
-          [filter]="true" 
-          filterBy="name"
-        ></p-dropdown>
-        <div *ngIf="esInvalido('id_persona')">
-          <small
-            class="error-msg"
+        <div *ngIf="esActualizacion; else dropdownPersona">
+          <input 
+            pInputText
+            class="form-control" 
+            formControlName="persona_nombre"
+            [readonly]="esActualizacion"
           >
-            {{ obtenerMensajeError('id_persona') }}
-          </small>
         </div>
+        <ng-template #dropdownPersona>
+          <p-dropdown 
+            id="id_persona"
+            [options]="catPersonas"
+            placeholder="Seleccionar una persona" 
+            optionLabel="name" 
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            formControlName="id_persona"
+            [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_persona')}"
+            optionValue="value"
+            [filter]="true" 
+            filterBy="name"
+          ></p-dropdown>
+          <div *ngIf="esInvalido('id_persona')">
+            <small
+              class="error-msg"
+            >
+              {{ obtenerMensajeError('id_persona') }}
+            </small>
+          </div>
+        </ng-template>
       </div>
       <div class="col-4">
         <label for="id_tipo_empleado">Tipo empleado:</label>
@@ -75,7 +86,7 @@
   
     <div class="row">
       <div class="col-4">
-        <label for="id_categoria">Categoria:</label>
+        <label for="id_categoria">Categoría:</label>
         <p-dropdown 
           id="id_categoria"
           [options]="catCategorias"
@@ -307,7 +318,7 @@
 
     <div class="row">
       <div class="col-4">
-        <label for="id_ciudad">Ciudad:</label>
+        <label for="id_ciudad">Ciudad / Municipio:</label>
         <p-dropdown 
           id="id_ciudad"
           [options]="catCiudades"
@@ -318,6 +329,8 @@
           formControlName="id_ciudad"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_ciudad')}"
           optionValue="value"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('id_ciudad')">
           <small
@@ -525,7 +538,7 @@
           </small>
         </div>
       </div> -->
-      <div class="col-4">
+      <!-- <div class="col-4">
         <label for="num_empleado">Número de empleado:</label>
         <p-inputNumber 
           id="num_empleado"
@@ -541,7 +554,7 @@
             {{ obtenerMensajeError('num_empleado') }}
           </small>
         </div>
-      </div>
+      </div> -->
       <div class="col-4">
         <label for="fecha_ingreso">Fecha de ingreso:</label>
         <p-calendar 
@@ -560,9 +573,6 @@
           </small>
         </div>
       </div>
-    </div>
-  
-    <div class="row">
       <div class="col-4">
         <label for="fecha_salida">Fecha de salida:</label>
         <p-calendar 
@@ -599,6 +609,9 @@
           </small>
         </div>
       </div>
+    </div>
+  
+    <div class="row">
       <div class="col-4">
         <label for="nss">Nss:</label>
         <p-inputNumber 
@@ -770,7 +783,7 @@
         </div>
       </div>
       <div class="col-4">
-        <label for="unidad_medica">Unidad medica:</label>
+        <label for="unidad_medica">Unidad médica:</label>
         <p-inputNumber 
           id="unidad_medica"
           class="full-width" 
@@ -915,6 +928,7 @@
           formControlName="credito_infonavit"
           [useGrouping]="false"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('credito_infonavit')}"
+          [maxlength]="10"
         ></p-inputNumber>
         <div *ngIf="esInvalido('credito_infonavit')">
           <small
@@ -968,7 +982,7 @@
   
     <div class="row">
       <div class="col-4">
-        <label for="no_empleado_noi">Número de noi:</label>
+        <label for="no_empleado_noi">Número de NOI:</label>
         <p-inputNumber 
           id="no_empleado_noi"
           formControlName="no_empleado_noi"

@@ -51,7 +51,7 @@ export class GenerarRequerimientoComponent implements OnInit {
     idCiudad:             ['', [Validators.required]],
     disponibilidadViajar: ['NO', [Validators.required]],
     aniosExperiencia:     ['', [Validators.required]],
-    nivelIngles:          ['', [Validators.required]],
+    nivelIngles:          [null],
     comentarios:          ['', [Validators.required]],
   })
 
@@ -72,7 +72,8 @@ export class GenerarRequerimientoComponent implements OnInit {
   niveles:            Opcion[] = [
     {name: 'Básico', code: 'Básico'},
     {name: 'Medio', code: 'Medio'},
-    {name: 'Avanzado', code: 'Avanzado'}
+    {name: 'Avanzado', code: 'Avanzado'},
+    {name: 'N/A', code: 'N/A'}
   ]
 
   puestosInfo:    Puesto[] = []

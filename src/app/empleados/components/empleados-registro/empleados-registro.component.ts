@@ -80,7 +80,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     numero_interior:        [null],
     numero_exterior:        ['', Validators.required],
     colonia:                ['', Validators.required],
-    alcaldia:               ['', Validators.required],
+    alcaldia:               [null],
     id_ciudad:              ['', Validators.required],// 1,
     id_estado:              ['', Validators.required],//42,
     codigo_postal:          ['', Validators.required],//"03550",
@@ -93,7 +93,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     id_jefe_directo:        ['', Validators.required],// 1,
     id_unidad_negocio:      ['', Validators.required],// 1,
     id_tipo_contrato_sat:   [0],// 1,
-    num_empleado:           ['', Validators.required],// 1,
+    num_empleado:           [null],// 1,
     fecha_ingreso:          ['', Validators.required],// "22/06/2022",
     fecha_salida:           [null],// "22/12/2022",
     fecha_ultimo_reingreso: [null],// "10/02/2023",
@@ -106,7 +106,7 @@ export class EmpleadosRegistroComponent implements OnInit {
     id_turno:               [null], // no requerido
     unidad_medica:          [null], // no requerido
     registro_patronal:      ['', Validators.required],// "ABCD123",
-    cotizacion:             ['', Validators.required],// "ABCD1234567890",
+    cotizacion:             [null],// "ABCD1234567890",
     duracion:               [null], // no requerido
     descuento_pension:      [null], // requerido si porcentaje es SI
     porcentaje_pension:     ['', Validators.required],// 5,
@@ -117,7 +117,8 @@ export class EmpleadosRegistroComponent implements OnInit {
     no_empleado_noi:        [null], // no requerido
     rol:                    [null], // no requerido
     habilidades:            [null], // no requerido ['']
-    experiencias:           [null]  // no requerido ['']
+    experiencias:           [null], // no requerido ['']
+    persona_nombre:         [null]
   })
 
   constructor(
@@ -245,7 +246,7 @@ export class EmpleadosRegistroComponent implements OnInit {
                   // id_jefe_directo:        1,
                   id_unidad_negocio:      data.nukidunidad_negocio?.toString(),
                   // id_tipo_contrato_sat:   data.nukidtipo_contrato_sat?.toString(),
-                  num_empleado:           data.nunum_empleado?.toString(),
+                  // num_empleado:           data.nunum_empleado?.toString(),
                   fecha_ingreso:          new Date(data.dtfecha_ingreso) as any,
                   fecha_salida:           data.dtfecha_salida != '' ? new Date(data.dtfecha_salida) as any : null,
                   fecha_ultimo_reingreso: data.dtfecha_ultimo_reingreso != '' ? new Date(data.dtfecha_ultimo_reingreso) as any : null,
@@ -270,6 +271,7 @@ export class EmpleadosRegistroComponent implements OnInit {
                   rol:                    data.chrol,
                   habilidades:            habilidades as any,
                   experiencias:           experiencias as any,
+                  persona_nombre:         data.nombre_persona
                 })
 
                 this.buscarCiudades({value: this.form.value.id_estado})
