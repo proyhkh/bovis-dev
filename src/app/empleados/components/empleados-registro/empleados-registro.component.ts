@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { CatEmpleado, Catalogo, Empleado } from '../../Models/empleados';
+import { CatEmpleado, Catalogo, Empleado, Puesto } from '../../Models/empleados';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message, MessageService, PrimeNGConfig } from 'primeng/api';
 import { EmpleadosService } from '../../services/empleados.service';
@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { finalize, forkJoin } from 'rxjs';
 import { CieService } from 'src/app/cie/services/cie.service';
 import { Opcion } from 'src/models/general.model';
-import { format } from 'date-fns';
+import { differenceInCalendarYears, format } from 'date-fns';
 
 interface ICatalogo {
   name: string;
@@ -59,6 +59,13 @@ export class EmpleadosRegistroComponent implements OnInit {
   mensajeCamposRequeridos: string = '';
   isCamposRequeridos = false;
   messages1: Message[];
+
+  puestosInfo:    Puesto[] = []
+  tiposDescuento: Opcion[] = [
+    {code: 'Porcentaje' , name: 'Porcentaje'},
+    {code: 'Cuota fija', name: 'Cuota fija'},
+    {code: 'Factor de descuento', name: 'Factor de descuento'}
+  ];
 
   form = this.fb.group({
     id_requerimiento:       [0],
@@ -127,72 +134,77 @@ export class EmpleadosRegistroComponent implements OnInit {
   ngOnInit(): void {
     this.getConfigCalendar();
     this.sharedService.cambiarEstado(true)
-    forkJoin([
-      this.empleadosServ.getPersonas(),
-      this.empleadosServ.getCatEmpleados(),
-      this.empleadosServ.getCatCategorias(),
-      this.empleadosServ.getCatTiposContratos(),
-      this.cieService.getEmpresas(),
-      this.empleadosServ.getCatNivelEstudios(),
-      this.empleadosServ.getCatFormasPago(),
-      this.empleadosServ.getCatJornadas(),
-      this.empleadosServ.getCatDepartamentos(),
-      this.empleadosServ.getCatClasificacion(),
-      this.empleadosServ.getCatUnidadNegocio(),
-      this.empleadosServ.getCatTurno(),
-      this.empleadosServ.getHabilidades(),
-      this.empleadosServ.getExperiencias(),
-      this.empleadosServ.getProfesiones(),
-      this.empleadosServ.getPuestos(),
-      this.empleadosServ.getEmpleados(),
-      this.empleadosServ.getCatEstados(),
-      this.empleadosServ.getCatPaises()
-    ])
-    .pipe(finalize(() => this.verificarActualizacion()))
-    .subscribe({
-      next: ([
-        personaR, 
-        tipoEmpleadoR,
-        categoriaR,
-        tipoContratoR,
-        empresaR,
-        nivelEstudiosR,
-        formaPagoR,
-        jornadaR,
-        departamentoR,
-        clasificacionR,
-        unidadNegocioR, 
-        turnoR,
-        habilidadesR, 
-        experienciasR, 
-        profesionesR,
-        puestoR,
-        empleadosR,
-        estadosR,
-        paisesR
-      ]) => {
-        this.setCatPersonas(personaR.data)
-        this.setCatTipoEmpleado(tipoEmpleadoR.data)
-        this.setCatCategorias(categoriaR.data)
-        this.setCatTipoContratos(tipoContratoR.data)
-        this.setCatEmpresas(empresaR.data)
-        this.setCatNivelEstudios(nivelEstudiosR.data)
-        this.setCatFormasPago(formaPagoR.data)
-        this.setCatJornadas(jornadaR.data)
-        this.setCatDepartamentos(departamentoR.data)
-        this.setCatClasificacion(clasificacionR.data)
-        this.setCatUnidadNegocio(unidadNegocioR.data)
-        this.setCatTurno(turnoR.data)
-        this.habilidades = habilidadesR.data.map(habilidad => ({name: habilidad.descripcion, code: habilidad.id.toString()}))
-        this.experiencias = experienciasR.data.map(experiencia => ({name: experiencia.descripcion, code: experiencia.id.toString()}))
-        this.profesiones = profesionesR.data.map(profesion => ({name: profesion.descripcion, code: profesion.id.toString()})),
-        this.puestos = puestoR.data.map(puesto => ({name: puesto.chpuesto, code: puesto.nukid_puesto.toString()}))
-        this.catJefes = empleadosR.data.map(empleado => ({name: empleado.nombre_persona, value: empleado.nunum_empleado_rr_hh.toString()}))
-        this.estados = estadosR.data.map(estado => ({name: estado.estado, code: estado.idEstado.toString()}))
-        this.paises = paisesR.data.map(pais => ({name: pais.descripcion, code: pais.id.toString()}))
-      },
-      error: (err) => this.messageService.add({ severity: 'error', summary: TITLES.error, detail: SUBJECTS.error })
-    })
+    
+    this.activatedRoute.params
+      .subscribe(({id}) => {
+        forkJoin([
+          id ? this.empleadosServ.getPersonas() : this.empleadosServ.getPersonasDisponibles(),
+          this.empleadosServ.getCatEmpleados(),
+          this.empleadosServ.getCatCategorias(),
+          this.empleadosServ.getCatTiposContratos(),
+          this.cieService.getEmpresas(),
+          this.empleadosServ.getCatNivelEstudios(),
+          this.empleadosServ.getCatFormasPago(),
+          this.empleadosServ.getCatJornadas(),
+          this.empleadosServ.getCatDepartamentos(),
+          this.empleadosServ.getCatClasificacion(),
+          this.empleadosServ.getCatUnidadNegocio(),
+          this.empleadosServ.getCatTurno(),
+          this.empleadosServ.getHabilidades(),
+          this.empleadosServ.getExperiencias(),
+          this.empleadosServ.getProfesiones(),
+          this.empleadosServ.getPuestos(),
+          this.empleadosServ.getEmpleados(),
+          this.empleadosServ.getCatEstados(),
+          this.empleadosServ.getCatPaises()
+        ])
+        .pipe(finalize(() => this.verificarActualizacion()))
+        .subscribe({
+          next: ([
+            personaR, 
+            tipoEmpleadoR,
+            categoriaR,
+            tipoContratoR,
+            empresaR,
+            nivelEstudiosR,
+            formaPagoR,
+            jornadaR,
+            departamentoR,
+            clasificacionR,
+            unidadNegocioR, 
+            turnoR,
+            habilidadesR, 
+            experienciasR, 
+            profesionesR,
+            puestoR,
+            empleadosR,
+            estadosR,
+            paisesR
+          ]) => {
+            this.setCatPersonas(personaR.data)
+            this.setCatTipoEmpleado(tipoEmpleadoR.data)
+            this.setCatCategorias(categoriaR.data)
+            this.setCatTipoContratos(tipoContratoR.data)
+            this.setCatEmpresas(empresaR.data)
+            this.setCatNivelEstudios(nivelEstudiosR.data)
+            this.setCatFormasPago(formaPagoR.data)
+            this.setCatJornadas(jornadaR.data)
+            this.setCatDepartamentos(departamentoR.data)
+            this.setCatClasificacion(clasificacionR.data)
+            this.setCatUnidadNegocio(unidadNegocioR.data)
+            this.setCatTurno(turnoR.data)
+            this.habilidades = habilidadesR.data.map(habilidad => ({name: habilidad.descripcion, code: habilidad.id.toString()}))
+            this.experiencias = experienciasR.data.map(experiencia => ({name: experiencia.descripcion, code: experiencia.id.toString()}))
+            this.profesiones = profesionesR.data.map(profesion => ({name: profesion.descripcion, code: profesion.id.toString()})),
+            this.puestos = puestoR.data.map(puesto => ({name: puesto.chpuesto, code: puesto.nukid_puesto.toString()}))
+            this.puestosInfo = puestoR.data
+            this.catJefes = empleadosR.data.map(empleado => ({name: empleado.nombre_persona, value: empleado.nunum_empleado_rr_hh.toString()}))
+            this.estados = estadosR.data.map(estado => ({name: estado.estado, code: estado.idEstado.toString()}))
+            this.paises = paisesR.data.map(pais => ({name: pais.descripcion, code: pais.id.toString()}))
+          },
+          error: (err) => this.messageService.add({ severity: 'error', summary: TITLES.error, detail: SUBJECTS.error })
+        })
+      })
   }
 
   verificarActualizacion() {
@@ -242,7 +254,7 @@ export class EmpleadosRegistroComponent implements OnInit {
                   url_repo:               data.churl_repositorio,
                   salario:                data.nusalario?.toString(),
                   id_profesion:           data.nukidprofesion?.toString(),
-                  antiguedad:             data.nuantiguedad?.toString(),
+                  // antiguedad:             data.nuantiguedad?.toString(),
                   id_turno:               data.nukidturno?.toString(),
                   unidad_medica:          data.nuunidad_medica?.toString(),
                   registro_patronal:      data.chregistro_patronal,
@@ -496,5 +508,24 @@ export class EmpleadosRegistroComponent implements OnInit {
         },
         error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
       })
+  }
+
+  setearSalarios({value}: any){
+    const index = this.puestosInfo.findIndex(puesto => puesto.nukid_puesto === +value)
+    if(index >= 0) {
+      const puesto = this.puestosInfo.at(index)
+      const sueldoReal = ((puesto.nusalario_min + puesto.nusalario_max) / 2).toString()
+      this.form.patchValue({
+        salario: sueldoReal
+      })
+    }
+  }
+
+  calcularAntiguedad(event: any) {
+    const ahora = new Date()
+    const diferencia = differenceInCalendarYears(ahora, new Date(event))
+    this.form.patchValue({
+      antiguedad: diferencia
+    })
   }
 }

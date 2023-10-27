@@ -21,6 +21,8 @@ import { PpaKpiComponent } from './components/ppa-kpi/ppa-kpi.component';
 import { PrimengModule } from '../shared/primeng.module';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { SeleccionarEmpleadoComponent } from './components/seleccionar-empleado/seleccionar-empleado.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { SeleccionarFechaComponent } from './components/seleccionar-fecha/seleccionar-fecha.component';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { SeleccionarEmpleadoComponent } from './components/seleccionar-empleado/
     IngresosComponent,
     ControlComponent,
     PpaKpiComponent,
-    SeleccionarEmpleadoComponent
+    SeleccionarEmpleadoComponent,
+    SeleccionarFechaComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +48,8 @@ import { SeleccionarEmpleadoComponent } from './components/seleccionar-empleado/
     CalendarModule,
     ReactiveFormsModule,
     PrimengModule,
-    TabMenuModule
+    TabMenuModule,
+    CheckboxModule
   ],
   providers: [ConfirmationService, MessageService]
 })

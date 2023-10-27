@@ -86,4 +86,53 @@ export class ConsultarComponent implements AfterViewInit {
     })
   }
 
+  cambiarParticipacion(timesheet: Timesheet, idTimesheetProyecto: number, event: any) {
+
+    const tsIndex = this.timesheets.findIndex(ts => ts.id === timesheet.id)
+    if(tsIndex >= 0) {
+      let selectedTimesheet = this.timesheets.at(tsIndex)
+      const proyectoIndex = selectedTimesheet.proyectos.findIndex(proyecto => proyecto.idTimesheet_Proyecto === idTimesheetProyecto)
+      if(proyectoIndex >= 0) {
+        selectedTimesheet.proyectos.at(proyectoIndex).dias = +event.target.value
+        const totalDias = this.calcularTotalDias(selectedTimesheet)
+        if(totalDias > timesheet.dias_trabajo) {
+          this.messageService.add({severity: 'error', summary: TITLES.error, detail: `El número de días no puede ser mayor a ${timesheet.dias_trabajo}`})
+        } else if(totalDias >= 0) {
+          
+          selectedTimesheet.proyectos = timesheet.proyectos.map(proyecto => ({...proyecto, tDedicacion: Math.round((proyecto.dias / totalDias) * 100)}))
+
+          const proyectoActualizado = timesheet.proyectos.at(proyectoIndex);
+
+          this.sharedService.cambiarEstado(true)
+          this.timesheetService.cambiarDiasDedicacion({
+              id_timesheet_proyecto:  idTimesheetProyecto,
+              num_dias:               proyectoActualizado.dias,
+              num_dedicacion:         proyectoActualizado.tDedicacion
+            })
+            .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
+            .subscribe({
+              next: (data) => {
+                if(totalDias < timesheet.dias_trabajo) {
+                  this.messageService.add({severity: 'success', summary: TITLES.success, detail: 'Se ha guardardo el registro con éxito.'})
+                  this.messageService.add({severity: 'warn', summary: 'Aviso', detail: `El número de días es menor a ${timesheet.dias_trabajo}.`, life: 5000})
+                } else if(totalDias == timesheet.dias_trabajo) {
+                  this.messageService.add({severity: 'success', summary: TITLES.success, detail: 'Se ha guardardo el registro con éxito.'})
+                }
+              },
+              error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
+            })
+        }
+      }
+    }
+
+  }
+
+  calcularTotalDias(timesheet: Timesheet) {
+
+    let total = 0
+    timesheet.proyectos.forEach(proyecto => total += proyecto.dias)
+    timesheet.otros.forEach(otro => total += otro.dias)
+    return total
+  }
+
 }

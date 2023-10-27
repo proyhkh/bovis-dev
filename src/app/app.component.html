@@ -1,10 +1,10 @@
 <app-backdrop *ngIf="sharedService.cargando"></app-backdrop>
 
-<app-header [currentModule]="currentModule"></app-header>
+<app-header [currentModule]="sharedService.pageTitle"></app-header>
 
 <div class="wrapper">
 
-  <app-menu-sidebar *ngIf="loginDisplay" [accesos]="roles" (nameModule)="onEmitter($event)"></app-menu-sidebar>
+  <app-menu-sidebar *ngIf="loginDisplay" (nameModule)="onEmitter($event)"></app-menu-sidebar>
 
   <div class="main-app">
 

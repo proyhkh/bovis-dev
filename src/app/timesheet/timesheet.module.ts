@@ -11,6 +11,9 @@ import { ProyectoJoinPipe } from './pipes/proyecto-join.pipe';
 import { SummaryComponent } from './views/summary/summary.component';
 import { ModificarComponent } from './views/modificar/modificar.component';
 import { SumaPorcentajesPipe } from './pipes/suma-porcentajes.pipe';
+import { AgregarProyectoComponent } from './views/agregar-proyecto/agregar-proyecto.component';
+import { DiasTimesheetComponent } from './views/dias-timesheet/dias-timesheet.component';
+import { ModificarFeriadosComponent } from './components/modificar-feriados/modificar-feriados.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { SumaPorcentajesPipe } from './pipes/suma-porcentajes.pipe';
     ProyectoJoinPipe,
     SummaryComponent,
     ModificarComponent,
-    SumaPorcentajesPipe
+    SumaPorcentajesPipe,
+    AgregarProyectoComponent,
+    DiasTimesheetComponent,
+    ModificarFeriadosComponent
   ],
   imports: [
     CommonModule,

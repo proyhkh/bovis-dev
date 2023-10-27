@@ -56,19 +56,29 @@
             <!-- [disabled]="isConsulta" -->
           </div>
       </div>
-      <div class="col-4"></div>
+      <div class="col-4">
+        <label for="noFactura">No. Factura:</label>
+        <input 
+          id="noFactura"
+          pInputText
+          class="form-control" 
+          maxlength="50" 
+          [(ngModel)]="noFactura"
+        >
+      </div>
     </div>
   
     <div class="row border-top border-bottom">
       <div class="col-12 text-center">
-          <p-button *ngIf="isClear" label="Limpiar filtros" styleClass="p-button-raised p-button-text p-button-secondary me-2 py-1" (click)="clearFiltros()"></p-button>
+          <p-button label="Limpiar filtros" styleClass="p-button-raised p-button-text p-button-secondary me-2 py-1" (click)="clearFiltros()"></p-button>
           <p-button label="Buscar" icon="pi pi-search" styleClass="p-button-raised p-button-text p-button-secondary py-1" (click)="busqueda()"></p-button>
       </div>
     </div>
   </div>
   
   <!-- contenedor de Grid -->
-  <div *ngIf="listBusquedaCompleto && listBusquedaCompleto.length > 0" class="container-fluid container-table"> 
+  <!-- <div *ngIf="listBusquedaCompleto && listBusquedaCompleto.length > 0" class="container-fluid container-table">  -->
+    <div>
     <!-- barra de herramientas -->
     <p-toolbar styleClass="p-1">
       <div class="p-toolbar-group-start">

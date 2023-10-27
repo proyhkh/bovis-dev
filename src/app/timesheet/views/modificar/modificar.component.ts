@@ -9,7 +9,7 @@ import { format } from 'date-fns';
 import { Opcion } from 'src/models/general.model';
 import { finalize, forkJoin } from 'rxjs';
 import { SabadosOpciones, Timesheet } from '../../models/timesheet.model';
-import { errorsArray } from 'src/utils/constants';
+import { TITLES, errorsArray } from 'src/utils/constants';
 
 @Component({
   selector: 'app-modificar',
@@ -264,6 +264,11 @@ export class ModificarComponent implements OnInit {
         this.calcularPorcentajes(otro.dias, index, 'otros')
       }
     })
+  }
+
+  eliminarProyecto(idProyecto: number, i: number) {
+    this.proyectos.removeAt(i)
+    // error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
   }
 
   esInvalido(campo: string): boolean {

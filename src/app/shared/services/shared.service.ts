@@ -7,11 +7,17 @@ import { errorsArray } from 'src/utils/constants';
 export class SharedService {
 
   _cargando: boolean = false
+  private _pageTitle = ''
 
   constructor() { }
 
   get cargando() {
     return this._cargando
+  }
+
+  get pageTitle() {
+    this._pageTitle = localStorage.getItem('pageTitle') || '-'
+    return this._pageTitle
   }
   
   cambiarEstado(estado: boolean) {

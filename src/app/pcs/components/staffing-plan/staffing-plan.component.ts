@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SeleccionarEmpleadoComponent } from '../seleccionar-empleado/seleccionar-empleado.component';
+import { SeleccionarFechaComponent } from '../seleccionar-fecha/seleccionar-fecha.component';
 
 interface Etapa {
   id:         number,
@@ -25,17 +26,19 @@ interface Empleado {
   styleUrls: ['./staffing-plan.component.css'],
   providers: [DialogService]
 })
-export class StaffingPlanComponent {
+export class StaffingPlanComponent implements OnInit {
 
   dialogService     = inject(DialogService)
 
-  meses: String[] = ['Jun-23', 'Jul-23', 'Ago-23', 'Sep-23', 'Oct-23', 'Nov-23']
+  meses: String[] = ['06-23', '07-23', '08-23', '09-23', '10-23', '11-23', '12-23', '01-24']
+
+  ngOnInit(): void {}
 
   /**
    * Etapas
    */
   etapaForm = this.fb.group({
-    etapa: ''
+    etapa: ['', Validators.required]
   });
 
   etapas: Etapa[] = []
@@ -48,18 +51,30 @@ export class StaffingPlanComponent {
 
   get duracionMeses(): number {
     let total = 0
-    this.etapas.map(etapa => {
-      total += etapa.totalMeses
+    this.etapasCampos.controls.map(element => {
+      total += element.value.totalMeses
     })
     return total
+    // this.etapasCampos.map(etapa => {
+    //   total += etapa.totalMeses
+    // })
+    // return total
   }
 
   form = this.fb.group({
     empleadosCampos: this.fb.array([])
   });
 
+  formEtapas = this.fb.group({
+    etapasCampos: this.fb.array([])
+  })
+
   get empleadosCampos() {
     return this.form.controls["empleadosCampos"] as FormArray;
+  }
+
+  get etapasCampos() {
+    return this.formEtapas.controls['etapasCampos'] as FormArray
   }
 
   agregarEmpleado() {
@@ -105,24 +120,75 @@ export class StaffingPlanComponent {
 
   constructor(private fb: FormBuilder) {}
 
-  toggleOpcion(etapa: Etapa, indice: number) {
-    etapa.meses[indice] = !etapa.meses[indice]
-    etapa.totalMeses = etapa.meses.filter(valor => valor).length
+  toggleOpcion(id: number, idMes: number) {
+    // etapa.meses[indice] = !etapa.meses[indice]
+    // etapa.totalMeses = etapa.meses.filter(valor => valor).length
+    const etapa = this.etapasCampos.value[id]
+    const valor = etapa[idMes]
+    const totalMeses = valor ? etapa.totalMeses + 1 : etapa.totalMeses - 1
+    this.etapasCampos.at(id).patchValue({
+      totalMeses
+    })
   }
 
   agregarEtapa() {
-    this.etapas.push({
+    
+    const mesesCampos = this.meses.map((mes, index) => {
+      return [false]
+    })
+
+    const sEtapaForm = this.fb.group({
       id: Date.now(),
       nombre: this.etapaForm.value.etapa,
       totalMeses: 0,
-      meses: Array(this.meses.length).fill(false)
+      ...mesesCampos
     })
+    this.etapasCampos.push(sEtapaForm)
 
     this.etapaForm.reset()
   }
 
-  borrarEtapa(etapa: Etapa) {
-    this.etapas = this.etapas.filter(({id}) => id !== etapa.id)
+  borrarEtapa(id: number) {
+    // this.etapas = this.etapas.filter(({id}) => id !== etapa.id)
+    this.etapasCampos.removeAt(id)
+  }
+
+  marcarPorFecha(id: number) {
+    this.dialogService.open(SeleccionarFechaComponent, {
+      header: 'Seleccionar Fecha',
+      width: '50%',
+      height: '450px',
+      contentStyle: {overflow: 'auto'}
+    })
+    .onClose.subscribe(data => {
+      if(data) {
+        const [fechaInicio, fechaFin] = data
+
+        if(fechaInicio && !fechaFin) {
+          const indexMesInicio = this.meses.findIndex(mes => mes === fechaInicio)
+          if(indexMesInicio >= 0) {
+            for (let index = indexMesInicio; index < this.meses.length; index++) {
+              const patchObject: any = {};
+              patchObject[index] = true;
+              this.etapasCampos.at(id).patchValue(patchObject)
+            }
+          }
+        }
+
+        if(fechaInicio && fechaFin) {
+          const indexMesInicio = this.meses.findIndex(mes => mes === fechaInicio)
+          const indexMesFin = this.meses.findIndex(mes => mes === fechaFin)
+
+          if(indexMesInicio >= 0 && indexMesFin >= 0) {
+            for (let index = indexMesInicio; index <= indexMesFin; index++) {
+              const patchObject: any = {};
+              patchObject[index] = true;
+              this.etapasCampos.at(id).patchValue(patchObject)
+            }
+          }
+        }
+      }
+    })
   }
 
   borrarEmpleado(indice: number) {

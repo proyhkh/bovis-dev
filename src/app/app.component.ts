@@ -6,6 +6,9 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { NavigationEnd, Router } from '@angular/router';
 import { SharedService } from './shared/services/shared.service';
+import { AuthService } from './auth/services/auth.service';
+import { UserService } from './services/user.service';
+import { AuditoriaService } from './auditoria/services/auditoria.service';
 
 
 @Component({
@@ -35,7 +38,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private msalBroadcastService: MsalBroadcastService,
     changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
     private router: Router,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private authLocalService: AuthService,
+    private userService: UserService,
+    private auditoriaService: AuditoriaService
   ) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -112,6 +118,7 @@ export class AppComponent implements OnInit, OnDestroy {
       //console.log(this.roles);
       //console.log((accounts[0].idTokenClaims as IdTokenClaims).preferred_username);
       localStorage.setItem('userMail', (accounts[0].idTokenClaims as IdTokenClaims).preferred_username)
+      localStorage.setItem('userName', (accounts[0].idTokenClaims as IdTokenClaims).name)
       const preferred_username = (accounts[0].idTokenClaims as IdTokenClaims).name;
       //console.log(preferred_username);
       this.isModulos = true;

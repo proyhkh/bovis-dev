@@ -25,6 +25,7 @@ export interface Seccion {
 
 export interface Auditoria {
   idAuditoriaCumplimiento: number;
+  idAuditoria:             number;
   idProyecto:              number;
   idDirector:              number;
   mes:                     number;
@@ -42,6 +43,13 @@ export interface Auditoria {
 
 export interface DocumentoResponse {
   data:          Documento;
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface DocumentosResponse {
+  data:          Documento[];
   success:       boolean;
   message:       null;
   transactionId: null;

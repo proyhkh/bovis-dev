@@ -5,6 +5,8 @@ import { BrowserUtils } from '@azure/msal-browser';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { FailedComponent } from './shared/components/failed/failed.component';
+import { RoleResolver } from './resolver/role.resolver';
+import { TokenResolver } from './resolver/token.resolver';
 
 const routes: Routes = [
  /*  {
@@ -24,6 +26,11 @@ const routes: Routes = [
         path: 'contratos',
         loadChildren: () =>
           import('./contratos/contratos.module').then((m) => m.ContratosModule),
+      },
+      {
+        path: 'costos',
+        loadChildren: () =>
+          import('./costos/costos.module').then((m) => m.CostosModule),
       },
       {
         path: 'empleados',
@@ -56,11 +63,20 @@ const routes: Routes = [
           import('./facturacion/facturacion.module').then((m) => m.FacturacionModule),
       },
       {
+        path: 'reportes',
+        loadChildren: () => 
+          import('./reportes/reportes.module').then((m) => m.ReportesModule)
+      },
+      {
         path: 'timesheet',
         loadChildren: () => 
           import('./timesheet/timesheet.module').then((m) => m.TimesheetModule)
       }
     ],
+    resolve: {
+      token: TokenResolver,
+      roles: RoleResolver
+    },
     canActivate: [MsalGuard]
   },
  /*  {

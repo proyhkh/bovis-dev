@@ -56,7 +56,7 @@
               <label><strong>Documentos de referencia</strong></label>
             </div>
             <div class="col-2 text-center">
-              <label><strong>Válido</strong></label>
+              <label><strong>Ver documentos</strong></label>
             </div>
           </div>
         </div>
@@ -71,23 +71,27 @@
             <label>{{ auditoria.get('cumplimiento').value }}</label>
           </div>
           <div class="col-3 text-center">
-            <p-button 
-              label="{{ auditoria.get('documentoRef').value }}" 
-              styleClass="p-button-text"
-              (onClick)="descargarDocumento(auditoria.get('id_documento').value)"
+            <label 
               *ngIf="auditoria.get('tieneDocumento').value; else sinDocumento"
-            ></p-button>
+            >
+              {{ auditoria.get('documentoRef').value }}
+            </label>
             <ng-template #sinDocumento>
-              <label class="text-danger">Documento no cargado.</label>
+              <label class="text-danger">Ningún documento cargado.</label>
             </ng-template>
           </div>
           <div class="col-2 text-center">
             <!-- <label *ngIf="auditoria.get('ultimoDocumentoValido').value; else check">
               El documento ha sido validado.
             </label> -->
-            <p-inputSwitch 
+            <!-- <p-inputSwitch 
               formControlName="valido"
-            ></p-inputSwitch>
+            ></p-inputSwitch> -->
+            <p-button 
+              label="Ver" 
+              [disabled]="!auditoria.get('tieneDocumento').value"
+              (onClick)="auditoria.get('tieneDocumento').value ? verDocumentos(auditoria.get('id_auditoria').value) : null"
+            ></p-button>
           </div>
           <div class="col-12">
             <p-divider></p-divider>

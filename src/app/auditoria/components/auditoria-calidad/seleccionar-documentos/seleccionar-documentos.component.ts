@@ -42,7 +42,6 @@ export class SeleccionarDocumentosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.sharedService.cambiarEstado(true)
 
     forkJoin([
@@ -81,7 +80,7 @@ export class SeleccionarDocumentosComponent implements OnInit {
       .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
       .subscribe({
         next: (data) => {
-          this.router.navigate(['auditoria/auditoria-calidad/cargar'], {queryParams: {success: true}})
+          this.router.navigate(['auditoria/cargar'], {queryParams: {success: true, tipo: this.auditoriaService.esLegal ? 'legal' : null}})
         },
         error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
       })

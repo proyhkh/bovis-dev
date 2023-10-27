@@ -59,18 +59,17 @@
           <label>{{ auditoria.documentoRef }}</label>
         </div>
         <div class="col-2 text-center">
-          <div *ngIf="auditoria.aplica && auditoria.tieneDocumento">
+          <!-- <div *ngIf="auditoria.aplica && auditoria.tieneDocumento">
             <label>Documento cargado</label>
           </div>
           <div *ngIf="auditoria.aplica && !auditoria.tieneDocumento">
-            <p-fileUpload 
-              mode="basic" 
-              #fileUpload 
-              chooseLabel="Seleccionar" 
-              [maxFileSize]="1000000" 
-              (onSelect)="onSeleccionArchivo($event, auditoria.idAuditoriaCumplimiento, i, iChild, fileUpload)"
-            ></p-fileUpload>
-          </div>
+          </div> -->
+          <p-fileUpload 
+            mode="basic" 
+            #fileUpload 
+            chooseLabel="Seleccionar" 
+            (onSelect)="onSeleccionArchivo($event, auditoria.idAuditoria, i, iChild, fileUpload)"
+          ></p-fileUpload>
         </div>
         <div class="col-12">
           <p-divider></p-divider>

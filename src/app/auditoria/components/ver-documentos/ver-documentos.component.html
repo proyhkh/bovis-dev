@@ -1,0 +1,26 @@
+
+<div class="card">
+  <p-table [value]="documentos" [tableStyle]="{ 'min-width': '100%' }">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Documento</th>
+              <th class="text-center">Válido</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-documento>
+          <tr>
+              <td>
+                <a 
+                  class="text-success font-bold pointer"
+                  (click)="descargarDocumento(documento.idDocumento)"
+                >
+                  {{documento.fecha + '_' + documento.idDocumento.toString()}}
+                </a>
+              </td>
+              <td class="text-center">
+                <p-inputSwitch></p-inputSwitch>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>

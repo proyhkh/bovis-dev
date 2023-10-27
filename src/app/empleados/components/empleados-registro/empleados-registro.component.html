@@ -39,6 +39,8 @@
           formControlName="id_persona"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_persona')}"
           optionValue="value"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('id_persona')">
           <small
@@ -120,12 +122,15 @@
           id="cve_puesto"
           [options]="puestos"
           placeholder="Seleccionar una puesto" 
+          (onChange)="setearSalarios($event)"
           optionLabel="name" 
           [showClear]="true"
           [style]="{ width: '100%' }"
           formControlName="cve_puesto"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('cve_puesto')}"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('cve_puesto')">
           <small
@@ -463,6 +468,8 @@
           formControlName="id_jefe_directo"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_jefe_directo')}"
           optionValue="value"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('id_jefe_directo')">
           <small
@@ -598,6 +605,7 @@
           id="nss"
           class="full-width" 
           formControlName="nss"
+          [maxlength]="11"
           [useGrouping]="false"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('nss')}"
         ></p-inputNumber>
@@ -740,22 +748,6 @@
     </div>
   
     <div class="row">
-      <div class="col-4">
-        <label for="antiguedad">Antiguedad:</label>
-        <p-inputNumber 
-          id="antiguedad"
-          class="full-width"
-          formControlName="antiguedad"
-          [ngClass]="{'ng-invalid ng-dirty': esInvalido('antiguedad')}"
-        ></p-inputNumber>
-        <div *ngIf="esInvalido('antiguedad')">
-          <small
-            class="error-msg"
-          >
-            {{ obtenerMensajeError('antiguedad') }}
-          </small>
-        </div>
-      </div>
       <div class="col-4">
         <label for="id_turno">Turno:</label>
         <p-dropdown 
@@ -934,14 +926,17 @@
       </div>
       <div class="col-4">
         <label for="tipo_descuento">Tipo descuento:</label>
-        <input 
+        <p-dropdown 
           id="tipo_descuento"
-          pInputText
-          class="form-control" 
-          maxlength="50" 
+          [options]="tiposDescuento"
+          placeholder="Seleccionar una opción" 
+          optionLabel="name" 
+          [showClear]="true"
+          [style]="{ width: '100%' }"
           formControlName="tipo_descuento"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('tipo_descuento')}"
-        >
+          optionValue="code"
+        ></p-dropdown>
         <div *ngIf="esInvalido('tipo_descuento')">
           <small
             class="error-msg"

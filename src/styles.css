@@ -72,6 +72,12 @@ body {
 .menu-principal .icon-facturacion {
   content: url('assets/icons-menu/Gestión-Facturación.png');
 }
+.menu-principal .icon-admin {
+  content: url('assets/icons-menu/Gestión-Admin.png');
+}
+.menu-principal .icon-catalogos {
+  content: url('assets/icons-menu/Gestión-Catalogos.png');
+}
 .menu-principal .p-megamenu-panel {
   /* background-color: #f8f9fa; */
   border-radius: 1rem;
@@ -366,4 +372,20 @@ tfoot th {
 
 .tabla-filtro table {
   min-height: 600px !important;
+}
+
+span.required {
+  color: red !important;
+}
+
+span.required:after{
+  content: '*';
+}
+
+.main-table table tr:nth-child(2n) {
+  background-color: #EEEEEE;
+}
+
+.pointer {
+  cursor: pointer;
 }

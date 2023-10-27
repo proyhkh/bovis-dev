@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { finalize, forkJoin, map } from 'rxjs';
 import { Seccion } from 'src/app/auditoria/models/auditoria.model';
 import { AuditoriaService } from 'src/app/auditoria/services/auditoria.service';
@@ -10,12 +11,13 @@ import { TimesheetService } from 'src/app/timesheet/services/timesheet.service';
 import { descargarArchivo } from 'src/helpers/helpers';
 import { Opcion } from 'src/models/general.model';
 import { SUBJECTS, TITLES, errorsArray } from 'src/utils/constants';
+import { VerDocumentosComponent } from '../../ver-documentos/ver-documentos.component';
 
 @Component({
   selector: 'app-seguimiento',
   templateUrl: './seguimiento.component.html',
   styleUrls: ['./seguimiento.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DialogService]
 })
 export class SeguimientoComponent implements OnInit {
 
@@ -25,6 +27,7 @@ export class SeguimientoComponent implements OnInit {
   fb                = inject(FormBuilder)
   timesheetService  = inject(TimesheetService)
   router            = inject(Router)
+  dialogService     = inject(DialogService)
 
   form = this.fb.group({
     id_proyecto:  ['', Validators.required],
@@ -89,7 +92,7 @@ export class SeguimientoComponent implements OnInit {
           data.forEach(seccion => {
             seccion.auditorias.forEach(auditoria => {
               this.auditorias.push(this.fb.group({
-                id_auditoria:           [auditoria.idAuditoriaCumplimiento],
+                id_auditoria:           [auditoria.idAuditoria],
                 aplica:                 [auditoria.aplica],
                 motivo:                 [auditoria.motivo],
                 punto:                  [auditoria.punto],
@@ -157,6 +160,22 @@ export class SeguimientoComponent implements OnInit {
     })
 
     return mensaje
+  }
+
+  verDocumentos(idAuditoria: number) {
+
+    this.dialogService.open(VerDocumentosComponent, {
+      header: 'Documentos cargados',
+      width: '50%',
+      height: '450px',
+      contentStyle: {overflow: 'auto'},
+      data: {idAuditoria}
+    })
+    // .onClose.subscribe(data => {
+    //   if(data) {
+    //     console.log(data)
+    //   }
+    // })
   }
 
 }

@@ -16,6 +16,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SubirArchivoComponent } from './components/auditoria-calidad/subir-archivo/subir-archivo.component';
+import { VerDocumentosComponent } from './components/ver-documentos/ver-documentos.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { SubirArchivoComponent } from './components/auditoria-calidad/subir-arch
     SeleccionarDocumentosComponent,
     CargarDocumentosComponent,
     SeguimientoComponent,
-    SubirArchivoComponent
+    SubirArchivoComponent,
+    VerDocumentosComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,8 @@ import { SubirArchivoComponent } from './components/auditoria-calidad/subir-arch
     CheckboxModule,
     DropdownModule,
     InputSwitchModule,
-    FileUploadModule
+    FileUploadModule,
+    TableModule
   ]
 })
 export class AuditoriaModule { }

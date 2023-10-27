@@ -137,9 +137,11 @@ export class CargaSaeComponent implements OnInit {
 
           const keyProyecto = normalRecord.proyectos
           const keyCuenta = normalRecord.cuenta
+          const noProyecto = this.proyectosEncontrados[keyProyecto]?.numProyecto
           return {
             ...normalRecord,
-            num_proyecto:       this.proyectosEncontrados[keyProyecto]?.numProyecto || null,
+            centro_costos:      normalRecord.centro_costos?.split('.')[0],
+            num_proyecto:       noProyecto ? this.obtenerNoProyecto(noProyecto) : null,
             responsable:        this.proyectosEncontrados[keyProyecto]?.responsable || null,
             tipo_cuenta:        this.proyectosEncontrados[keyProyecto]?.tipoProyecto || null,
             edo_resultados:     this.cuentasEncontradas[keyCuenta]?.tipoResultado || null,
@@ -155,6 +157,24 @@ export class CargaSaeComponent implements OnInit {
     this.uploaded = true
     
     fileUpload.clear();
+  }
+
+  obtenerNoProyecto(noProyecto: number) {
+
+    let numero: number = null
+
+    switch(noProyecto) {
+      case 236: 
+        numero = 110
+        break
+      case 261: 
+        numero = 112
+        break
+      default:
+        numero = noProyecto
+    }
+    
+    return numero.toString()
   }
 
   onChangeCompany(event: any) {

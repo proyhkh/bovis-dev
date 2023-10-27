@@ -7,7 +7,9 @@ export const environment = {
   urlApiBovis: 'https://bovis-api-dev.azurewebsites.net/',
   redirectUri: 'http://localhost:4200/',
   clientID: 'f2a13822-1d07-4f2f-9a78-06ad219b1d03',
-  urlAuthority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc'
+  urlAuthority: 'https://login.microsoftonline.com/1c1824e1-a1d5-4bb4-9e3f-5cbbe420b4dc',
+  tokenUser: 'B0V1$-2023',
+  tokenSecret: 'P4$w0RD_2023'
 };
 
 /*

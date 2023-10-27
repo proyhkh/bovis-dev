@@ -1,0 +1,199 @@
+
+<p-toast></p-toast>
+
+<div class="main-container">
+
+  <h1>Costo por empleado</h1>
+
+  <div class="table-container">
+    <p-table 
+      #tablaPrincipal
+      class="tabla-filtro"
+      [value]="costos" 
+      [paginator]="true"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [rows]="10"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <!-- <th>Opcion</th> -->
+          <th>No. Empleado</th>
+          <th>No. Empleado NOI</th>
+          <th>Nombre</th>
+          <th>Ciudad Base de Trabajo</th>
+          <th>Reubicación</th>
+          <th>Proyecto</th>
+          <th>Unidad negocios</th>
+          <th>Jefe Directo</th>
+          <th>Ingreso</th>
+          <th>Antigüedad</th>
+          <th>% a descontar al empleado</th>
+          <th>Monto descuento Mensual</th>
+          <th>Sueldo Neto percibido Mensual</th>
+          <th>Retención Imss</th>
+          <th>Ispt</th>
+          <th>SUELDO BRUTO (inflación %)</th>
+          <th>Anual</th>
+          <th>Cant (Meses)</th>
+          <th>Monto (Provisión Mensual)</th>
+          <th>Dias Vacas Anuales</th>
+          <th>Prima Vacacional (provisión Mensual)</th>
+          <th>Provisión Mensual</th>
+          <th>% Bono Anual estimado</th>
+          <th>Provisión Mensual</th>
+          <th>Costo total Anual SGMM</th>
+          <th>SGMM (Costo Mensual)</th>
+          <th>Costo total Anual</th>
+          <th>Costo Mensual</th>
+          <th>Costo Mensual</th>
+          <th>Comisión (Costo Mensual)</th>
+          <th>Provisión PTU</th>
+          <th>Vivienda</th>
+          <th>Automóvil</th>
+          <th>Viáticos a comprobar</th>
+          <th>Bono Adicional (beneficio)</th>
+          <th>Gasolina</th>
+          <th>Casetas</th>
+          <th>Ayuda de transporte</th>
+          <th>Vuelos de Avión</th>
+          <th>Provisión impuestos Expats</th>
+          <th>Fringe Expats</th>
+          <th>Programa de entrenamiento</th>
+          <th>Eventos especiales</th>
+          <th>Costo IT</th>
+          <th>Costo telefonía</th>
+          <th>S.V. Directivos</th>
+          <th>Facturación BPM</th>
+          <th>IMPUESTO 3% S/Nomina</th>
+          <th>IMSS</th>
+          <th>RETIRO 2</th>
+          <th>C Y V</th>
+          <th>INVONAVIT</th>
+          <th>CARGAS SOCIALES</th>
+          <th>Costo Mensual Empleado</th>
+          <th>Costo Mensual Proyecto</th>
+          <th>Costo Empleado Anual MN</th>
+          <th>% Costo total / Salario Bruto</th>
+          <th>% Costo total / Salario Neto</th>
+
+          <th>Sueldo Bruto</th>
+          <th>Rango Inferior</th>
+          <th>Rango superior</th>
+          <th>Inferior al mínimo</th>
+          <th>%</th>
+          <th>Superior al máximo</th>
+          <th>%</th>
+
+          <th>Vivienda</th>
+          <th>Automóvil</th>
+          <th>Viáticos a comprobar</th>
+          <th>Bono Adicional reubicación</th>
+          <th>Gasolina</th>
+          <th>Casetas</th>
+          <th>Ayuda de transporte</th>
+          <th>Vuelos de Avión</th>
+          <th>Provisión impuestos Expats</th>
+          <th>Fringe Expats</th>
+          <th>Programa de entrenamiento</th>
+          <th>Eventos especiales</th>
+          <th>Otros</th>
+          <th>Costo IT</th>
+          <th>Costo telefonía</th>
+          <th>S.V. Directivos</th>
+          <th>Facturación BPM</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-costo>
+        <tr>
+          <td>{{costo.numEmpleadoRrHh}}</td>
+          <td>{{costo.numEmpleadoNoi}}</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>{{costo.reubicacion}}</td>
+          <td>{{costo.numProyecto}}</td>
+          <td>{{costo.idUnidadNegocio}}</td>
+          <td>{{costo.idEmpleadoJefe}}</td>
+          <td>{{costo.fechaIngreso}}</td>
+          <td>{{costo.antiguedad}}</td>
+          <td>{{costo.avgDescuentoEmpleado}}</td>
+          <td>{{costo.montoDescuentoMensual}}</td>
+          <td>{{costo.sueldoNetoPercibidoMensual}}</td>
+          <td>{{costo.retencionImss}}</td>
+          <td>{{costo.ispt}}</td>
+          <td>{{costo.sueldoBruto}}</td>
+          <td>{{costo.anual}}</td>
+          <td>{{costo.aguinaldoCantMeses}}</td>
+          <td>{{costo.aguinaldoMontoProvisionMensual}}</td>
+          <td>{{costo.pvDiasVacasAnuales}}</td>
+          <td>{{costo.pvProvisionMensual}}</td>
+          <td>{{costo.indemProvisionMensual}}</td>
+          <td>{{costo.avgBonoAnualEstimado}}</td>
+          <td>{{costo.bonoAnualProvisionMensual}}</td>
+          <td>{{costo.sgmmCostoTotalAnual}}</td>
+          <td>{{costo.sgmmCostoMensual}}</td>
+          <td>{{costo.svCostoTotalAnual}}</td>
+          <td>{{costo.svCostoMensual}}</td>
+          <td>{{costo.vaidCostoMensual}}</td>
+          <td>{{costo.vaidComisionCostoMensual}}</td>
+          <td>{{costo.ptuProvision}}</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>{{costo.impuesto3sNomina}}</td>
+          <td>{{costo.imss}}</td>
+          <td>{{costo.retiro2}}</td>
+          <td>{{costo.cesantesVejez}}</td>
+          <td>{{costo.infonavit}}</td>
+          <td>{{costo.cargasSociales}}</td>
+          <td>FALTA</td>
+          <td>{{costo.ctlCostoMensualProyecto}}</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+          <td>FALTA</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  
+</div>

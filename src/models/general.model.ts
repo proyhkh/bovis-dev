@@ -8,3 +8,8 @@ export interface Item {
   value: string | number,
   label: string
 }
+
+export interface DropdownOpcion {
+  name: string,
+  value: string
+}

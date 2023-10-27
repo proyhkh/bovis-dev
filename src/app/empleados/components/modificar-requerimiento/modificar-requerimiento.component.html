@@ -21,6 +21,8 @@
             [ngClass]="{'ng-invalid ng-dirty': esInvalido('categoria')}"
             formControlName="categoria"
             optionValue="code"
+            [filter]="true" 
+            filterBy="name"
           ></p-dropdown>
           <div *ngIf="esInvalido('categoria')">
             <small
@@ -43,6 +45,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('puesto')}"
           formControlName="puesto"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('puesto')">
           <small
@@ -67,6 +71,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('nivelEstudios')}"
           formControlName="nivelEstudios"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('nivelEstudios')">
           <small
@@ -89,6 +95,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('profesion')}"
           formControlName="profesion"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('profesion')">
           <small
@@ -113,6 +121,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('jornada')}"
           formControlName="jornada"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('jornada')">
           <small
@@ -204,6 +214,8 @@
             [ngClass]="{'ng-invalid ng-dirty': esInvalido('idDirectorEjecutivo')}"
             formControlName="idDirectorEjecutivo"
             optionValue="code"
+            [filter]="true" 
+            filterBy="name"
           ></p-dropdown>
           <div *ngIf="esInvalido('idDirectorEjecutivo')">
             <small
@@ -226,6 +238,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('idProyecto')}"
           formControlName="idProyecto"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('idProyecto')">
           <small
@@ -250,6 +264,8 @@
             [ngClass]="{'ng-invalid ng-dirty': esInvalido('idJefeInmediato')}"
             formControlName="idJefeInmediato"
             optionValue="code"
+            [filter]="true" 
+            filterBy="name"
           ></p-dropdown>
           <div *ngIf="esInvalido('idJefeInmediato')">
             <small
@@ -272,6 +288,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('idTipoContrato')}"
           formControlName="idTipoContrato"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('idTipoContrato')">
           <small
@@ -296,6 +314,8 @@
             [ngClass]="{'ng-invalid ng-dirty': esInvalido('idEstado')}"
             formControlName="idEstado"
             optionValue="code"
+            [filter]="true" 
+            filterBy="name"
           ></p-dropdown>
           <div *ngIf="esInvalido('idEstado')">
             <small
@@ -317,6 +337,8 @@
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('idCiudad')}"
           formControlName="idCiudad"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('idCiudad')">
           <small

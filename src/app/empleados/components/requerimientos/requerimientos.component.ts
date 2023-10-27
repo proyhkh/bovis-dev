@@ -9,6 +9,7 @@ import { SUBJECTS, TITLES } from 'src/utils/constants';
 import { Location } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Opcion } from 'src/models/general.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-requerimientos',
@@ -25,6 +26,7 @@ export class RequerimientosComponent implements OnInit {
   location          = inject(Location)
   fb                = inject(FormBuilder)
   router            = inject(Router)
+  userService       = inject(UserService)
 
   directores: Opcion[] = []
   proyectos:  Opcion[] = []

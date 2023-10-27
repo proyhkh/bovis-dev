@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { FacturacionService } from './services/facturacion.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -17,6 +17,8 @@ import { BusquedaCancelacionComponent } from './components/busqueda-cancelacion/
 import { BadgeModule } from 'primeng/badge';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessagesModule } from 'primeng/messages';
+import { AuthInterceptor } from '../interceptors/auth.interceptor';
+import { NotaCreditoSinFacturaComponent } from './components/nota-credito-sin-factura/nota-credito-sin-factura.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MessagesModule } from 'primeng/messages';
     UploadFileComponent,
     NotaCreditoComponent,
     FacturaCrpComponent,
-    BusquedaCancelacionComponent
+    BusquedaCancelacionComponent,
+    NotaCreditoSinFacturaComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,12 @@ import { MessagesModule } from 'primeng/messages';
   providers: [
     ConfirmationService,
     FacturacionService,
-    MessageService
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class FacturacionModule { }

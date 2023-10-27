@@ -72,8 +72,10 @@ export class CargarDocumentosComponent implements OnInit {
       if(success) {
         Promise.resolve().then(() => this.messageService.add({ severity: 'success', summary: 'Registro guardado', detail: 'El registro ha sido guardado.' }))
       }
-
-      const urlWithoutQueryParams = this.location.path().split('?')[0];
+      let urlWithoutQueryParams = this.location.path().split('?')[0];
+      if(this.location.path().split('?')[1]?.includes('tipo=legal')) {
+        urlWithoutQueryParams += '?tipo=legal'
+      }
       this.location.replaceState(urlWithoutQueryParams);
     });
   }
@@ -97,6 +99,13 @@ export class CargarDocumentosComponent implements OnInit {
     if (event.files.length === 0) return
 
     const [ archivo ] = event.files;
+
+    if( archivo.size >= 100000000) {
+      this.messageService.add({severity: 'error', summary: TITLES.error, detail: 'No es posible subir archivos mayores a 100 MB.'})
+      fileUpload.clear()
+      return
+    }
+
     const lector = new FileReader();
 
     lector.onload = () => {
@@ -104,7 +113,7 @@ export class CargarDocumentosComponent implements OnInit {
 
       const auditoria = this.secciones.at(iParent).auditorias.at(iChild)
       const body = {
-        id_auditoria_proyecto:  auditoria.idAuditoriaCumplimiento,
+        id_auditoria_proyecto:  auditoria.idAuditoria,
         motivo:                 'Documento',
         documento_base64
       }
@@ -122,6 +131,7 @@ export class CargarDocumentosComponent implements OnInit {
         if(acepta) {
           body.motivo = motivo
           this.sharedService.cambiarEstado(true)
+          console.log(body)
           this.auditoriaService.agregarDocumento(body)
             .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
             .subscribe({

@@ -8,6 +8,9 @@ import {
   Empresas,
   NotaCredito,
   Proyectos,
+  encabezados,
+  equivalenteFacturaCobranza,
+  equivalenteFacturaNota,
   facturaCancelacion,
 } from '../../Models/FacturacionModels';
 import { FacturacionService } from '../../services/facturacion.service';
@@ -20,11 +23,18 @@ import { finalize } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TITLES, errorsArray } from 'src/utils/constants';
 
+import * as ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+
 const EXCEL_EXTENSION = '.xlsx';
 
 interface FiltroCancelacion {
   name: string;
   value: string;
+}
+
+interface AssociativeArray {
+  [key: string]: string
 }
 
 @Component({
@@ -47,6 +57,8 @@ export class BusquedaCancelacionComponent implements OnInit {
   filtroProyectos: FiltroCancelacion[] = [];
   filtroEmpresas: FiltroCancelacion[] = [];
   filtroClientes: FiltroCancelacion[] = [];
+  equivalentesCobranzas: any = {}
+  equivalentesNotas: any = {}
 
   messages: Message[] | undefined;
   showConfirm: boolean = false
@@ -56,12 +68,18 @@ export class BusquedaCancelacionComponent implements OnInit {
   isDisableCliente: boolean = false;
   isClear: boolean = false;
 
+
+  IDProyecto: number;
+  IDEmpresa: number;
+  IDCliente: number;
+
   @ViewChild('dropDownProyecto') dropDownProyecto: Dropdown;
   @ViewChild('dropDownEmpresa') dropDownEmpresa: Dropdown;
   @ViewChild('dropDownCliente') dropDownCliente: Dropdown;
   maxDate: Date;
   fechaInicio: Date;
   fechaFin: Date;
+  noFactura: string;
   opcionFiltro: number = 0;
   filtroValue: number;
   displayModal: boolean;
@@ -134,6 +152,16 @@ export class BusquedaCancelacionComponent implements OnInit {
     this.getPoblarProyectos();
     this.getPoblarEmpresas();
     this.getPoblarClientes();
+
+    equivalenteFacturaCobranza.forEach(equivalente => {
+      this.equivalentesCobranzas[equivalente.padre] = equivalente.hijo
+    })
+
+    equivalenteFacturaNota.forEach(equivalente => {
+      this.equivalentesNotas[equivalente.padre] = equivalente.hijo
+    })
+
+    // console.log(this.equivalentesNotas)
   }
 
   getPoblarProyectos() {
@@ -281,36 +309,41 @@ export class BusquedaCancelacionComponent implements OnInit {
 
   getFiltrosVaues() {
     let objBusqueda: Busqueda = new Busqueda();
-    if (this.opcionFiltro == 0) {
-      let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
-      //console.log(utc);
-      objBusqueda.fechaFin = utc;
-    } else {
+    
+    if(this.fechaFin != null) {
       let utcFin = this.fechaFin.toJSON().slice(0, 10).replace(/-/g, '-');
-      //console.log(utcFin);
       objBusqueda.fechaFin = utcFin;
-      if (this.fechaInicio != null) {
-        let utcInicio = this.fechaInicio
-          .toJSON()
-          .slice(0, 10)
-          .replace(/-/g, '-');
-        //console.log(utcInicio);
-        objBusqueda.fechaIni = utcInicio;
-      }
-
-      switch (this.opcionFiltro) {
-        case 1:
-          objBusqueda.idProyecto = this.filtroValue;
-          break;
-        case 2:
-          objBusqueda.idEmpresa = this.filtroValue;
-          break;
-        case 3:
-          objBusqueda.idCliente = this.filtroValue;
-          break;
-      }
+    } else {
+      let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+      objBusqueda.fechaFin = utc;
     }
-    //console.log(objBusqueda);
+
+    if (this.fechaInicio != null) {
+      let utcInicio = this.fechaInicio
+        .toJSON()
+        .slice(0, 10)
+        .replace(/-/g, '-');
+      objBusqueda.fechaIni = utcInicio;
+    }
+
+    objBusqueda.idProyecto = this.IDProyecto;
+    objBusqueda.idEmpresa = this.IDEmpresa;
+    objBusqueda.idCliente = this.IDCliente;
+
+    // switch (this.opcionFiltro) {
+    //   case 1:
+    //     objBusqueda.idProyecto = this.IDProyecto;
+    //     break;
+    //   case 2:
+    //     objBusqueda.idEmpresa = this.IDEmpresa;
+    //     break;
+    //   case 3:
+    //     objBusqueda.idCliente = this.IDCliente;
+    //     break;
+    // }
+
+    objBusqueda.noFactura = this.noFactura || null;
+
     return objBusqueda;
   }
 
@@ -387,40 +420,6 @@ export class BusquedaCancelacionComponent implements OnInit {
   FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION); */
   }
 
-  public exportJsonToExcel(fileName: string = 'facturacion_cancelacion'): void {
-    // inserting first blank row
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
-      this.listBusquedaCompleto,
-      this.getOptions(this.listBusquedaCompleto)
-    );
-
-    //for (let i = 1, length = this.listBusquedaCompleto.length; i < length; i++) {
-    // adding a dummy row for separation
-    XLSX.utils.sheet_add_json(
-      worksheet,
-      [{}],
-      this.getOptions(
-        {
-          data: [],
-          skipHeader: true,
-        },
-        -1
-      )
-    );
-    XLSX.utils.sheet_add_json(
-      worksheet,
-      this.listBusquedaCompleto,
-      this.getOptions(this.listBusquedaCompleto, 1)
-    );
-    //}
-    const workbook: XLSX.WorkBook = {
-      Sheets: { Sheet1: worksheet },
-      SheetNames: ['Sheet1'],
-    };
-    // save to file
-    XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
-  }
-
   private getOptions(json: any, origin?: number): any {
     // adding actual data
     const options = {
@@ -443,8 +442,8 @@ export class BusquedaCancelacionComponent implements OnInit {
     console.log(event.value);*/
     if (event.value != null) {
       this.isClear = true;
-      this.disableFiltros(opcion);
-      this.opcionFiltro = opcion;
+      this.disableFiltros(opcion, event.value['value']);
+      // this.opcionFiltro = opcion;
       this.fechaFin = new Date();
       this.filtroValue = event.value['value'];
       //console.log(this.filtroValue);
@@ -453,19 +452,22 @@ export class BusquedaCancelacionComponent implements OnInit {
     }
   }
 
-  disableFiltros(opcion: number) {
+  disableFiltros(opcion: number, value: number) {
     switch (opcion) {
       case 1:
-        this.isDisableEmpresa = true;
-        this.isDisableCliente = true;
+        this.IDProyecto = value;
+        // this.isDisableEmpresa = true;
+        // this.isDisableCliente = true;
         break;
       case 2:
-        this.isDisableProyecto = true;
-        this.isDisableCliente = true;
+        this.IDEmpresa = value;
+        // this.isDisableProyecto = true;
+        // this.isDisableCliente = true;
         break;
       case 3:
-        this.isDisableProyecto = true;
-        this.isDisableEmpresa = true;
+        this.IDCliente = value;
+        // this.isDisableProyecto = true;
+        // this.isDisableEmpresa = true;
         break;
     }
   }
@@ -481,6 +483,12 @@ export class BusquedaCancelacionComponent implements OnInit {
 
     this.fechaInicio = null;
     this.fechaFin = null;
+
+    this.noFactura = null
+
+    this.IDProyecto = null
+    this.IDEmpresa = null
+    this.IDCliente = null
 
     this.opcionFiltro = 0;
   }
@@ -555,6 +563,121 @@ export class BusquedaCancelacionComponent implements OnInit {
     this.form.patchValue({uuid})
   }
 
+  exportJsonToExcel(): void {
+
+    const workbook = new ExcelJS.Workbook()
+
+    const worksheet = workbook.addWorksheet('Detalle')
+
+    // Tìtulos
+    this._setXLSXTitles(worksheet)
+
+    // Encabezados
+    this._setXLSXHeader(worksheet)
+
+    // Contenido
+    this._setXLSXContent(worksheet)
+
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+
+      saveAs(blob, `FacturacionCancelacion_${Date.now()}${EXCEL_EXTENSION}`)
+    });
+
+  }
+
+  _setXLSXTitles(worksheet: ExcelJS.Worksheet) {
+
+    const fillNota: ExcelJS.Fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'ff91d2ff' } }
+    const fillCobranza: ExcelJS.Fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'ffa4ffa4' } }
+    const alignment: Partial<ExcelJS.Alignment> = { vertical: 'middle', horizontal: 'center', wrapText: true }
+
+    worksheet.getCell('S2').value = 'Nota de crédito'
+    worksheet.getCell('S2').fill = fillNota
+    worksheet.getCell('S2').alignment = alignment
+    worksheet.getCell('T2').value = 'Complemento de pago'
+    worksheet.getCell('T2').fill = fillCobranza
+    worksheet.getCell('T2').alignment = alignment
+  }
+
+  _setXLSXHeader(worksheet: ExcelJS.Worksheet) {
+    
+    const fill: ExcelJS.Fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4681CB' } }
+    const alignment: Partial<ExcelJS.Alignment> = { vertical: 'middle', horizontal: 'center', wrapText: true }
+
+    encabezados.forEach((encabezado, index) => {
+      let cell = worksheet.getCell(4, index + 1)
+      cell.value = encabezado.label
+      cell.fill = fill
+      cell.alignment = alignment
+    })
+  }
+
+  _setXLSXContent(worksheet: ExcelJS.Worksheet) {
+
+    const fillNota: ExcelJS.Fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'ff91d2ff' } }
+    const fillCobranza: ExcelJS.Fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'ffa4ffa4' } }
+
+    let inicio = 5
+
+    this.listBusquedaCompleto.forEach(factura => {
+      encabezados.forEach((encabezado, indexE) => {
+        let cell = worksheet.getCell(inicio, indexE + 1)
+        cell.value = factura[encabezado.id]
+      })
+      inicio++
+
+      if(factura.notas.length > 0) {
+        factura.notas.forEach(nota => {
+          encabezados.forEach((encabezado, indexE) => {
+            let cell = worksheet.getCell(inicio, indexE + 1)
+            const campo = this.equivalentesNotas[encabezado.id]
+            cell.value = nota[campo]
+            cell.fill = fillNota
+          })
+          inicio++
+        })
+      }
+
+      if(factura.cobranzas.length > 0) {
+        factura.cobranzas.forEach(cobranza => {
+          encabezados.forEach((encabezado, indexE) => {
+            let cell = worksheet.getCell(inicio, indexE + 1)
+            const campo = this.equivalentesCobranzas[encabezado.id]
+            cell.value = cobranza[campo]
+            cell.fill = fillCobranza
+          })
+          inicio++
+        })
+      }
+
+    })
+
+    // this.data.forEach(record => {
+
+    //   let totalTimesheet = 0
+
+    //   record.participacion.forEach((proyecto, index) => {
+    //     worksheet.getColumn(10 + index).width = 15
+    //     worksheet.getCell(row, 10 + index).value = this.getDecimal(proyecto.dedicacion)
+    //     worksheet.getCell(row, 10 + index).numFmt = '0.00%';
+    //     totalTimesheet += +proyecto.dedicacion
+    //   })
+      
+    //   worksheet.getCell(row, 1).value = 1
+    //   worksheet.getCell(row, 2).value = record.timesheet.coi_empresa
+    //   worksheet.getCell(row, 3).value = record.timesheet.noi_empresa
+    //   worksheet.getCell(row, 4).value = record.timesheet.noi_empleado
+    //   worksheet.getCell(row, 5).value = record.timesheet.num_empleado
+    //   worksheet.getCell(row, 6).value = 1
+    //   worksheet.getCell(row, 7).value = record.timesheet.empleado
+    //   worksheet.getCell(row, 8).value = record.timesheet.responsable
+    //   worksheet.getCell(row, 9).value = this.getDecimal(totalTimesheet)
+    //   worksheet.getCell(row, 9).numFmt = '0.00%';
+    //   row++
+    // })
+  }
+
   ejecutarCancelacion() {
     
     if(!this.form.valid) {
@@ -620,3 +743,37 @@ export class BusquedaCancelacionComponent implements OnInit {
     return mensaje
   }
 }
+
+// public exportJsonToExcel(fileName: string = 'facturacion_cancelacion'): void {
+//   // inserting first blank row
+//   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+//     this.listBusquedaCompleto,
+//     this.getOptions(this.listBusquedaCompleto)
+//   );
+
+//   //for (let i = 1, length = this.listBusquedaCompleto.length; i < length; i++) {
+//   // adding a dummy row for separation
+//   XLSX.utils.sheet_add_json(
+//     worksheet,
+//     [{}],
+//     this.getOptions(
+//       {
+//         data: [],
+//         skipHeader: true,
+//       },
+//       -1
+//     )
+//   );
+//   XLSX.utils.sheet_add_json(
+//     worksheet,
+//     this.listBusquedaCompleto,
+//     this.getOptions(this.listBusquedaCompleto, 1)
+//   );
+//   //}
+//   const workbook: XLSX.WorkBook = {
+//     Sheets: { Sheet1: worksheet },
+//     SheetNames: ['Sheet1'],
+//   };
+//   // save to file
+//   XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
+// }

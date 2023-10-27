@@ -114,7 +114,314 @@ export const meses: Item[] = [
   {value: 9, label: 'Septiembre'},
   {value: 10, label: 'Octubre'},
   {value: 11, label: 'Noviembre'},
-  {value: 12, label: 'Diciembre'},
+  {value: 12, label: 'Diciembre2'},
 ]
 
-const test = 'test chk'
+export const PERMISOS = Object.freeze({
+  LECTURA:  'Lectura',
+  ADMIN:    'Administrador'
+})
+
+export const MODULOS = Object.freeze({
+  TIMESHEET_CARGA_DE_HORAS: 'timesheet.carga-de-horas'
+})
+
+export const MENU = [
+  {
+    title: 'EMPLEADOS',
+    icon: 'icon-empleado',
+    id: 'empleados',
+    items: [
+      [
+        {
+          label: 'EMPLEADOS',
+          items: [
+            {
+              label: 'Requerimientos',
+              routerLink: ['/empleados/requerimientos'],
+              id: 'requerimientos',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Requerimientos'.toUpperCase()),
+            },
+            {
+              label: 'Personas',
+              routerLink: ['/empleados/persona'],
+              id: 'personas',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Registro de Persona'.toUpperCase()),
+            },
+            {
+              label: 'Empleados',
+              routerLink: ['/empleados/empleado-pri'],
+              id: 'empleados',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Registro de Empleado'.toUpperCase()),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'TIMESHEET',
+    icon: 'icon-timesheet',
+    id: 'timesheet',
+    items: [
+      [
+        {
+          label: 'TIMESHEET',
+          items: [
+            {
+              label: 'Cargar Horas',
+              routerLink: ['timesheet/cargar-horas'],
+              id: 'carga-de-horas',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Timesheet'.toUpperCase()),
+            },
+            {
+              label: 'Consultar / Modificar',
+              routerLink: ['timesheet/consultar'],
+              id: 'consulta-y-modificacion',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Timesheet'.toUpperCase()),
+            },
+            {
+              label: 'Summary',
+              routerLink: ['timesheet/summary'],
+              id: 'summary',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Timesheet'.toUpperCase()),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'COSTO DE EMPLEADOS',
+    icon: 'icon-costos',
+    id: 'costo-de-empleados',
+    items: [
+      [
+        {
+          label: 'COSTO DE EMPLEADOS',
+          items: [
+            {
+              label: 'Costo por empleado',
+              routerLink: ['costos/costo-empleado'],
+              id: 'costo-por-empleado',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Costos'.toUpperCase()),
+            },
+            {
+              label: 'Costo por proyecto',
+              routerLink: ['costos/costo-proyecto'],
+              id: 'costo-por-proyecto',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Costos'.toUpperCase()),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'CIE',
+    icon: 'icon-cie',
+    id: 'cie',
+    items: [
+      [
+        {
+          label: 'CIE',
+          items: [
+            {
+              label: 'Carga de SAE',
+              routerLink: ['cie/carga-sae'],
+              id: 'carga-de-sae',
+              command: () =>
+                localStorage.setItem('pageTitle', 'CIE'.toUpperCase()),
+            },
+            {
+              label: 'CEI – Resultado búsqueda',
+              routerLink: ['cie/resultado-busqueda'],
+              id: 'resultado',
+              command: () =>
+                localStorage.setItem('pageTitle', 'CIE'.toUpperCase()),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'PCS',
+    icon: 'icon-pcs',
+    id: 'pcs',
+    routerLink: ['pcs/ip'],
+    command: () =>
+      localStorage.setItem('pageTitle', 'PCS'.toUpperCase()),
+  },
+  {
+    title: 'AUDITORIA',
+    icon: 'icon-auditoria-legal',
+    id: 'auditoria',
+    items: [
+      [
+        {
+          label: 'AUDITORIA',
+          items: [
+            {
+              label: 'Auditoría Legal',
+              routerLink: ['auditoria'],
+              id: 'auditoria-legal',
+              queryParams: {tipo: 'legal'},
+              command: () =>
+                localStorage.setItem('pageTitle', 'Auditoría Legal'.toUpperCase()),
+            },
+            {
+              label: 'Auditoría de Calidad',
+              routerLink: ['auditoria'],
+              id: 'auditoria-de-calidad',
+              command: () =>
+                localStorage.setItem('pageTitle', 'Auditoría de Calidad'.toUpperCase()),
+            }
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'REPORTES',
+    icon: 'icon-reportes',
+    id: 'reportes',
+    routerLink: ['reportes/lista'],
+    command: () =>
+      localStorage.setItem('pageTitle', 'REPORTES'.toUpperCase()),
+  },
+  {
+    title: 'PEC',
+    icon: 'icon-pec',
+    id: 'pec',
+    items: [
+      [
+        {
+          label: 'PEC',
+          items: [
+            {
+              label: 'Captura',
+              routerLink: ['pec/captura'],
+              id: 'captura',
+              command: () =>
+                localStorage.setItem('pageTitle', 'PLATAFORMA DE EXCELENCIA CORPORATIVA'.toUpperCase()),
+            },
+            {
+              label: 'Consulta/Evaluación',
+              routerLink: ['pec/evaluacion'],
+              id: 'consulta-/-evaluacion',
+              command: () =>
+                localStorage.setItem('pageTitle', 'PLATAFORMA DE EXCELENCIA CORPORATIVA'.toUpperCase()),
+            },
+            {
+              label: 'Aceptar objetivos',
+              routerLink: ['pec/objetivos'],
+              id: 'aceptar-objetivos',
+              command: () =>
+                localStorage.setItem('pageTitle', 'PLATAFORMA DE EXCELENCIA CORPORATIVA'.toUpperCase()),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'FACTURACIÓN',
+    icon: 'icon-facturacion',
+    id: 'facturacion',
+    items: [
+      [
+        {
+          label: 'FACTURACIÓN',
+          items: [
+            {
+              label: 'Carga CFDI',
+              routerLink: ['facturacion/carga-cfdi'],
+              id: 'carga-de-cfdi',
+              command: () =>
+                localStorage.setItem('pageTitle', 'FACTURACIÓN - CARGA CFDI'.toUpperCase()),
+            },
+            {
+              label: 'NC',
+              routerLink: ['facturacion/nota-credito'],
+              id: 'nc',
+              command: () =>
+              localStorage.setItem('pageTitle', 'FACTURACIÓN - NC'.toUpperCase()),
+            },
+            {
+              label: 'NC Sin Factura',
+              routerLink: ['facturacion/nota-credito-sin-factura'],
+              id: 'nc-sin-factura',
+              command: () =>
+              localStorage.setItem('pageTitle', 'FACTURACIÓN - NC Sin Factura'.toUpperCase()),
+            },
+            {
+              label: 'CRP',
+              routerLink: ['facturacion/crp'],
+              id: 'crp',
+              command: () =>
+              localStorage.setItem('pageTitle', 'FACTURACIÓN - CRP'.toUpperCase()),
+            },
+            {
+              label: 'Busqueda/Cancelación',
+              routerLink: ['facturacion/cancelacion'],
+              id: 'busqueda-/-cancelacion',
+              command: () =>
+              localStorage.setItem('pageTitle', 'FACTURACIÓN - CANCELACIÓN'.toUpperCase()),
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    title: 'ADMINISTRACIÓN',
+    icon: 'icon-admin',
+    id: 'administracion',
+    items: [
+      [
+        {
+          label: 'ADMINISTRACIÓN',
+          items: [
+            {
+              label: 'Contratos',
+              routerLink: ['contratos/plantillas'],
+              id: 'contratos',
+              command: () =>
+              localStorage.setItem('pageTitle', 'CONTRATOS'.toUpperCase()),
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    title: 'CATÁLOGOS',
+    icon: 'icon-catalogos',
+    id: 'catalogos',
+    items: [
+      [
+        {
+          label: 'CATÁLOGOS',
+          items: [
+            {
+              label: 'Catálogos',
+              id: 'catalogos',
+              routerLink: ['catalogos'],
+              command: () =>
+              localStorage.setItem('pageTitle', 'Catálogos'.toUpperCase())
+            },
+          ],
+        },
+      ],
+    ],
+  },
+];

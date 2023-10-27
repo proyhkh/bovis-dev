@@ -42,7 +42,7 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedService.cambiarEstado(true)
-    this.timeSheetService.getCatProyectos()
+    this.timeSheetService.getCatProyectos(false)
       .subscribe(({data}) => {
         this.proyectos = data.map(({numProyecto, nombre}) => ({id: numProyecto, nombre, dedicacion: 0 }))
         this.sharedService.cambiarEstado(false)
@@ -176,11 +176,7 @@ export class SummaryComponent implements OnInit {
       indice++
     })
 
-    worksheet.getCell('E8').value = '0000'
-    worksheet.getCell('G8').value = 'Empleado'
-    worksheet.getCell('H8').value = 'Responsable'
-    worksheet.getCell('I8').value = 0
-    worksheet.getCell('I8').numFmt = '0.00%';
+   
   }
 
   _setXLSXContent(worksheet: ExcelJS.Worksheet, row: number): number {
@@ -191,7 +187,7 @@ export class SummaryComponent implements OnInit {
 
       record.participacion.forEach((proyecto, index) => {
         worksheet.getColumn(10 + index).width = 15
-        worksheet.getCell(row, 10 + index).value = this.getDecimal(proyecto.dedicacion)
+        worksheet.getCell(row, 10 + index).value = this.getDecimal(proyecto.dedicacion) || ''
         worksheet.getCell(row, 10 + index).numFmt = '0.00%';
         totalTimesheet += +proyecto.dedicacion
       })

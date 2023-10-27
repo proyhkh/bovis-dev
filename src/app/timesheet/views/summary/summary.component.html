@@ -33,8 +33,11 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th [colSpan]="4"></th>
-          <th>0000</th>
+          <th>count</th>
+          <th>COI</th>
+          <th>NOI</th>
+          <th>CVE</th>
+          <th>No Empleado</th>
           <th></th>
           <th>Empleado</th>
           <th>Responsable</th>
@@ -65,7 +68,7 @@
           <td>{{record.timesheet.responsable}}</td>
           <td>{{record.timesheet.proyectos | sumaPorcentajes}}</td>
           <td *ngFor="let proyecto of record.participacion">
-            {{proyecto.dedicacion}}%
+            {{proyecto.dedicacion > 0 ? proyecto.dedicacion + '%' : ''}}
           </td>
         </tr>
       </ng-template>

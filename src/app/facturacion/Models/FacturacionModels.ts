@@ -46,10 +46,11 @@ export class Busqueda{
   idEmpresa: any = null;
   fechaIni: string = null;
   fechaFin: string = null;
+  noFactura: string = null;
 }
 
 export class BusquedaCancelacion{
-
+  [key: string]: any;
   id: number;
   uuid: string;
   numProyecto: number;
@@ -95,6 +96,7 @@ export class BusquedaCancelacion{
 }
 
 export interface NotaCredito {
+  [key: string]: any;
   nC_UuidNotaCredito:  string;
   nC_IdMoneda:         string;
   nC_IdTipoRelacion:   string;
@@ -110,6 +112,7 @@ export interface NotaCredito {
 }
 
 export interface Cobranza {
+  [key: string]: any;
   c_UuidCobranza:         string;
   c_IdMonedaP:            string;
   c_ImportePagado:        number;
@@ -144,3 +147,55 @@ export class facturaCancelacion{
   MotivoCancelacion: string;
   FechaCancelacion: string;
 }
+
+export const encabezados = Object.freeze([
+  {id: 'id', label: 'Id'},
+  {id: 'uuid', label: 'Uuid'},
+  {id: 'numProyecto', label: 'No. Proyecto'},
+  {id: 'idTipoFactura', label: 'Id Tipo Factura'},
+  {id: 'idMoneda', label: 'Id Moneda'},
+  {id: 'importe', label: 'Importe'},
+  {id: 'iva', label: 'IVA'},
+  {id: 'ivaRet', label: 'IVA Retenido'},
+  {id: 'total', label: 'Total'},
+  {id: 'concepto', label: 'Concepto'},
+  {id: 'mes', label: 'Mes'},
+  {id: 'anio', label: 'Año'},
+  {id: 'fechaEmision', label: 'Fecha Emisión'},
+  {id: 'fechaPago', label: 'Fecha Pago'},
+  {id: 'fechaCancelacion', label: 'Fecha Cancelación'},
+  {id: 'noFactura', label: 'No. Factura'},
+  {id: 'tipoCambio', label: 'Tipo Cambio'},
+  {id: 'motivoCancelacion', label: 'Motivo Cancelación'},
+  // {id: 'notas', label: 'Notas'},
+  // {id: 'cobranzas', label: 'Cobranzas'},
+  {id: 'totalNotasCredito', label: 'Total Notas Crédito'},
+  {id: 'totalCobranzas', label: 'Total Cobranzas'}
+])
+
+export const equivalenteFacturaNota = Object.freeze([
+  {padre: 'uuid', hijo: 'nC_UuidNotaCredito'},
+  {padre: 'idMoneda', hijo: 'nC_IdMoneda'},
+  {padre: '', hijo: 'nC_IdTipoRelacion'},
+  {padre: '', hijo: 'nC_NotaCredito'},
+  {padre: 'importe', hijo: 'nC_Importe'},
+  {padre: 'iva', hijo: 'nC_Iva'},
+  {padre: 'total', hijo: 'nC_Total'},
+  {padre: 'concepto', hijo: 'nC_Concepto'},
+  {padre: 'mes', hijo: 'nC_Mes'},
+  {padre: 'anio', hijo: 'nC_Anio'},
+  {padre: 'tipoCambio', hijo: 'nC_TipoCambio'},
+  {padre: 'fechaEmision', hijo: 'nC_FechaNotaCredito'}
+])
+
+export const equivalenteFacturaCobranza = Object.freeze([
+  {padre: 'uuid', hijo: 'c_UuidCobranza'},
+  {padre: 'idMoneda', hijo: 'c_IdMonedaP'},
+  // {padre: 'importe', hijo: 'c_ImportePagado'},
+  {padre: '', hijo: 'c_ImpSaldoAnt'},
+  {padre: '', hijo: 'c_ImporteSaldoInsoluto'},
+  {padre: 'iva', hijo: 'c_IvaP'},
+  {padre: 'total', hijo: 'c_ImportePagado'},
+  {padre: 'tipoCambio', hijo: 'c_TipoCambioP'},
+  {padre: 'fechaPago', hijo: 'c_FechaPago'}
+])

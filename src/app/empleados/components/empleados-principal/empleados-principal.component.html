@@ -53,7 +53,7 @@
           <th pSortableColumn="nukidjefe_directo">Jefe directo <p-sortIcon field="nukidjefe_directo"></p-sortIcon></th>
           <th pSortableColumn="chunidad_negocio">Unidad de negocio <p-sortIcon field="chunidad_negocio"></p-sortIcon></th>
           <!-- <th pSortableColumn="chtipo_contrato_sat">Número de sat <p-sortIcon field="chtipo_contrato_sat"></p-sortIcon></th> -->
-          <th pSortableColumn="nunum_empleado">Número de empleado <p-sortIcon field="nunum_empleado"></p-sortIcon></th>
+          <!-- <th pSortableColumn="nunum_empleado">Número de empleado <p-sortIcon field="nunum_empleado"></p-sortIcon></th> -->
           <th pSortableColumn="dtfecha_ingreso">Fecha de ingreso <p-sortIcon field="dtfecha_ingreso"></p-sortIcon></th>
           <th pSortableColumn="dtfecha_salida">Fecha de salida <p-sortIcon field="dtfecha_salida"></p-sortIcon></th>
           <th pSortableColumn="dtfecha_ultimo_reingreso">Fecha de reingreso <p-sortIcon field="dtfecha_ultimo_reingreso"></p-sortIcon></th>
@@ -67,7 +67,7 @@
           <th pSortableColumn="nuantiguedad">Antiguedad <p-sortIcon field="nuantiguedad"></p-sortIcon></th>
           <!-- <th pSortableColumn="chturno">Turno <p-sortIcon field="chturno"></p-sortIcon></th> -->
           <!-- <th pSortableColumn="nuunidad_medica">Unidad medica <p-sortIcon field="nuunidad_medica"></p-sortIcon></th> -->
-          <th pSortableColumn="chregistro_patronal">Registro patronal <p-sortIcon field="chregistro_patronal"></p-sortIcon></th>
+          <!-- <th pSortableColumn="chregistro_patronal">Registro patronal <p-sortIcon field="chregistro_patronal"></p-sortIcon></th> -->
           <!-- <th pSortableColumn="chcotizacion">Cotización <p-sortIcon field="chcotizacion"></p-sortIcon></th> -->
           <!-- <th pSortableColumn="nuduracion">Duración <p-sortIcon field="nuduracion"></p-sortIcon></th> -->
           <!-- <th pSortableColumn="nuporcentaje_pension">Pensión <p-sortIcon field="nuporcentaje_pension"></p-sortIcon></th> -->
@@ -76,7 +76,7 @@
           <!-- <th pSortableColumn="nucredito_infonavit">Número de infonavit <p-sortIcon field="nucredito_infonavit"></p-sortIcon></th> -->
           <!-- <th pSortableColumn="chtipo_descuento">Tipo descuento <p-sortIcon field="chtipo_descuento"></p-sortIcon></th> -->
           <!-- <th pSortableColumn="nuvalor_descuento">Descuento <p-sortIcon field="nuvalor_descuento"></p-sortIcon></th> -->
-          <th pSortableColumn="nuno_empleado_noi">Número de noi <p-sortIcon field="nuno_empleado_noi"></p-sortIcon></th>
+          <!-- <th pSortableColumn="nuno_empleado_noi">Número de noi <p-sortIcon field="nuno_empleado_noi"></p-sortIcon></th> -->
           <th class="text-center">Estatus</th>
           <th class="text-center">Opciones</th>
         </tr>
@@ -85,7 +85,17 @@
           <th>
             <p-columnFilter field="puesto" matchMode="equals" [showMenu]="false">
                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                    <p-dropdown #lista [ngModel]="value" [options]="puestos" (onChange)="tablaPrincipal.filter(lista.value, 'chpuesto', 'equals')" placeholder="Puesto" [showClear]="true">
+                    <p-dropdown 
+                      #lista 
+                      [ngModel]="value" 
+                      [options]="puestos" 
+                      (onChange)="tablaPrincipal.filter(lista.value, 'chpuesto', 'equals')" 
+                      placeholder="Puesto" 
+                      [showClear]="true" 
+                      [filter]="true" 
+                      filterBy="value"
+                      appendTo="body"
+                    >
                         <ng-template let-option pTemplate="item">
                             <p-tag [value]="option.value" severity="success"></p-tag>
                         </ng-template>
@@ -121,7 +131,7 @@
           <td>{{ empleado.chjefe_directo || '-' }}</td>
           <td>{{ empleado.chunidad_negocio }}</td>
           <!-- <td>{{ empleado.chtipo_contrato_sat || '-' }}</td> -->
-          <td>{{ empleado.nunum_empleado }}</td>
+          <!-- <td>{{ empleado.nunum_empleado }}</td> -->
           <td>{{ empleado.dtfecha_ingreso | date:'Y/MM/dd' }}</td>
           <td>{{ empleado.dtfecha_salida | date:'Y/MM/dd' }}</td>
           <td>{{ empleado.dtfecha_ultimo_reingreso | date:'Y/MM/dd' }}</td>
@@ -135,7 +145,7 @@
           <td>{{ empleado.nuantiguedad }}</td>
           <!-- <td>{{ empleado.chturno || '-' }}</td> -->
           <!-- <td>{{ empleado.nuunidad_medica }}</td> -->
-          <td>{{ empleado.chregistro_patronal }}</td>
+          <!-- <td>{{ empleado.chregistro_patronal }}</td> -->
           <!-- <td>{{ empleado.chcotizacion }}</td> -->
           <!-- <td>{{ empleado.nuduracion }}</td> -->
           <!-- <td>{{ empleado.chporcentaje_pension || '-' }}</td> -->
@@ -144,7 +154,7 @@
           <!-- <td>{{ empleado.nucredito_infonavit || '-' }}</td> -->
           <!-- <td>{{ empleado.chtipo_descuento || '-' }}</td> -->
           <!-- <td>{{ empleado.nuvalor_descuento | currency }}</td> -->
-          <td>{{ empleado.nuno_empleado_noi || '-' }}</td>
+          <!-- <td>{{ empleado.nuno_empleado_noi || '-' }}</td> -->
           <!-- <td [ngClass]="{'text-danger': !empleado.boactivo, 'text-success': empleado.boactivo}">
             {{ empleado.boactivo ? 'Activo' : 'Inactivo' }}
           </td> -->

@@ -7,16 +7,20 @@ import { format } from 'date-fns';
 
 import { TimesheetService } from '../../services/timesheet.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { errorsArray } from 'src/utils/constants';
+import { MODULOS, TITLES, errorsArray } from 'src/utils/constants';
 import { SabadosOpciones } from '../../models/timesheet.model';
 import { Router } from '@angular/router';
 import { Opcion } from 'src/models/general.model';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AgregarProyectoComponent } from '../agregar-proyecto/agregar-proyecto.component';
+import { UserService } from '../../../services/user.service';
+import { EmpleadosService } from 'src/app/empleados/services/empleados.service';
 
 @Component({
   selector: 'app-cargar-horas',
   templateUrl: './cargar-horas.component.html',
   styleUrls: ['./cargar-horas.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DialogService]
 })
 export class CargarHorasComponent implements OnInit {
 
@@ -29,6 +33,9 @@ export class CargarHorasComponent implements OnInit {
   sharedService     = inject(SharedService)
   messageService    = inject(MessageService)
   router            = inject(Router)
+  dialogService     = inject(DialogService)
+  userService       = inject(UserService)
+  empleadosService  = inject(EmpleadosService)
 
   empleados: Opcion[] = []
 
@@ -124,7 +131,7 @@ export class CargarHorasComponent implements OnInit {
 
     forkJoin(([
       this.timesheetService.getEmpleadoInfo(localStorage.getItem('userMail') || ''),
-      this.timesheetService.getEmpleadosByJefeEmail(localStorage.getItem('userMail') || ''),
+      this.userService.verificarRol(MODULOS.TIMESHEET_CARGA_DE_HORAS)?.administrador ? this.empleadosService.getEmpleados() : this.timesheetService.getEmpleadosByJefeEmail(localStorage.getItem('userMail') || ''),
       this.timesheetService.getDiasHabiles(+this.form.value.mes, +this.form.value.anio, this.form.value.sabados as SabadosOpciones)
     ]))
     .pipe(
@@ -157,7 +164,7 @@ export class CargarHorasComponent implements OnInit {
         this.fb.group({
           id:         [proyecto.nunum_proyecto],
           nombre:     [proyecto.chproyecto],
-          dias:       ['', Validators.required],
+          dias:       [0, Validators.required],
           dedicacion: [0],
           costo:      [0]
         }))
@@ -257,5 +264,50 @@ export class CargarHorasComponent implements OnInit {
     })
 
     return mensaje
+  }
+  
+  agregarProyectoModal() {
+
+    const empleado = this.form.value.empleado
+
+    this.dialogService.open(AgregarProyectoComponent, {
+      header: 'Agregar proyecto',
+      width: '50%',
+      height: '380px',
+      contentStyle: {overflow: 'auto'},
+      data: {
+        empleado
+      }
+    })
+    .onClose.subscribe(({exito, registro}) => {
+      if(exito) {
+        this.proyectos.push(
+          this.fb.group({
+            id:         [registro.proyectoId],
+            nombre:     [registro.proyectoNombre],
+            dias:       ['', Validators.required],
+            dedicacion: [0],
+            costo:      [0]
+          })
+        )
+      }
+    })
+  }
+
+  eliminarProyecto(idProyecto: number, i: number) {
+
+    const empleado: any = this.form.value.empleado
+
+    this.sharedService.cambiarEstado(true)
+
+    this.timesheetService.eliminarProyecto({
+        id_empleado: empleado.code,
+        id_proyecto: idProyecto
+      })
+      .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
+      .subscribe({
+        next: (data) => this.proyectos.removeAt(i),
+        error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
+      })
   }
 }
