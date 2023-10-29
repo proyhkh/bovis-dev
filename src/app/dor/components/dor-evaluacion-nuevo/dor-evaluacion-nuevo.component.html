@@ -422,7 +422,7 @@
                   </td>
   
                   <!-- Resultado -->
-                  <td>{{ (+objetivo.porcentajeReal < +objetivo.valor ? 0 : objetivo.porcentajeReal) | number: '1.2-2' }}%</td>
+                  <td>{{ objetivo | calcularResultadoObjetivos }}%</td>
   
                   <td>
                     <div

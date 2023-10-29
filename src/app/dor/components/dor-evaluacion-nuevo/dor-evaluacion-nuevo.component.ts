@@ -299,7 +299,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
     objetivo.nivel = objetivo.valor;
     //console.log(objetivo);
     this.docService.updateObjetivos(objetivo).subscribe(udt => {
-      console.log(udt);
+      // console.log(udt);
       let mensaje: string = udt.message;
       if (udt.message == null) {
         delete this.clonedObjetivos[objetivo.id];
@@ -317,7 +317,7 @@ export class DorEvaluacionNuevoComponent implements OnInit {
       objetivo.acepto = '1';
       objetivo.nivel = objetivo.valor;
       await this.docService.updateObjetivos(objetivo).subscribe(udt => {
-        console.log(udt);
+        // console.log(udt);
       });
     });
     //console.log(this.listObjetivos);
