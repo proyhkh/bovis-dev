@@ -25,7 +25,8 @@ export class CalcularResultadoPipe implements PipeTransform {
 
     if(tipo == 'AREA') {
       switch(obj.descripcion.trim().toLowerCase()) {
-        case 'planes de trabajo':
+        case 'planes de trabajo': 
+        case 'encuesta satisfacción sc':
           segundoValor = obj.real / obj.meta
           primerValor = segundoValor * +obj.valor
           segundoValor *= 100
@@ -84,8 +85,8 @@ export class CalcularResultadoPipe implements PipeTransform {
           // console.log([(gpm/obj.real), (gpm/obj.proyectadoTotal), (obj.porcentajeEstimado ? +obj.porcentajeEstimado : 0), ((gpm/obj.proyectadoTotal)*(obj.porcentajeEstimado ? +obj.porcentajeEstimado : 0))])
           break
         case 'gpm  bovis':
-          segundoValor = obj.real / obj.meta
-          primerValor = segundoValor
+          segundoValor = obj.metaMensual / obj.meta
+          primerValor = segundoValor * +obj.valor
           segundoValor *= 100
           break
         default:

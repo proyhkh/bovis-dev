@@ -57,11 +57,11 @@ export class SeleccionarDocumentosComponent implements OnInit {
         this.secciones.forEach(seccion => {
           seccion.auditorias.forEach(auditoria => {
             this.auditorias.push(this.fb.group({
-              id_auditoria: [auditoria.idAuditoriaCumplimiento],
+              id_auditoria: [auditoria.idAuditoria],
               aplica:       [auditoria.aplica],
               motivo:       [auditoria.motivo],
               punto:        [auditoria.punto],
-              cumplimiento: [auditoria.cumplimiento],
+              cumplimiento: [this.auditoriaService.tipo == 'calidad' ? auditoria.cumplimientoCalidad : auditoria.cumplimientoLegal],
               documentoRef: [auditoria.documentoRef],
               id_seccion:   [auditoria.idSeccion],
               seccion:      [seccion.chSeccion]
@@ -83,6 +83,33 @@ export class SeleccionarDocumentosComponent implements OnInit {
           this.router.navigate(['auditoria/cargar'], {queryParams: {success: true, tipo: this.auditoriaService.esLegal ? 'legal' : null}})
         },
         error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: err.error})
+      })
+  }
+
+  getCumplimientos(event: any) {
+    this.sharedService.cambiarEstado(true)
+    const {value: id} = event
+
+    this.auditoriaService.getProyectoCumplimiento(id)
+      .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
+      .subscribe({
+        next: ({data}) => {
+          let auditoriasLista: number[] = []
+          data.forEach(cumplimiento => {
+            cumplimiento.auditorias.forEach(auditoria => {
+              if(auditoria.aplica) {
+                auditoriasLista.push(auditoria.idAuditoria)
+              }
+            })
+          })
+          this.auditorias.controls.forEach(control => {
+            control.patchValue({
+              aplica: auditoriasLista.includes(control.value.id_auditoria)
+            })
+          })
+          // this.secciones = data
+        },
+        error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: SUBJECTS.error})
       })
   }
 

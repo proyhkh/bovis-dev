@@ -4,7 +4,7 @@ import { CieService } from '../../services/cie.service';
 import { MessageService } from 'primeng/api';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { CieElementPost, CieProyecto } from '../../models/cie.models';
-import { EXCEL_EXTENSION, cieHeaders } from 'src/utils/constants';
+import { EXCEL_EXTENSION, SUBJECTS, TITLES, cieHeaders } from 'src/utils/constants';
 import { finalize, forkJoin } from 'rxjs';
 
 interface Option {
@@ -36,6 +36,7 @@ export class CargaSaeComponent implements OnInit {
   currentFileName: String = ''
   cuentas: string[] = []
   proyectos: string[] = []
+  cuentasFaltantes: number[] = []
 
   proyectosEncontrados: any = {}
   cuentasEncontradas: any = {}
@@ -111,10 +112,10 @@ export class CargaSaeComponent implements OnInit {
               movimiento:         record.Debe - record.Haber,
               empresa:            this.selectedOption.name.trim(),
               num_proyecto:       null, //record['Centro de costos'] ? +record['Centro de costos'].split('.')[0] : 0,
-              tipo_cuenta:        null,
+              tipo_proyecto:      null,
               edo_resultados:     null,
               responsable:        null,
-              tipo_proyecto:      null,
+              tipo_cuenta:        null,
               tipo_py:            null,
               clasificacion_py:   null
             })
@@ -138,9 +139,13 @@ export class CargaSaeComponent implements OnInit {
           const keyProyecto = normalRecord.proyectos
           const keyCuenta = normalRecord.cuenta
           const noProyecto = this.proyectosEncontrados[keyProyecto]?.numProyecto
+          // console.log(this.cuentasEncontradas[keyCuenta]);
+          if(!this.cuentasEncontradas[keyCuenta]) {
+            this.cuentasFaltantes.push(keyCuenta)
+          }
           return {
             ...normalRecord,
-            centro_costos:      normalRecord.centro_costos?.split('.')[0],
+            centro_costos:      normalRecord.centro_costos, //?.split('.')[0]
             num_proyecto:       noProyecto ? this.obtenerNoProyecto(noProyecto) : null,
             responsable:        this.proyectosEncontrados[keyProyecto]?.responsable || null,
             tipo_cuenta:        this.proyectosEncontrados[keyProyecto]?.tipoProyecto || null,
@@ -192,7 +197,6 @@ export class CargaSaeComponent implements OnInit {
       },
       SheetNames: ['Detalle'],
     };
-
     XLSX.utils.sheet_add_json(worksheet, this.jsonData, { origin: 'A2', skipHeader: true })
     XLSX.utils.sheet_add_aoa(worksheet, [this.cieHeadersLocal]);
 
@@ -204,7 +208,7 @@ export class CargaSaeComponent implements OnInit {
     this.sharedService.cambiarEstado(true)
     console.log(this.jsonData)
     // console.log(this.jsonData)
-    this.cieService.cargarSae(this.jsonData)
+    this.cieService.cargarSae(this.jsonData, this.currentFileName)
       .pipe(
         finalize(() => {
           this.sharedService.cambiarEstado(false)
@@ -218,6 +222,20 @@ export class CargaSaeComponent implements OnInit {
           this.messageService.add({severity: 'error', summary: 'Oh no...', detail: err.error})
         }
       })
+  }
+
+  copiarCuentasFaltantes() {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(this.cuentasFaltantes.join(','))
+        .then(() => {
+          this.messageService.add({severity: 'success', summary: TITLES.success, detail: 'Cuentas copiadas en la papelera.'})
+        })
+        .catch(err => {
+          this.messageService.add({severity: 'error', summary: TITLES.error, detail: SUBJECTS.error})
+        });
+    } else {
+      this.messageService.add({severity: 'error', summary: 'Oh no...', detail: 'Clipboard API no soportado.'})
+    }
   }
 
 }

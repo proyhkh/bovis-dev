@@ -2,19 +2,6 @@
     <div class="row">
         <div class="col-12">
             <div class="form-group">
-                <label for="dias">Días:</label>
-                <input 
-                    id="dias"
-                    pInputText
-                    class="form-control" 
-                    maxlength="50" 
-                    formControlName="dias"
-                    [ngClass]="{'ng-invalid ng-dirty': esInvalido('dias')}"
-                >
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="form-group">
                 <label for="dias">Sábados feriados:</label>
                 <p-calendar 
                     [readonlyInput]="true"
@@ -27,7 +14,7 @@
                     [monthNavigator]="false" 
                     [yearNavigator]="false"
                     selectionMode="multiple"
-                    formControlName="sabados"
+                    formControlName="dias_seleccionados"
                     [defaultDate]="fechaMinima"
                 ></p-calendar>
             </div>

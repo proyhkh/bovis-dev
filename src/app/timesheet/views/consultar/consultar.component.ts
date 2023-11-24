@@ -8,6 +8,7 @@ import { Timesheet } from '../../models/timesheet.model';
 import { finalize, forkJoin } from 'rxjs';
 import { SUBJECTS, TITLES } from 'src/utils/constants';
 import { format } from 'date-fns';
+import { CieService } from 'src/app/cie/services/cie.service';
 
 @Component({
   selector: 'app-consultar',
@@ -18,6 +19,7 @@ import { format } from 'date-fns';
 export class ConsultarComponent implements AfterViewInit {
 
   activatedRoute    = inject(ActivatedRoute)
+  cieService        = inject(CieService)
   messageService    = inject(MessageService)
   sharedService     = inject(SharedService)
   timesheetService  = inject(TimesheetService)
@@ -25,11 +27,13 @@ export class ConsultarComponent implements AfterViewInit {
   empleados:    Opcion[] = []
   proyectos:    Opcion[] = []
   unidades:     Opcion[] = []
+  empresas:     Opcion[] = []
   timesheets:   Timesheet[] = []
 
   idEmpleado:   number = null
   idProyecto:   number = null
   idUnidad:     number = null
+  idEmpresa:    number = null
   mes:          number = null
 
   constructor() { }
@@ -43,14 +47,16 @@ export class ConsultarComponent implements AfterViewInit {
       this.timesheetService.getEmpleadosByJefeEmail(localStorage.getItem('userMail') || ''),
       this.timesheetService.getCatProyectosByJefeEmail(localStorage.getItem('userMail') || ''),
       this.timesheetService.getCatUnidadNegocio(),
+      this.cieService.getEmpresas()
     ])
     .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
     .subscribe({
       next: (value) => {
-        const [empleadosR, proyectosR, unidadesR] = value
+        const [empleadosR, proyectosR, unidadesR, empresasR] = value
         this.empleados = empleadosR.data.map(({nunum_empleado_rr_hh, nombre_persona}) => ({name: nombre_persona, code: nunum_empleado_rr_hh.toString()}))
         this.proyectos = proyectosR.data.map(({numProyecto, nombre}) => ({name: nombre, code: numProyecto.toString()}))
         this.unidades = unidadesR.data.map(({id, descripcion}) => ({name: descripcion, code: id.toString()}))
+        this.empresas = empresasR.data.map(({chempresa, nukidempresa}) => ({ name: chempresa, code: nukidempresa.toString()}))
         this.sharedService.cambiarEstado(false)
       },
       error: (err) => this.messageService.add({severity: 'error', summary: TITLES.error, detail: SUBJECTS.error})
@@ -74,7 +80,7 @@ export class ConsultarComponent implements AfterViewInit {
 
     const mesFormateado = this.mes ? +format(this.mes, 'M') : 0
     
-    this.timesheetService.getTimeSheetsPorEmpleado(this.idEmpleado || 0, this.idProyecto || 0, this.idUnidad || 0, mesFormateado)
+    this.timesheetService.getTimeSheetsPorEmpleado(this.idEmpleado || 0, this.idProyecto || 0, this.idUnidad || 0, this.idEmpresa || 0, mesFormateado)
     .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
     .subscribe({
       next: ({data}) => {
@@ -99,7 +105,7 @@ export class ConsultarComponent implements AfterViewInit {
           this.messageService.add({severity: 'error', summary: TITLES.error, detail: `El número de días no puede ser mayor a ${timesheet.dias_trabajo}`})
         } else if(totalDias >= 0) {
           
-          selectedTimesheet.proyectos = timesheet.proyectos.map(proyecto => ({...proyecto, tDedicacion: Math.round((proyecto.dias / totalDias) * 100)}))
+          selectedTimesheet.proyectos = timesheet.proyectos.map(proyecto => ({...proyecto, tDedicacion: Math.round((proyecto.dias / timesheet.dias_trabajo) * 100)}))
 
           const proyectoActualizado = timesheet.proyectos.at(proyectoIndex);
 

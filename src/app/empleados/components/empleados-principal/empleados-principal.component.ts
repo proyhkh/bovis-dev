@@ -22,6 +22,10 @@ export class EmpleadosPrincipalComponent implements OnInit {
 
   empleados:  UpEmpleado[] = []
   puestos:    Item[] = []
+  estados:    Item[] = [
+    {label: 'Activo', value: true},
+    {label: 'Inactivo', value: false}
+  ]
 
   constructor( 
     private empleadosServ: EmpleadosService,

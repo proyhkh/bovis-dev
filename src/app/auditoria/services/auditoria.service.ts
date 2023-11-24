@@ -46,7 +46,6 @@ export class AuditoriaService {
   }
 
   validarDocumentos(body: any) {
-    console.log(body)
     return this.http.put<GenericResponse>(`${this.baseUrl}api/Auditoria/Documento/Validacion`, body)
   }
 

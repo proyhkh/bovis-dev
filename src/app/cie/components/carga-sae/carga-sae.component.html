@@ -2,6 +2,9 @@
 <p-toast></p-toast>
 
 <div class="main-container">
+  
+  <h1>Carga SAE</h1>
+
   <div class="grid">
     <!-- Campo de empresa -->
     <div class="col">
@@ -52,6 +55,13 @@
           styleClass="p-button-info"
           (onClick)="cargar()"
         ></p-button>
+        <p-button 
+          label="Copiar Cuentas Faltantes" 
+          icon="pi pi-upload"
+          styleClass="p-button-danger"
+          (onClick)="copiarCuentasFaltantes()"
+          *ngIf="cuentasFaltantes.length > 0"
+        ></p-button>
     </p-toolbar>
     <p-table 
       [value]="jsonData" 
@@ -70,7 +80,7 @@
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-record>
-          <tr>
+          <tr [ngClass]="{'invalid-tr': !record.edo_resultados}">
             <td>{{record.nombre_cuenta}}</td>
             <td>{{record.cuenta}}</td>
             <td>{{record.tipo_poliza}}</td>
@@ -86,10 +96,10 @@
             <td>{{record.movimiento | currency}}</td>
             <td>{{record.empresa}}</td>
             <td>{{record.num_proyecto}}</td>
-            <td>{{record.tipo_cuenta}}</td>
+            <td>{{record.tipo_proyecto}}</td>
             <td>{{record.edo_resultados}}</td>
             <td>{{record.responsable}}</td>
-            <td>{{record.tipo_proyecto}}</td>
+            <td>{{record.tipo_cuenta}}</td>
             <td>{{record.tipo_py}}</td>
             <td>{{record.clasificacion_py}}</td>
           </tr>

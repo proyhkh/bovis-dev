@@ -35,7 +35,7 @@ export const cieHeaders = [
     'MOVIMIENTO',
     'EMPRESA',
     'NUM PROYECTO',
-    'TIPO',
+    'UNIDAD',
     'EDO DE RESULTADOS',
     'RESPONSABLE',
     'TIPO',
@@ -115,6 +115,21 @@ export const meses: Item[] = [
   {value: 10, label: 'Octubre'},
   {value: 11, label: 'Noviembre'},
   {value: 12, label: 'Diciembre2'},
+]
+
+export const mesesString: Item[] = [
+  {value: '1', label: 'Enero'},
+  {value: '2', label: 'Febrero'},
+  {value: '3', label: 'Marzo'},
+  {value: '4', label: 'Abril'},
+  {value: '5', label: 'Mayo'},
+  {value: '6', label: 'Junio'},
+  {value: '7', label: 'Julio'},
+  {value: '8', label: 'Agosto'},
+  {value: '9', label: 'Septiembre'},
+  {value: '10', label: 'Octubre'},
+  {value: '11', label: 'Noviembre'},
+  {value: '12', label: 'Diciembre2'},
 ]
 
 export const PERMISOS = Object.freeze({
@@ -214,7 +229,7 @@ export const MENU = [
                 localStorage.setItem('pageTitle', 'Costos'.toUpperCase()),
             },
             {
-              label: 'Costo por proyecto',
+              label: 'Captura de beneficios',
               routerLink: ['costos/costo-proyecto'],
               id: 'costo-por-proyecto',
               command: () =>
@@ -242,7 +257,7 @@ export const MENU = [
                 localStorage.setItem('pageTitle', 'CIE'.toUpperCase()),
             },
             {
-              label: 'CEI – Resultado búsqueda',
+              label: 'CIE – Resultado búsqueda',
               routerLink: ['cie/resultado-busqueda'],
               id: 'resultado',
               command: () =>
@@ -397,6 +412,13 @@ export const MENU = [
               id: 'contratos',
               command: () =>
               localStorage.setItem('pageTitle', 'CONTRATOS'.toUpperCase()),
+            },
+            {
+              label: 'Usuarios',
+              routerLink: ['usuarios/principal'],
+              id: 'usuarios',
+              command: () =>
+              localStorage.setItem('pageTitle', 'USUARIOS'.toUpperCase()),
             }
           ]
         }

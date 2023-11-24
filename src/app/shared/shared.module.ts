@@ -9,7 +9,8 @@ import { MenuSidebarComponent } from './components/menu-sidebar/menu-sidebar.com
 import { HeaderComponent } from './components/header/header.component';
 import { BackdropComponent } from './components/backdrop/backdrop.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-
+import { LoadingRolesComponent } from './components/loading-roles/loading-roles.component';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -17,18 +18,21 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     HeaderComponent,
     FailedComponent,
     MenuSidebarComponent,
-    BackdropComponent
+    BackdropComponent,
+    LoadingRolesComponent
   ],
   imports: [
     CommonModule,
     PrimengModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CardModule
   ],
   exports: [
     HeaderComponent,
     FailedComponent,
     MenuSidebarComponent,
-    BackdropComponent
+    BackdropComponent,
+    LoadingRolesComponent
   ]
 })
 export class SharedModule { }

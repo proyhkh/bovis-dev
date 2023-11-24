@@ -34,6 +34,7 @@ export class PersonaRegistroComponent implements OnInit {
   isCamposRequeridos = false;
   mensajeCamposRequeridos: string = '';
   esActualizacion = false
+  esEmpleado = false
 
   form = this.fb.group({
     id_persona:       [null],
@@ -94,6 +95,7 @@ export class PersonaRegistroComponent implements OnInit {
             .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
             .subscribe({
               next: ({data}) => {
+                this.esEmpleado = data.boempleado
                 // console.log(data)
                 this.form.patchValue({
                   id_persona:       data.nukidpersona,

@@ -5,7 +5,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { CALENDAR, errorsArray } from 'src/utils/constants';
 import { TimesheetService } from '../../services/timesheet.service';
 import { finalize } from 'rxjs';
-import { eachDayOfInterval, endOfMonth, isSaturday } from 'date-fns';
+import { eachDayOfInterval, endOfMonth, isSaturday, isSunday } from 'date-fns';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -23,10 +23,10 @@ export class ModificarFeriadosComponent implements OnInit {
   timesheetService  = inject(TimesheetService)
 
   form = this.fb.group({
-    id_timesheet:     [null],
-    dias:             [null, [Validators.required]],
-    sabados:          [null],
-    sabados_feriados: [0]
+    id_timesheet:       [null],
+    dias:               [0],
+    sabados_feriados:   [0],
+    dias_seleccionados: [null, Validators.required]
   })
 
   fechasDeshabilitadas: Date[];
@@ -52,7 +52,7 @@ export class ModificarFeriadosComponent implements OnInit {
     
     const diasEnMes = eachDayOfInterval({ start: this.fechaMinima, end: this.fechaMaxima });
   
-    this.fechasDeshabilitadas = diasEnMes.filter(dia => !isSaturday(dia));
+    this.fechasDeshabilitadas = diasEnMes.filter(dia => isSunday(dia));
   }
 
   getConfigCalendar() {
@@ -72,14 +72,19 @@ export class ModificarFeriadosComponent implements OnInit {
 
     this.sharedService.cambiarEstado(true)
 
+    const diasSeleccionados = this.form.value.dias_seleccionados as Date[]
+    const sabadosFeriados = diasSeleccionados.filter(dia => isSaturday(dia))
+    const diasFeriados = diasSeleccionados.filter(dia => !isSaturday(dia))
+
     this.form.patchValue({
-      sabados_feriados: this.form.value.sabados?.length || 0
+      dias:             diasFeriados.length, 
+      sabados_feriados: sabadosFeriados.length
     })
     
     this.timesheetService.modificarFeriados(this.form.value)
       .pipe(finalize(() => this.sharedService.cambiarEstado(false)))
       .subscribe({
-        next: (data) => this.ref.close({exito: true, dias: this.form.value.dias}),
+        next: (data) => this.ref.close({exito: true, dias: diasFeriados.length, sabados: sabadosFeriados.length}),
         error: (err) => this.ref.close({exito: false})
       })
   }

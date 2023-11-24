@@ -436,6 +436,8 @@
           formControlName="id_departamento"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_departamento')}"
           optionValue="value"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('id_departamento')">
           <small
@@ -701,7 +703,7 @@
   
     <div class="row">
       <div class="col-4">
-        <label for="url_repo">Repositorio:</label>
+        <label for="url_repo"># Crédito Fonacot:</label>
         <input 
           id="url_repo"
           pInputText
@@ -749,6 +751,8 @@
           formControlName="id_profesion"
           [ngClass]="{'ng-invalid ng-dirty': esInvalido('id_profesion')}"
           optionValue="code"
+          [filter]="true" 
+          filterBy="name"
         ></p-dropdown>
         <div *ngIf="esInvalido('id_profesion')">
           <small
@@ -821,7 +825,7 @@
         </div>
       </div>
       <div class="col-4">
-        <label for="cotizacion">Cotización:</label>
+        <label for="cotizacion">Salario diario integrado:</label>
         <input 
           id="cotizacion"
           pInputText
@@ -921,7 +925,7 @@
   
     <div class="row">
       <div class="col-4">
-        <label for="credito_infonavit">Número de infonavit:</label>
+        <label for="credito_infonavit">Número de crédito Infonavit:</label>
         <p-inputNumber 
           id="credito_infonavit"
           class="full-width"
@@ -982,23 +986,6 @@
   
     <div class="row">
       <div class="col-4">
-        <label for="no_empleado_noi">Número de NOI:</label>
-        <p-inputNumber 
-          id="no_empleado_noi"
-          formControlName="no_empleado_noi"
-          [useGrouping]="false"
-          class="full-width"
-          [ngClass]="{'ng-invalid ng-dirty': esInvalido('no_empleado_noi')}"
-        ></p-inputNumber>
-        <div *ngIf="esInvalido('no_empleado_noi')">
-          <small
-            class="error-msg"
-          >
-            {{ obtenerMensajeError('no_empleado_noi') }}
-          </small>
-        </div>
-      </div>
-      <div class="col-4">
         <label for="rol">Rol:</label>
         <input 
           id="rol"
@@ -1017,7 +1004,24 @@
         </div>
       </div>
     </div>
-
+<hr>
+    <div class="col-4">
+        <label for="no_empleado_noi">Número de NOI:</label>
+        <p-inputNumber 
+          id="no_empleado_noi"
+          formControlName="no_empleado_noi"
+          [useGrouping]="false"
+          class="full-width"
+          [ngClass]="{'ng-invalid ng-dirty': esInvalido('no_empleado_noi')}"
+        ></p-inputNumber>
+        <div *ngIf="esInvalido('no_empleado_noi')">
+          <small
+            class="error-msg"
+          >
+            {{ obtenerMensajeError('no_empleado_noi') }}
+          </small>
+        </div>
+      </div>
   </div>
 </form>
 

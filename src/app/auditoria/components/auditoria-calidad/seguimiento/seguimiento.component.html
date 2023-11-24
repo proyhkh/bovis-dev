@@ -3,10 +3,6 @@
 
 <form [formGroup]="form" (ngSubmit)="guardar()">
   <div class="main-container">
-    <div class="buttons-container">
-      <button type="button" class="btn btn-info" (click)="guardar()" [disabled]="!form.valid">{{ !esActualizacion ? 'Guardar' : 'Actualizar'}}</button>
-    </div>
-
     <div class="row">
       <div class="col-12">
         <label for="id_proyecto">Proyecto:</label>

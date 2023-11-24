@@ -24,7 +24,7 @@
       currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"
       [rowsPerPageOptions]="[10, 25, 50]"
       [rows]="10"
-      [globalFilterFields]="['nunum_empleado_rr_hh', 'nombre_persona', 'chpuesto']"
+      [globalFilterFields]="['nunum_empleado_rr_hh', 'nombre_persona', 'chpuesto', 'boactivo']"
     >
       <ng-template pTemplate="caption">
         <div class="flex">
@@ -103,7 +103,29 @@
                 </ng-template>
             </p-columnFilter>
           </th>
-          <th colspan="34"></th>
+          <th colspan="11"></th>
+          <th>
+            <p-columnFilter field="activo" matchMode="equals" [showMenu]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown 
+                    #listaEstados 
+                    [ngModel]="value" 
+                    [options]="estados" 
+                    (onChange)="tablaPrincipal.filter(listaEstados.value, 'boactivo', 'equals')" 
+                    placeholder="Estatus" 
+                    [showClear]="true" 
+                    [filter]="true" 
+                    filterBy="value"
+                    appendTo="body"
+                  >
+                      <ng-template let-option pTemplate="item">
+                          <p-tag [value]="option.label" severity="success"></p-tag>
+                      </ng-template>
+                  </p-dropdown>
+              </ng-template>
+          </p-columnFilter>
+          </th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-empleado>

@@ -101,7 +101,8 @@
       [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
-          <th *ngFor="let val of getHeadersTabla()">{{val}}</th>
+          <!-- <th *ngFor="let val of getHeadersTabla()">{{val}}</th> -->
+          <th *ngFor="let val of getHeadersTabla()" [pSortableColumn]="val.key"><div class="d-flex align-items-center">{{val.label}} <p-sortIcon [field]="val.key"></p-sortIcon></div></th>
           <th 
             colspan="3" 
             class="text-center"
@@ -115,11 +116,16 @@
           <td>
             <div class="cls-id">{{bus.uuid}} {{ bus.id }}</div>
           </td>
+          <td>{{bus.mes}}</td>
           <td>{{bus.numProyecto}}</td>
+          <td>{{bus.cliente}}</td>
+          <td>{{bus.fechaEmision|date:'d/MM/yyyy'}}</td>
+          <td>{{bus.noFactura}}</td>
           <td>
             <p-chip [label]="bus.idTipoFactura"></p-chip>
           </td>
           <td>{{bus.idMoneda}}</td>
+          <td>{{bus.tipoCambio}}</td>
           <td>{{bus.importe|currency}}</td>
           <td>{{bus.iva|currency}}</td>
           <td>{{bus.ivaRet|currency}}</td>
@@ -127,13 +133,9 @@
           <td>
             <div class="cls-desc">{{bus.concepto}}</div>
           </td>
-          <td>{{bus.mes}}</td>
-          <td>{{bus.anio}}</td>
-          <td>{{bus.fechaEmision|date:'d/MM/yyyy'}}</td>
-          <td>{{bus.fechaPago|date:'d/MM/yyyy'}}</td>
-          <td>{{bus.fechaCancelacion|date:'d/MM/yyyy'}}</td>
-          <td>{{bus.noFactura}}</td>
-          <td>{{bus.tipoCambio}}</td>
+          <!-- <td>{{bus.anio}}</td> -->
+          <!-- <td>{{bus.fechaPago|date:'d/MM/yyyy'}}</td> -->
+          <!-- <td>{{bus.fechaCancelacion|date:'d/MM/yyyy'}}</td> -->
           <td>{{bus.motivoCancelacion}}</td>
           <td>
             <div *ngIf="bus.fechaCancelacion == null || bus.fechaCancelacion == '' ">

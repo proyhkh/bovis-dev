@@ -171,11 +171,13 @@ export class SeguimientoComponent implements OnInit {
       contentStyle: {overflow: 'auto'},
       data: {idAuditoria}
     })
-    // .onClose.subscribe(data => {
-    //   if(data) {
-    //     console.log(data)
-    //   }
-    // })
+    .onClose.subscribe(data => {
+      if(data) {
+        if(data.exito) {
+          this.messageService.add({severity: 'success', summary: TITLES.success, detail: 'Los documentos han sido validados.'})
+        }
+      }
+    })
   }
 
 }

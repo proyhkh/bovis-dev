@@ -13,7 +13,7 @@
         <p-dropdown 
           id="id_proyecto" 
           [options]="proyectos" 
-          (onChange)="null"
+          (onChange)="getCumplimientos($event)"
           placeholder="Seleccionar un proyecto" 
           optionLabel="name" 
           [showClear]="true"

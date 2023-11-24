@@ -273,11 +273,12 @@ export interface DiasTimesheetResponse {
 }
 
 export interface DiasTimesheet {
-  id:           number;
-  mes:          number;
-  dias:         number;
-  feriados:     number;
-  sabados:      number;
-  anio:         number;
-  dias_habiles: null;
+  id:               number;
+  mes:              number;
+  dias:             number;
+  feriados:         number;
+  sabados:          number;
+  anio:             number;
+  sabados_feriados: number;
+  dias_habiles:     null;
 }

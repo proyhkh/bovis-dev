@@ -148,24 +148,58 @@ export class facturaCancelacion{
   FechaCancelacion: string;
 }
 
+export interface NotasCreditoSFResponse {
+  data:          NotaCreditoSF[];
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface NotaCreditoSF {
+  nukidfactura:         number;
+  nunum_proyecto:       number;
+  chproyecto:           string;
+  chuuid_nota_credito:  string;
+  nukidmoneda:          string;
+  chmoneda:             string;
+  nukidtipo_relacion:   string | null;
+  chtipo_relacion:      string;
+  chnota_credito:       string;
+  nuimporte:            number;
+  nuiva:                number;
+  nutotal:              number;
+  chconcepto:           string;
+  numes:                number;
+  nuanio:               number;
+  nutipo_cambio:        string | null;
+  dtfecha_nota_credito: string;
+  chxml:                string;
+  dtfecha_cancelacion:  string | null;
+  chmotivocancela:      string | null;
+}
+
 export const encabezados = Object.freeze([
-  {id: 'id', label: 'Id'},
-  {id: 'uuid', label: 'Uuid'},
+  // {id: 'id', label: 'Id'},
+  {id: 'uuid', label: 'UUID'},
+  {id: 'mes', label: 'MES'},
   {id: 'numProyecto', label: 'No. Proyecto'},
-  {id: 'idTipoFactura', label: 'Id Tipo Factura'},
-  {id: 'idMoneda', label: 'Id Moneda'},
-  {id: 'importe', label: 'Importe'},
-  {id: 'iva', label: 'IVA'},
-  {id: 'ivaRet', label: 'IVA Retenido'},
-  {id: 'total', label: 'Total'},
-  {id: 'concepto', label: 'Concepto'},
-  {id: 'mes', label: 'Mes'},
-  {id: 'anio', label: 'Año'},
-  {id: 'fechaEmision', label: 'Fecha Emisión'},
-  {id: 'fechaPago', label: 'Fecha Pago'},
-  {id: 'fechaCancelacion', label: 'Fecha Cancelación'},
-  {id: 'noFactura', label: 'No. Factura'},
-  {id: 'tipoCambio', label: 'Tipo Cambio'},
+  {id: 'cliente', label: 'CLIENTE'},
+  {id: 'fechaEmision', label: 'FECHA DE EMISIÓN'},
+  {id: 'noFactura', label: 'NO. DE FACTURA'},
+  {id: 'idTipoFactura', label: 'Tipo'},
+  {id: 'idMoneda', label: 'MONEDA'},
+  {id: 'tipoCambio', label: 'TIPO DE CAMBIO'},
+  {id: 'importe', label: 'IMPORTE'},
+  {id: 'iva', label: 'I.V.A.'},
+  {id: 'ivaRet', label: 'IVA RET'},
+  {id: 'total', label: 'TOTAL'},
+  {id: 'concepto', label: 'CONCEPTO'},
+  // {id: 'anio', label: 'Año'},
+  // {id: 'fechaPago', label: 'Fecha Pago'},
+  // {id: 'fechaCancelacion', label: 'Fecha Cancelación'},
+  
+  {id: 'importePendientePorPagar', label: 'IMPORTE PENDIENTE POR PAGAR (saldo)'},
+
   {id: 'motivoCancelacion', label: 'Motivo Cancelación'},
   // {id: 'notas', label: 'Notas'},
   // {id: 'cobranzas', label: 'Cobranzas'},

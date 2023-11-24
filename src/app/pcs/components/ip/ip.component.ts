@@ -45,7 +45,7 @@ export class IpComponent implements OnInit {
       id_responsable_construccion:    [null],
       id_responsable_ehs:             [null],
       id_responsable_supervisor:      [null],
-      id_cliente:                     [null, [Validators.required]],
+      id_cliente:                     [null],
       id_empresa:                     [null],
       id_director_ejecutivo:          [null, [Validators.required]],
       costo_promedio_m2:              [null],

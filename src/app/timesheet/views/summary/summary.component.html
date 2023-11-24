@@ -33,14 +33,14 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>count</th>
-          <th>COI</th>
-          <th>NOI</th>
-          <th>CVE</th>
-          <th>No Empleado</th>
+          <th>Count</th>
+          <th pSortableColumn="timesheet.coi_empresa"><div class="d-flex align-items-center">COI <p-sortIcon field="timesheet.coi_empresa"></p-sortIcon></div></th>
+          <th pSortableColumn="timesheet.noi_empresa"><div class="d-flex align-items-center">NOI <p-sortIcon field="timesheet.noi_empresa"></p-sortIcon></div></th>
+          <th pSortableColumn="timesheet.noi_empleado"><div class="d-flex align-items-center">CVE <p-sortIcon field="timesheet.noi_empleado"></p-sortIcon></div></th>
+          <th pSortableColumn="timesheet.num_empleado"><div class="d-flex align-items-center">No Empleado <p-sortIcon field="timesheet.num_empleado"></p-sortIcon></div></th>
           <th></th>
-          <th>Empleado</th>
-          <th>Responsable</th>
+          <th pSortableColumn="timesheet.empleado"><div class="d-flex align-items-center">Empleado <p-sortIcon field="timesheet.empleado"></p-sortIcon></div></th>
+          <th pSortableColumn="timesheet.responsable"><div class="d-flex align-items-center">Responsable <p-sortIcon field="timesheet.responsable"></p-sortIcon></div></th>
           <th>{{totalPorcentaje}}%</th>
           <th *ngFor="let proyecto of proyectos" [pTooltip]="proyecto.nombre">
             {{proyecto.id}}

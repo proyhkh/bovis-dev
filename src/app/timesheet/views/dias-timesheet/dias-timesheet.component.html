@@ -37,6 +37,7 @@
         <th>Días</th>
         <th>Feriados</th>
         <th>Sábados</th>
+        <th>Sábados feriados</th>
         <th class="text-center">Opciones</th>
       </tr>
     </ng-template>
@@ -47,6 +48,7 @@
         <td>{{ts.dias}}</td>
         <td>{{ts.feriados}}</td>
         <td>{{ts.sabados}}</td>
+        <td>{{ts.sabados_feriados || 0}}</td>
         <td class="text-center">
           <button 
             title="Modificar días feriados" 

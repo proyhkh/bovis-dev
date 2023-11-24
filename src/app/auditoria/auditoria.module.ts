@@ -18,6 +18,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { SubirArchivoComponent } from './components/auditoria-calidad/subir-archivo/subir-archivo.component';
 import { VerDocumentosComponent } from './components/ver-documentos/ver-documentos.component';
 import { TableModule } from 'primeng/table';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { TableModule } from 'primeng/table';
     DropdownModule,
     InputSwitchModule,
     FileUploadModule,
-    TableModule
+    TableModule,
+    SharedModule
   ]
 })
 export class AuditoriaModule { }

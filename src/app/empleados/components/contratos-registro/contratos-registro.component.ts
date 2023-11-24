@@ -11,6 +11,7 @@ import { EmpleadosService } from '../../services/empleados.service';
 import { UpEmpleado } from '../../Models/empleados';
 import { error } from 'console';
 import { Opcion } from 'src/models/general.model';
+import { NumerosALetras } from 'src/helpers/numeroaletras';
 
 const htmlToPdfmake = require("html-to-pdfmake")
 const pdfMake = require('pdfmake')
@@ -182,7 +183,21 @@ export class ContratosRegistroComponent implements OnInit {
   }
   
   reemplazar(match: any, campo: string, empleado: UpEmpleado) {
-    return this.empleado[campo] || '-'
+
+    const [campoNombre, pipe] = campo.split('|')
+    let resultado = this.empleado[campoNombre] || '-'
+
+    if(pipe) {
+      switch(pipe) {
+        case 'monedaTexto':
+          resultado += ` ${NumerosALetras(resultado)}`
+          break
+        default:
+          resultado += '-'
+      }
+    }
+
+    return resultado
   };
 
 }

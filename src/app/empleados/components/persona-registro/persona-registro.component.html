@@ -8,6 +8,12 @@
       <button type="button" class="btn btn-info" (click)="limpiar()">Clear data</button>
       <button type="button" class="btn btn-info" routerLink="/empleados/persona">Regresar</button>
     </div>
+
+    <div class="row" *ngIf="esEmpleado">
+      <div class="col-12">
+        <p-tag value="Empleado"></p-tag>
+      </div>
+    </div>
   
     <div class="row">
       <div class="col-4">

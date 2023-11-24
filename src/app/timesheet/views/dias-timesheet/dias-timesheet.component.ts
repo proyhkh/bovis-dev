@@ -52,6 +52,7 @@ export class DiasTimesheetComponent implements OnInit {
       if(resp) {
         if(resp.exito) {
           this.diasTimesheet.at(index).feriados = resp.dias
+          this.diasTimesheet.at(index).sabados_feriados = resp.sabados
           this.messageService.add({severity: 'success', summary: TITLES.success, detail: 'Los días feriados han sido modificados.'})
         } else {
           this.messageService.add({severity: 'error', summary: TITLES.success, detail: SUBJECTS.error})

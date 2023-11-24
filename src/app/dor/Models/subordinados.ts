@@ -31,6 +31,7 @@ export class Objetivos {
   porcentajeReal: number;
   real: number;
   esPersonal: boolean;
+  resultadoTemporal: number;
 }
 
 export class ObjetivosGenerales {

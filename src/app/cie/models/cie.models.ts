@@ -69,3 +69,131 @@ export interface CieCuenta {
   tipoPY:          string;
   clasificacionPY: string;
 }
+
+export interface CieRegistrosPaginadosResponse {
+  data:           CieRegistrosPaginadosData;
+  success:        boolean;
+  message:        null;
+  transactionId:  null;
+}
+
+export interface CieRegistrosPaginadosData {
+  registros:       CieRegistro[];
+  totalRegistros:  number;
+}
+
+export interface CieRegistro {
+  idCie:           number;
+  nombreCuenta:    string;
+  cuenta:          string;
+  tipoPoliza:      string;
+  numero:          number;
+  fecha:           string;
+  mes:             number;
+  concepto:        string;
+  centroCostos:    string;
+  proyectos:       string;
+  saldoInicial:    number;
+  debe:            number;
+  haber:           number;
+  movimiento:      number;
+  empresa:         string;
+  numProyecto:     number;
+  tipoCuenta:      string;
+  edoResultados:   string;
+  responsable:     string;
+  tipoProyecto:    null | string;
+  tipoPy:          string;
+  clasificacionPy: string;
+  activo:          boolean;
+  idArchivo:       null;
+  nombreArchivo:   null;
+}
+
+export interface CieCuentasListaResponse {
+  data:          string[];
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface CieConceptosResponse {
+  data:          string[];
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface CieEmpresasResponse {
+  data:          CieEmpresaOpcion[];
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface CieNumsProyectoResponse {
+  data:          number[];
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface CieResponsablesResponse {
+  data:          string[];
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface CieClasificacionesPYResponse {
+  data:          Array<null | string>;
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+
+export interface CieEmpresaOpcion {
+  nukidempresa: number;
+  chempresa:    string;
+  rfc:          string;
+  nucoi:        number;
+  nunoi:        number;
+  nusae:        number;
+  boactivo:     boolean;
+}
+
+export interface CieRegistroUResponse {
+  data:          CieRegistroU;
+  success:       boolean;
+  message:       null;
+  transactionId: null;
+}
+
+export interface CieRegistroU {
+  idCie:           number;
+  nombreCuenta:    string;
+  cuenta:          string;
+  tipoPoliza:      string;
+  numero:          string;
+  fecha:           string;
+  mes:             number;
+  concepto:        string;
+  centroCostos:    string;
+  proyectos:       string;
+  saldoInicial:    number;
+  debe:            number;
+  haber:           number;
+  movimiento:      number;
+  empresa:         string;
+  numProyecto:     number;
+  tipoCuenta:      string;
+  edoResultados:   string;
+  responsable:     string;
+  tipoProyecto:    null;
+  tipoPy:          string;
+  clasificacionPy: string;
+  activo:          boolean;
+  idArchivo:       null;
+  nombreArchivo:   null;
+}

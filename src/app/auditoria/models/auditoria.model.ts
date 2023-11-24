@@ -33,6 +33,8 @@ export interface Auditoria {
   punto:                   string;
   idSeccion:               number;
   cumplimiento:            string;
+  cumplimientoCalidad:     string;
+  cumplimientoLegal:       string;
   documentoRef:            string;
   aplica:                  boolean;
   motivo:                  string;

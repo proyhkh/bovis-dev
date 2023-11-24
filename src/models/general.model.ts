@@ -5,7 +5,7 @@ export interface Opcion {
 }
 
 export interface Item {
-  value: string | number,
+  value: string | number | boolean,
   label: string
 }
 

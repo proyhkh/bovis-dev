@@ -68,4 +68,8 @@ export class FacturacionService {
     return this.http.post<any>(`${this.baseUrl}api/Factura/NotaCredito`, body)
   }
 
+  obtenerNotasSinFactura(numProyecto: number = 0, mes: number = 0, anio: number = 0) {
+    return this.http.get<any>(`${this.baseUrl}api/Factura/NotaCredito/${numProyecto}/${mes}/${anio}`);
+  }
+
 }

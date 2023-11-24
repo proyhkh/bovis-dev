@@ -22,7 +22,7 @@
     currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"
     [rowsPerPageOptions]="[10, 25, 50]"
     [rows]="10"
-    [globalFilterFields]="['chnombre', 'chrfc']"
+    [globalFilterFields]="['chnombre_completo', 'chrfc']"
   >
     <ng-template pTemplate="caption">
       <div class="flex">
@@ -38,13 +38,14 @@
         <th pSortableColumn="chrfc"><div class="d-flex align-items-center">RFC <p-sortIcon field="chrfc"></p-sortIcon></div></th>
         <th pSortableColumn="dtfecha_nacimiento"><div class="d-flex align-items-center">Fecha de Nacimiento <p-sortIcon field="dtfecha_nacimiento"></p-sortIcon></div></th>
         <th pSortableColumn="chemail"><div class="d-flex align-items-center">Email <p-sortIcon field="chemail"></p-sortIcon></div></th>
-        <th pSortableColumn="chtelefono"><div class="d-flex align-items-center">Telefono <p-sortIcon field="chtelefono"></p-sortIcon></div></th>
+        <th pSortableColumn="chtelefono"><div class="d-flex align-items-center">Teléfono <p-sortIcon field="chtelefono"></p-sortIcon></div></th>
         <th pSortableColumn="chcelular"><div class="d-flex align-items-center">Celular <p-sortIcon field="chcelular"></p-sortIcon></div></th>
-        <th pSortableColumn="chcurp"><div class="d-flex align-items-center">Curp <p-sortIcon field="chcurp"></p-sortIcon></div></th>
+        <th pSortableColumn="chcurp"><div class="d-flex align-items-center">CURP <p-sortIcon field="chcurp"></p-sortIcon></div></th>
         <th pSortableColumn="chsexo"><div class="d-flex align-items-center">Sexo <p-sortIcon field="chsexo"></p-sortIcon></div></th>
         <th pSortableColumn="chtipo_persona"><div class="d-flex align-items-center">Tipo Persona <p-sortIcon field="chtipo_persona"></p-sortIcon></div></th>
         <th pSortableColumn="chedo_civil"><div class="d-flex align-items-center">EdoCivil <p-sortIcon field="chedo_civil"></p-sortIcon></div></th>
         <th pSortableColumn="chtipo_sangre"><div class="d-flex align-items-center">TipoSangre <p-sortIcon field="chtipo_sangre"></p-sortIcon></div></th>
+        <th pSortableColumn="boempleado"><div class="d-flex align-items-center">Es Empleado <p-sortIcon field="boempleado"></p-sortIcon></div></th>
         <th class="text-center">Estatus</th>
         <th class="text-center">Opciones</th>
       </tr>
@@ -69,6 +70,7 @@
         <td>{{ empleado.chtipo_persona }}</td>
         <td>{{ empleado.chedo_civil }}</td>
         <td>{{ empleado.chtipo_sangre }}</td>
+        <td>{{ empleado.boempleado ? 'Sí' : 'No' }}</td>
         <!--<td [ngClass]="{'text-danger': !empleado.boactivo, 'text-success': empleado.boactivo}">
           {{ empleado.boactivo ? 'Activo' : 'Inactivo' }}
         </td>-->

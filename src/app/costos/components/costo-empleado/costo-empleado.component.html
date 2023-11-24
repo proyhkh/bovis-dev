@@ -19,90 +19,90 @@
       <ng-template pTemplate="header">
         <tr>
           <!-- <th>Opcion</th> -->
-          <th>No. Empleado</th>
-          <th>No. Empleado NOI</th>
-          <th>Nombre</th>
-          <th>Ciudad Base de Trabajo</th>
-          <th>Reubicación</th>
-          <th>Proyecto</th>
-          <th>Unidad negocios</th>
-          <th>Jefe Directo</th>
-          <th>Ingreso</th>
-          <th>Antigüedad</th>
-          <th>% a descontar al empleado</th>
-          <th>Monto descuento Mensual</th>
-          <th>Sueldo Neto percibido Mensual</th>
-          <th>Retención Imss</th>
-          <th>Ispt</th>
-          <th>SUELDO BRUTO (inflación %)</th>
-          <th>Anual</th>
-          <th>Cant (Meses)</th>
-          <th>Monto (Provisión Mensual)</th>
-          <th>Dias Vacas Anuales</th>
-          <th>Prima Vacacional (provisión Mensual)</th>
-          <th>Provisión Mensual</th>
-          <th>% Bono Anual estimado</th>
-          <th>Provisión Mensual</th>
-          <th>Costo total Anual SGMM</th>
-          <th>SGMM (Costo Mensual)</th>
-          <th>Costo total Anual</th>
-          <th>Costo Mensual</th>
-          <th>Costo Mensual</th>
-          <th>Comisión (Costo Mensual)</th>
-          <th>Provisión PTU</th>
-          <th>Vivienda</th>
-          <th>Automóvil</th>
-          <th>Viáticos a comprobar</th>
-          <th>Bono Adicional (beneficio)</th>
-          <th>Gasolina</th>
-          <th>Casetas</th>
-          <th>Ayuda de transporte</th>
-          <th>Vuelos de Avión</th>
-          <th>Provisión impuestos Expats</th>
-          <th>Fringe Expats</th>
-          <th>Programa de entrenamiento</th>
-          <th>Eventos especiales</th>
-          <th>Costo IT</th>
-          <th>Costo telefonía</th>
-          <th>S.V. Directivos</th>
-          <th>Facturación BPM</th>
-          <th>IMPUESTO 3% S/Nomina</th>
-          <th>IMSS</th>
-          <th>RETIRO 2</th>
-          <th>C Y V</th>
-          <th>INVONAVIT</th>
-          <th>CARGAS SOCIALES</th>
-          <th>Costo Mensual Empleado</th>
-          <th>Costo Mensual Proyecto</th>
-          <th>Costo Empleado Anual MN</th>
-          <th>% Costo total / Salario Bruto</th>
-          <th>% Costo total / Salario Neto</th>
+          <th pSortableColumn="numEmpleadoRrHh"><div class="d-flex align-items-center">No. Empleado <p-sortIcon field="numEmpleadoRrHh"></p-sortIcon></div></th>
+          <th pSortableColumn="numEmpleadoNoi"><div class="d-flex align-items-center">No. Empleado NOI <p-sortIcon field="numEmpleadoNoi"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Nombre <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Ciudad Base de Trabajo <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="reubicacion"><div class="d-flex align-items-center">Reubicación <p-sortIcon field="reubicacion"></p-sortIcon></div></th>
+          <th pSortableColumn="numProyecto"><div class="d-flex align-items-center">Proyecto <p-sortIcon field="numProyecto"></p-sortIcon></div></th>
+          <th pSortableColumn="idUnidadNegocio"><div class="d-flex align-items-center">Unidad negocios <p-sortIcon field="idUnidadNegocio"></p-sortIcon></div></th>
+          <th pSortableColumn="idEmpleadoJefe"><div class="d-flex align-items-center">Jefe Directo <p-sortIcon field="idEmpleadoJefe"></p-sortIcon></div></th>
+          <th pSortableColumn="fechaIngreso"><div class="d-flex align-items-center">Ingreso <p-sortIcon field="fechaIngreso"></p-sortIcon></div></th>
+          <th pSortableColumn="antiguedad"><div class="d-flex align-items-center">Antigüedad <p-sortIcon field="antiguedad"></p-sortIcon></div></th>
+          <th pSortableColumn="avgDescuentoEmpleado"><div class="d-flex align-items-center">% a descontar al empleado <p-sortIcon field="avgDescuentoEmpleado"></p-sortIcon></div></th>
+          <th pSortableColumn="montoDescuentoMensual"><div class="d-flex align-items-center">Monto descuento Mensual <p-sortIcon field="montoDescuentoMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="sueldoNetoPercibidoMensual"><div class="d-flex align-items-center">Sueldo Neto percibido Mensual <p-sortIcon field="sueldoNetoPercibidoMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="retencionImss"><div class="d-flex align-items-center">Retención Imss <p-sortIcon field="retencionImss"></p-sortIcon></div></th>
+          <th pSortableColumn="ispt"><div class="d-flex align-items-center">Ispt <p-sortIcon field="ispt"></p-sortIcon></div></th>
+          <th pSortableColumn="sueldoBruto"><div class="d-flex align-items-center">SUELDO BRUTO (inflación %) <p-sortIcon field="sueldoBruto"></p-sortIcon></div></th>
+          <th pSortableColumn="anual"><div class="d-flex align-items-center">Anual <p-sortIcon field="anual"></p-sortIcon></div></th>
+          <th pSortableColumn="aguinaldoCantMeses"><div class="d-flex align-items-center">Cant (Meses) <p-sortIcon field="aguinaldoCantMeses"></p-sortIcon></div></th>
+          <th pSortableColumn="aguinaldoMontoProvisionMensual"><div class="d-flex align-items-center">Monto (Provisión Mensual) <p-sortIcon field="aguinaldoMontoProvisionMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="pvDiasVacasAnuales"><div class="d-flex align-items-center">Dias Vacas Anuales <p-sortIcon field="pvDiasVacasAnuales"></p-sortIcon></div></th>
+          <th pSortableColumn="pvProvisionMensual"><div class="d-flex align-items-center">Prima Vacacional (provisión Mensual) <p-sortIcon field="pvProvisionMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="indemProvisionMensual"><div class="d-flex align-items-center">Provisión Mensual <p-sortIcon field="indemProvisionMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="avgBonoAnualEstimado"><div class="d-flex align-items-center">% Bono Anual estimado <p-sortIcon field="avgBonoAnualEstimado"></p-sortIcon></div></th>
+          <th pSortableColumn="bonoAnualProvisionMensual"><div class="d-flex align-items-center">Provisión Mensual <p-sortIcon field="bonoAnualProvisionMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="sgmmCostoTotalAnual"><div class="d-flex align-items-center">Costo total Anual SGMM <p-sortIcon field="sgmmCostoTotalAnual"></p-sortIcon></div></th>
+          <th pSortableColumn="sgmmCostoMensual"><div class="d-flex align-items-center">SGMM (Costo Mensual) <p-sortIcon field="sgmmCostoMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="svCostoTotalAnual"><div class="d-flex align-items-center">Costo total Anual <p-sortIcon field="svCostoTotalAnual"></p-sortIcon></div></th>
+          <th pSortableColumn="svCostoMensual"><div class="d-flex align-items-center">Costo Mensual <p-sortIcon field="svCostoMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="vaidCostoMensual"><div class="d-flex align-items-center">Costo Mensual <p-sortIcon field="vaidCostoMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="vaidComisionCostoMensual"><div class="d-flex align-items-center">Comisión (Costo Mensual) <p-sortIcon field="vaidComisionCostoMensual"></p-sortIcon></div></th>
+          <th pSortableColumn="ptuProvision"><div class="d-flex align-items-center">Provisión PTU <p-sortIcon field="ptuProvision"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Vivienda <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Automóvil <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Viáticos a comprobar <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Bono Adicional (beneficio) <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Gasolina <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Casetas <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Ayuda de transporte <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Vuelos de Avión <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Provisión impuestos Expats <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Fringe Expats <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Programa de entrenamiento <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Eventos especiales <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Costo IT <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Costo telefonía <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">S.V. Directivos <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Facturación BPM <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="impuesto3sNomina"><div class="d-flex align-items-center">IMPUESTO 3% S/Nomina <p-sortIcon field="impuesto3sNomina"></p-sortIcon></div></th>
+          <th pSortableColumn="imss"><div class="d-flex align-items-center">IMSS <p-sortIcon field="imss"></p-sortIcon></div></th>
+          <th pSortableColumn="retiro2"><div class="d-flex align-items-center">RETIRO 2 <p-sortIcon field="retiro2"></p-sortIcon></div></th>
+          <th pSortableColumn="cesantesVejez"><div class="d-flex align-items-center">C Y V <p-sortIcon field="cesantesVejez"></p-sortIcon></div></th>
+          <th pSortableColumn="infonavit"><div class="d-flex align-items-center">INVONAVIT <p-sortIcon field="infonavit"></p-sortIcon></div></th>
+          <th pSortableColumn="cargasSociales"><div class="d-flex align-items-center">CARGAS SOCIALES <p-sortIcon field="cargasSociales"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Costo Mensual Empleado <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="ctlCostoMensualProyecto"><div class="d-flex align-items-center">Costo Mensual Proyecto <p-sortIcon field="ctlCostoMensualProyecto"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Costo Empleado Anual MN <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">% Costo total / Salario Bruto <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">% Costo total / Salario Neto <p-sortIcon field="falta"></p-sortIcon></div></th>
 
-          <th>Sueldo Bruto</th>
-          <th>Rango Inferior</th>
-          <th>Rango superior</th>
-          <th>Inferior al mínimo</th>
-          <th>%</th>
-          <th>Superior al máximo</th>
-          <th>%</th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Sueldo Bruto <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Rango Inferior <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Rango superior <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Inferior al mínimo <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">% <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Superior al máximo <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">% <p-sortIcon field="falta"></p-sortIcon></div></th>
 
-          <th>Vivienda</th>
-          <th>Automóvil</th>
-          <th>Viáticos a comprobar</th>
-          <th>Bono Adicional reubicación</th>
-          <th>Gasolina</th>
-          <th>Casetas</th>
-          <th>Ayuda de transporte</th>
-          <th>Vuelos de Avión</th>
-          <th>Provisión impuestos Expats</th>
-          <th>Fringe Expats</th>
-          <th>Programa de entrenamiento</th>
-          <th>Eventos especiales</th>
-          <th>Otros</th>
-          <th>Costo IT</th>
-          <th>Costo telefonía</th>
-          <th>S.V. Directivos</th>
-          <th>Facturación BPM</th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Vivienda <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Automóvil <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Viáticos a comprobar <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Bono Adicional reubicación <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Gasolina <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Casetas <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Ayuda de transporte <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Vuelos de Avión <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Provisión impuestos Expats <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Fringe Expats <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Programa de entrenamiento <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Eventos especiales <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Otros <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Costo IT <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Costo telefonía <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">S.V. Directivos <p-sortIcon field="falta"></p-sortIcon></div></th>
+          <th pSortableColumn="falta"><div class="d-flex align-items-center">Facturación BPM <p-sortIcon field="falta"></p-sortIcon></div></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-costo>

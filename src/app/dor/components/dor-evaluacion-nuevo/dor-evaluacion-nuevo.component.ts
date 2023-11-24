@@ -185,8 +185,12 @@ export class DorEvaluacionNuevoComponent implements OnInit {
           obj.descripcion?.includes('Evaluación 360°') ? obj.isEditable = true : obj.isEditable = false;
           //obj.descripcion?.includes('Objetivo personal') ? obj.isEditable = true : obj.isEditable = false;
 
+          if(obj.descripcion?.includes('Evaluación 360°') || obj.descripcion == 'Objetivo personal') {
+            obj.resultadoTemporal = (obj.real / +obj.meta)
+          }
+
           this.totalObjetivosCualitativos += Number(obj.valor || '');
-          this.totalCualitativosResultado += (+obj.porcentajeReal < +obj.valor ? 0 : obj.porcentajeReal)
+          this.totalCualitativosResultado += (+obj.porcentajeReal >= +obj.valor ? +obj.valor : 0)
           this.totalRealCualitativos += Number(obj.real)
 
           if (obj.motivoR != null && obj.motivoR != '' && +obj.acepto != 2) {

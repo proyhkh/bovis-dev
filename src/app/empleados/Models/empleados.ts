@@ -245,6 +245,8 @@ export interface UpPersona {
   nukidtipo_persona:  number;
   chtipo_persona:     string;
   boactivo:           boolean;
+  boempleado:         boolean;
+  chnombre_completo?: string
 }
 
 export interface UpEmpleadoResponse {

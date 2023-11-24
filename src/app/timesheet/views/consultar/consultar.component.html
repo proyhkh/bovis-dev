@@ -52,6 +52,23 @@
         ></p-dropdown>
     </div>
     <div class="col-4">
+        <label for="company">Empresa:</label>
+        <br>
+        <p-dropdown 
+          id="company" 
+          [options]="empresas" 
+          placeholder="Seleccionar una empresa" 
+          optionLabel="name" 
+          [showClear]="true"
+          [style]="{ width: '100%' }"
+          (onChange)="buscarRegistros($event, 'empresa')"
+          [(ngModel)]="idEmpresa"
+          optionValue="code"
+          [filter]="true" 
+          filterBy="name"
+        ></p-dropdown>
+    </div>
+    <div class="col-4">
         <label>Mes:</label>
         <p-calendar 
           view="month" 
@@ -77,10 +94,10 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Mes</th>
-        <th>Año</th>
-        <th>No. Empleado</th>
-        <th>Empleado</th>
+        <th pSortableColumn="mes"><div class="d-flex align-items-center">Mes <p-sortIcon field="mes"></p-sortIcon></div></th>
+        <th pSortableColumn="anio"><div class="d-flex align-items-center">Año <p-sortIcon field="anio"></p-sortIcon></div></th>
+        <th pSortableColumn="num_empleado"><div class="d-flex align-items-center">No. Empleado <p-sortIcon field="num_empleado"></p-sortIcon></div></th>
+        <th pSortableColumn="empleado"><div class="d-flex align-items-center">Empleado <p-sortIcon field="empleado"></p-sortIcon></div></th>
         <th>Proyectos</th>
         <th>Opciones</th>
       </tr>
@@ -98,9 +115,9 @@
             <input pInputText class="form-control" (change)="cambiarParticipacion(ts, proyecto.idTimesheet_Proyecto, $event)" value="{{proyecto.dias}}"/>
           </div>
           <hr>
-          <label><strong>Total: {{ts | proyectoJoin:'proyectos'}} % - Días: {{ts | proyectoJoin:'proyectosDias'}}</strong></label>
+          <label><strong>Total: {{ts.proyectos | proyectoJoin:'proyectos' : ts.dias_trabajo}} % - Días: {{ts.proyectos | proyectoJoin:'proyectosDias'}}</strong></label>
           <br>
-          <label><strong>Otros: {{ts | proyectoJoin:'otros'}} % - Días: {{ts | proyectoJoin:'otrosDias'}}</strong></label>
+          <label><strong>Otros: {{ts.otros | proyectoJoin:'otros' : ts.dias_trabajo}} % - Días: {{ts.otros | proyectoJoin:'otrosDias'}}</strong></label>
         </td>
         <td>
           <button 

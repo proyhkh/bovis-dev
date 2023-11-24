@@ -172,7 +172,7 @@ export class BusquedaCancelacionComponent implements OnInit {
 
           this.listProyectos.forEach((element) => {
             this.filtroProyectos.push({
-              name: `${String(element.numProyecto)} / ${String(element.nombre)}`,
+              name: `${String(element.numProyecto)} - ${String(element.nombre)}`,
               value: String(element.numProyecto),
             });
           });
@@ -349,23 +349,24 @@ export class BusquedaCancelacionComponent implements OnInit {
 
   getHeadersTabla() {
     return [
-      'UUID',
-      'Num Proyecto',
-      'ID Tipo Factura',
-      'ID Moneda',
-      'Importe',
-      'Iva',
-      'IvaRet',
-      'Total',
-      'Concepto',
-      'Mes',
-      'Año',
-      'Fecha Emision',
-      'Fecha Pago',
-      'Fecha Cancelacion',
-      'No Factura',
-      'Tipo Cambio',
-      'Motivo Cancelacion',
+      {key: 'uuid', label: 'UUID'},
+      {key: 'mes', label: 'MES'},
+      {key: 'numProyecto', label: 'No. Proyecto'},
+      {key: 'cliente', label: 'CLIENTE'},
+      {key: 'fechaEmision', label: 'FECHA DE EMISIÓN'},
+      {key: 'noFactura', label: 'NO. DE FACTURA'},
+      {key: 'idTipoFactura', label: 'Tipo'},
+      {key: 'idMoneda', label: 'MONEDA'},
+      {key: 'tipoCambio', label: 'TIPO DE CAMBIO'},
+      {key: 'importe', label: 'IMPORTE'},
+      {key: 'iva', label: 'I.V.A.'},
+      {key: 'ivaRet', label: 'IVA RET'},
+      {key: 'total', label: 'TOTAL'},
+      {key: 'concepto', label: 'CONCEPTO'},
+      // {key: 'anio', label: 'Año'},
+      // {key: 'fechaPago', label: 'Fecha Pago'},
+      // {key: 'fechaCancelacion', label: 'Fecha Cancelacion'},
+      {key: 'motivoCancelacion', label: 'Motivo Cancelacion'},
       /* 'NC Uuid Nota Credito',
       'NC Id Moneda',
       'NC Id Tipo Relacion',
@@ -621,9 +622,18 @@ export class BusquedaCancelacionComponent implements OnInit {
     let inicio = 5
 
     this.listBusquedaCompleto.forEach(factura => {
+      const inicioFactura = inicio
+      let columnaImportePendiente = 0
+      let importePendiente = 0
       encabezados.forEach((encabezado, indexE) => {
+        if(encabezado.id == 'importePendientePorPagar') {
+          columnaImportePendiente = indexE + 1
+        }
         let cell = worksheet.getCell(inicio, indexE + 1)
         cell.value = factura[encabezado.id]
+        if(encabezado.id == 'total') {
+          importePendiente = +cell.value
+        }
       })
       inicio++
 
@@ -634,6 +644,9 @@ export class BusquedaCancelacionComponent implements OnInit {
             const campo = this.equivalentesNotas[encabezado.id]
             cell.value = nota[campo]
             cell.fill = fillNota
+            if(encabezado.id == 'total') {
+              importePendiente -= +cell.value
+            }
           })
           inicio++
         })
@@ -646,10 +659,17 @@ export class BusquedaCancelacionComponent implements OnInit {
             const campo = this.equivalentesCobranzas[encabezado.id]
             cell.value = cobranza[campo]
             cell.fill = fillCobranza
+            if(encabezado.id == 'total') {
+              importePendiente -= +cell.value
+            }
           })
           inicio++
         })
       }
+
+      // Cálculos
+      let cell = worksheet.getCell(inicioFactura, columnaImportePendiente)
+      cell.value = importePendiente
 
     })
 

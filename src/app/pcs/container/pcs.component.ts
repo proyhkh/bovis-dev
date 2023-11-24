@@ -47,7 +47,7 @@ export class PcsComponent implements OnInit {
     .subscribe({
       next: (value) => {
         const [proyectosR] = value
-        this.proyectos = proyectosR.data.map(proyecto => ({code: proyecto.numProyecto.toString(), name: proyecto.nombre}))
+        this.proyectos = proyectosR.data.map(proyecto => ({code: proyecto.numProyecto.toString(), name: `${proyecto.numProyecto.toString()} - ${proyecto.nombre}`}))
 
         this.verificarEstado()
       },
