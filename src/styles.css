@@ -306,6 +306,7 @@ a.article:hover {
 /* Agregado por sebastian.flores */
 .main-app {
   width: 100%; 
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -388,4 +389,12 @@ span.required:after{
 
 .pointer {
   cursor: pointer;
+}
+
+.loading-div {
+  min-height: 300px;
+}
+
+input.p-inputnumber-input {
+  width: 100% !important;
 }
