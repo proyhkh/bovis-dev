@@ -71,18 +71,18 @@ export class DorService {
   }
 
   actualizarReal(body: any) {
-    return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateReal`, body)
+    return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateReal`, body, { headers: this.httpHeaders })
   }
 
   actualizarRealCualitativos(body: any) {
-    return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateObjetivoPersonal`, body)
+    return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateObjetivoPersonal`, body, { headers: this.httpHeaders })
   }
 
   actualizarAcepto(num_empleado: number) {
     return this.http.put<GenericResponse>(`${this.baseUrl}api/DOR/UpdateAcepto`, {
       num_empleado,
       acepto: 5
-    })
+    }, { headers: this.httpHeaders })
   }
 
 }
