@@ -129,6 +129,18 @@ export class CargarHorasComponent implements OnInit {
     
     this.sharedService.cambiarEstado(true)
 
+    if(this.userService.rolesG.length >= 1) {
+      this.cargarDatos()
+    } else {
+      this.userService.getRolesRealTime()
+        .subscribe(data => {
+          this.cargarDatos()
+        })
+    }
+  }
+
+  cargarDatos() {
+
     forkJoin(([
       this.timesheetService.getEmpleadoInfo(localStorage.getItem('userMail') || ''),
       this.userService.verificarRol(MODULOS.TIMESHEET_CARGA_DE_HORAS)?.administrador ? this.empleadosService.getEmpleados() : this.timesheetService.getEmpleadosByJefeEmail(localStorage.getItem('userMail') || ''),
