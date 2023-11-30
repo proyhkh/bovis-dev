@@ -25,7 +25,7 @@ export class CalcularResultadoObjetivosPipe implements PipeTransform {
       resultado = +objetivo.valor
     }
     
-    if(objetivo.descripcion?.includes('Evaluación 360°') || objetivo.descripcion == 'Objetivo personal') {
+    if(objetivo.descripcion?.startsWith('2.-') || objetivo.descripcion == 'Objetivo personal') {
       const cantidad = objetivo.resultadoTemporal * 100
       if(cantidad < MIN) {
         resultado = 0
