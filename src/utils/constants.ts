@@ -143,7 +143,7 @@ export const MODULOS = Object.freeze({
 
 export const MENU = [
   {
-    title: 'EMPLEADOS',
+    title: 'EMPLEADOS TEST',
     icon: 'icon-empleado',
     id: 'empleados',
     items: [
